@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>utils</module>
+        <module>web</module>
+        <module>dao</module>
+        <module>modules</module>
+        <module>auth</module>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.3</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.qq811565456</groupId>
+    <artifactId>ebss</artifactId>
+    <version>0.0.1</version>
+    <name>ebss</name>
+    <description>ebss</description>
+    <properties>
+        <java.version>17</java.version>
+        <ebss.version>0.0.1</ebss.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>utils</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>dao</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>auth</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>api</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>shop</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>video</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>mch</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>base</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>sys</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>huaweicloud</id>
+            <name>huawei</name>
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+        </repository>
+        <repository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+
+</project>

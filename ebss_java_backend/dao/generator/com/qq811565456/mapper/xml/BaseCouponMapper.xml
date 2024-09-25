@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.BaseCouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.BaseCoupon">
+        <id column="coupon_id" property="couponId" />
+        <result column="start_time" property="startTime" />
+        <result column="expire_time" property="expireTime" />
+        <result column="type" property="type" />
+        <result column="name" property="name" />
+        <result column="mch_id" property="mchId" />
+        <result column="amount" property="amount" />
+        <result column="full_amount" property="fullAmount" />
+        <result column="total" property="total" />
+        <result column="person_total" property="personTotal" />
+        <result column="goods_ids" property="goodsIds" />
+        <result column="receive_total" property="receiveTotal" />
+        <result column="desc" property="desc" />
+        <result column="is_superimposed" property="isSuperimposed" />
+    </resultMap>
+
+</mapper>

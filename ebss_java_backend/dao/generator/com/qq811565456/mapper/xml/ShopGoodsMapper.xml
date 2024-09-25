@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.ShopGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.ShopGoods">
+        <id column="goods_id" property="goodsId" />
+        <result column="title" property="title" />
+        <result column="cover_img" property="coverImg" />
+        <result column="quantity" property="quantity" />
+        <result column="price" property="price" />
+        <result column="original_price" property="originalPrice" />
+        <result column="imglist" property="imglist" />
+        <result column="content" property="content" />
+        <result column="add_time" property="addTime" />
+        <result column="category_id" property="categoryId" />
+        <result column="is_index" property="isIndex" />
+        <result column="sort_num" property="sortNum" />
+        <result column="mch_id" property="mchId" />
+        <result column="is_listing" property="isListing" />
+        <result column="is_integral" property="isIntegral" />
+        <result column="integral" property="integral" />
+        <result column="is_spike" property="isSpike" />
+        <result column="view_count" property="viewCount" />
+        <result column="sale_count" property="saleCount" />
+        <result column="labels" property="labels" />
+        <result column="spec" property="spec" />
+        <result column="freight" property="freight" />
+        <result column="distribution_money" property="distributionMoney" />
+        <result column="brand_id" property="brandId" />
+    </resultMap>
+
+</mapper>

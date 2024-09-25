@@ -1,0 +1,1 @@
+import{_ as o,o as s,c as t,p as c,h as a,b as _}from"./index-933077c7.js";const p={name:"home"},d=e=>(c("data-v-44789a2c"),e=e(),a(),e),n=d(()=>_("div",{class:"title"},"欢迎进入后台系统管理平台",-1)),r=[n];function i(e,l,h,m,u,f){return s(),t("div",null,r)}const x=o(p,[["render",i],["__scopeId","data-v-44789a2c"]]);export{x as default};

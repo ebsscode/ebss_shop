@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.SysUser">
+        <id column="user_id" property="userId" />
+        <result column="tel" property="tel" />
+        <result column="nickname" property="nickname" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="avatar_img" property="avatarImg" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="district" property="district" />
+        <result column="address" property="address" />
+        <result column="money" property="money" />
+        <result column="integral" property="integral" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="share_id" property="shareId" />
+        <result column="geohash" property="geohash" />
+        <result column="openid" property="openid" />
+        <result column="add_time" property="addTime" />
+        <result column="role_id" property="roleId" />
+        <result column="update_time" property="updateTime" />
+        <result column="user_grade_id" property="userGradeId" />
+        <result column="experience" property="experience" />
+        <result column="invite_code" property="inviteCode" />
+        <result column="realname" property="realname" />
+        <result column="id_num" property="idNum" />
+        <result column="id_img" property="idImg" />
+        <result column="label_id" property="labelId" />
+    </resultMap>
+
+</mapper>

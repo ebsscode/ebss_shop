@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.BaseUserGradeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.BaseUserGrade">
+        <id column="user_grade_id" property="userGradeId" />
+        <result column="name" property="name" />
+        <result column="grade_img" property="gradeImg" />
+        <result column="amount" property="amount" />
+        <result column="desc" property="desc" />
+    </resultMap>
+
+</mapper>

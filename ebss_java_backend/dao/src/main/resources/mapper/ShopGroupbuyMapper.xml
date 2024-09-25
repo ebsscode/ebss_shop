@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.ShopGroupbuyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.ShopGroupbuy">
+        <id column="groupbuy_id" property="groupbuyId" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="goods_id" property="goodsId" />
+        <result column="name" property="name" />
+        <result column="add_time" property="addTime" />
+        <result column="cover_img" property="coverImg" />
+        <result column="desc" property="desc" />
+        <result column="people_total" property="peopleTotal" />
+    </resultMap>
+
+</mapper>

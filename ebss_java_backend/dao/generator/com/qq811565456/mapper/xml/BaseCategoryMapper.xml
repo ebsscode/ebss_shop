@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.BaseCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.BaseCategory">
+        <id column="category_id" property="categoryId" />
+        <result column="pid" property="pid" />
+        <result column="cat_name" property="catName" />
+        <result column="cat_img" property="catImg" />
+        <result column="sort_num" property="sortNum" />
+        <result column="add_time" property="addTime" />
+        <result column="is_show" property="isShow" />
+        <result column="url" property="url" />
+        <result column="is_index" property="isIndex" />
+        <result column="module_id" property="moduleId" />
+    </resultMap>
+
+</mapper>

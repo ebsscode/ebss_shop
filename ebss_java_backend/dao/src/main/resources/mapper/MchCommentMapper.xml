@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.MchCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.MchComment">
+        <id column="comment_mch_id" property="commentMchId" />
+        <result column="content" property="content" />
+        <result column="imgs" property="imgs" />
+        <result column="rate" property="rate" />
+        <result column="user_id" property="userId" />
+        <result column="mch_id" property="mchId" />
+        <result column="add_time" property="addTime" />
+        <result column="user" property="user" />
+    </resultMap>
+
+</mapper>

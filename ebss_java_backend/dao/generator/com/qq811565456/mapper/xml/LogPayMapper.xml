@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.LogPayMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.LogPay">
+        <id column="paylog_id" property="paylogId" />
+        <result column="money" property="money" />
+        <result column="user_id" property="userId" />
+        <result column="add_time" property="addTime" />
+        <result column="is_pay" property="isPay" />
+        <result column="pay_time" property="payTime" />
+        <result column="type" property="type" />
+        <result column="busi_table_id" property="busiTableId" />
+        <result column="notify_pay_money" property="notifyPayMoney" />
+        <result column="nofity_data" property="nofityData" />
+        <result column="pay_order_sn" property="payOrderSn" />
+        <result column="desc" property="desc" />
+    </resultMap>
+
+</mapper>

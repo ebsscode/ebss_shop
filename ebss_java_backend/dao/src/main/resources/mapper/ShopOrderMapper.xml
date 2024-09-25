@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qq811565456.mapper.ShopOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.qq811565456.model.ShopOrder">
+        <id column="order_id" property="orderId" />
+        <result column="order_sn" property="orderSn" />
+        <result column="user_id" property="userId" />
+        <result column="mch_id" property="mchId" />
+        <result column="is_pay" property="isPay" />
+        <result column="status" property="status" />
+        <result column="order_money" property="orderMoney" />
+        <result column="type" property="type" />
+        <result column="pay_time" property="payTime" />
+        <result column="delete_user" property="deleteUser" />
+        <result column="coupon_list" property="couponList" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
+        <result column="discount" property="discount" />
+        <result column="tel" property="tel" />
+        <result column="order_name" property="orderName" />
+        <result column="express_name" property="expressName" />
+        <result column="express_num" property="expressNum" />
+        <result column="addr" property="addr" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
+        <result column="freight" property="freight" />
+        <result column="notes" property="notes" />
+        <result column="order_goods" property="orderGoods" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
+        <result column="add_time" property="addTime" />
+        <result column="add_date" property="addDate" />
+    </resultMap>
+    <select id="selectMyPage" resultMap="BaseResultMap">
+        select * from shop_order ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>
