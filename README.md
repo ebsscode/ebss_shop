@@ -21,7 +21,7 @@
 |--ebss_java_backend JAVA相关api接口服务
 |--ebss_php_backend PHP相关api接口服务
 |--ebss_vue_admin PC端后台管理
-|--ebss_mobile 苹果IOS APP，安卓APP、H5网页、微信公众号，微信小程序、支付宝小程序、抖音小程序
+|--ebss_mobile 苹果IOS APP，安卓APP、H5网页、微信公众号，微信小程序、支付宝小程序、抖音小程序 | 联系技术人员免费获取
 |--ebss_pc_shop PC端商城前端 | 待完善
 |--ebss_website PC端官网前端 | 待开发
 ```
