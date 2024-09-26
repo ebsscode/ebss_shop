@@ -4,7 +4,7 @@
             <a-form ref="save_form" :model="saveFormData" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" >
                 <template v-if="saveFormData&&saveFormData.order_goods">
                   <div class="g-item" v-for="(item,index) in saveFormData.order_goods" :key="index">
-                    <img class="img" :src="baseURL()+'/'+item.cover_img" />
+                    <img class="img" :src="staticURL()+'/'+item.cover_img" />
                     <div class="right">
                       <span class="title clamp">{{item.title}}</span>
                       <span class="spec"> {{item.select_spec}}</span>

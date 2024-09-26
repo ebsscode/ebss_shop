@@ -1,10 +1,12 @@
 <?php
 namespace app\admin\controller;
 use app\Logined;
+use app\service\system\CheckService;
 use think\facade\Db;
 class System extends Logined
 {
     public function clear_data(){
+        CheckService::checkForbidden();
         if($this->param('type')=='shop_order'||$this->param('type')=='all'){
             Db::execute("truncate `shop_order`");
         }

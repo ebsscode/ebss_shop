@@ -16,7 +16,7 @@
       >
         <span class="QQ811565456 hewei-shanchu" @click="" style="margin-right:10px;font-size: 20px;"></span>
       </a-popconfirm>
-      <span class="QQ811565456 hewei-zengjia" v-if="showAdd" style="margin-right:10px;font-size: 20px;" @click="showSaveModal=true;"></span>
+      <span class="QQ811565456 hewei-zengjia" v-if="showAdd" style="margin-right:10px;font-size: 20px;" @click="$parent.saveFormData={};showSaveModal=true;"></span>
     </div>
   </div>
   <a-table :scroll="{x:'min-content'}" :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection">
@@ -41,7 +41,7 @@
       <template v-if="record[column.key]&&column.key.endsWith('img')">
         <a-image
             :width="30"
-            :src="baseURL()+'/'+record[column.key]"
+            :src="staticURL()+'/'+record[column.key]"
             :fallback="constant.imgLoad"
         />
       </template>
@@ -99,6 +99,7 @@ export default {
       showAdd: this.$parent.showAdd!==undefined?this.$parent.showAdd:true,
       showDelete: this.$parent.showDelete?this.$parent.showDelete:(e)=>true,
       showEdit: this.$parent.showEdit!==undefined?this.$parent.showEdit:(e)=>true,
+      showCopy: this.$parent.showCopy!==undefined?this.$parent.showCopy:(e)=>true,
       pagination:{
         current: 1,
         total: null,
@@ -211,7 +212,7 @@ export default {
       });
     },
     submit() {
-      console.log('this.saveFormData',JSON.stringify(this.saveFormData));
+      // console.log('this.saveFormData',JSON.stringify(this.saveFormData));
       if(this.$parent.$refs.save_form){
         this.$parent.$refs.save_form.validate().then((e) => {
           this.submitPost();
@@ -235,8 +236,8 @@ export default {
           this.getData()
           this.showSaveModal = false
           this.success(msg);
+          this.$parent.saveFormData={}
         }
-        this.$parent.saveFormData={}
       })
     },
     async getData() {

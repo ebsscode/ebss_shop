@@ -2,7 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import Antd, {message, Modal} from 'ant-design-vue';
 import router from './route/index'
-import {baseURL, http} from './http'
+import {baseURL,staticURL, http} from './http'
 import constant from './constant'
 import Crud from '@/components/Crud.vue'
 import RemoteSelect from '@/components/RemoteSelect.vue'
@@ -31,6 +31,7 @@ app.config.globalProperties.loading = (msg = '加载中...', duration = 1.2) => 
 app.config.globalProperties.formatTime=formatTime
 app.config.globalProperties.imgPreview=imgPreview
 app.config.globalProperties.baseURL = baseURL
+app.config.globalProperties.staticURL = staticURL
 app.config.globalProperties.constant = constant
 
 app.component('Crud', Crud)

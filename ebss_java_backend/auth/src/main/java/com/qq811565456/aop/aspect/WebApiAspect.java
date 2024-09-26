@@ -8,6 +8,7 @@ import com.qq811565456.mapper.SysModuleMapper;
 import com.qq811565456.model.Mch;
 import com.qq811565456.model.SysModule;
 import com.qq811565456.model.SysUser;
+import com.qq811565456.service.PermissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -36,12 +37,13 @@ public class WebApiAspect {
   private UserDao userDao;
   @Autowired
   private MchMapper mchMapper;
+  @Autowired
+  private PermissionService permissionService;
 
   @Pointcut("@annotation(com.qq811565456.aop.annotation.WebApi)")
-  public void logAndValidate() {
+  public void loginAndValidate() {
   }
-
-  @Around("logAndValidate()")
+  @Around("loginAndValidate()")
   public Object around(ProceedingJoinPoint joinPoint) throws InstantiationException, IllegalAccessException {
     Method method = null;
     try {
@@ -59,7 +61,7 @@ public class WebApiAspect {
         SysUser sysUser = checkLoginStatus();
         request.setAttribute("user", sysUser);
         request.setAttribute("user_id", sysUser.getUserId());
-//        permissionComponent.checkPermission(permissionEnums);
+        permissionService.checkPermission(sysUser); //todo 未检验角色sys_role，权限sys_permission，用户sys_user  关联表sys_role_permission
       }
 
       Integer mch_id = RequestUtil.getMchId();

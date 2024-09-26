@@ -20,7 +20,7 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, ref, shallowRef, onMounted, watch} from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import {baseURL} from '@/http.js'
+import {baseURL,staticURL} from '@/http.js'
 export default {
     name: "FullEditor",
     components: { Editor, Toolbar },
@@ -46,10 +46,10 @@ export default {
         MENU_CONF: {}
       }
       editorConfig.MENU_CONF['uploadImage'] = {
-        server: baseURL() + '/index/index/upload',
+        server: baseURL() + '/api/index/upload',
         fieldName: 'file',
         customInsert(res, insertFn) {
-          insertFn(baseURL() + '/'+ res.savename, res.savename, "")
+          insertFn(staticURL() + '/'+ res.savename, res.savename, "")
         }
       }
       watch(

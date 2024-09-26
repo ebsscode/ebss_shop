@@ -2,8 +2,10 @@
     "name": "h_admin",
     "version": "1.0.0",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "dev": "vite --mode development",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "build:demo": "vite build --mode demo"
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^4.1.0",

@@ -1,6 +1,7 @@
 <?php
 namespace app;
 
+use app\service\system\ConfigsService;
 use app\service\system\ResponseService;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
@@ -53,20 +54,25 @@ class ExceptionHandle extends Handle
     public function render($request, Throwable $e): Response
     {
         $response_code = $e instanceof MyException ? $e->getCode() : ResponseService::getMessageCode();
-
-
-        // 添加自定义异常处理机制
+        $env = ConfigsService::get('env');
         $result = [
             'code' => $response_code,
             'msg'  => $e->getMessage(),
-            'data' => [
-                'getCode'=>$e->getCode(),
-                'getLine'=>$e->getLine(),
-                'getFile'=>$e->getFile(),
-                'getTrace'=>$e->getTrace(),
-//                'MyException'=>$e instanceof MyException,
-            ],
+            'data' => [],
         ];
+        if($env=='dev'){
+            $result = [
+                'code' => $response_code,
+                'msg'  => $e->getMessage(),
+                'data' => [
+                    'getCode'=>$e->getCode(),
+                    'getLine'=>$e->getLine(),
+                    'getFile'=>$e->getFile(),
+                    'getTrace'=>$e->getTrace(),
+//                'MyException'=>$e instanceof MyException,
+                ],
+            ];
+        }
         return json($result);
         // 其他错误交给系统处理
 //        return parent::render($request, $e);

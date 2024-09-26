@@ -35,7 +35,7 @@
                 <template #overlay>
                   <div class="flex-col pointer mch-select-body" style="background: #ffffff;border: 1px solid #ffffff;padding: 12px;border-radius: 10px;box-shadow: 0px 2px 16px 0px rgba(4,0,0,0.45);">
                     <div @click="mchClick(item)" class="align-center mch-item" :key="item.mch_id" v-for="(item,index) in mch_list" style="">
-                      <a-image style="border-radius: 100%" :width="20" :src="baseURL()+'/'+item.logo_img"/>
+                      <a-image style="border-radius: 100%" :width="20" :src="staticURL()+'/'+item.logo_img"/>
                       <div style="font-size: 18px;margin-left: 8px;">{{ item.name }}</div>
                     </div>
                     <div @click="mchClick()" class="align-center mch-item">

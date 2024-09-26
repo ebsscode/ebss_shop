@@ -2,11 +2,21 @@ import axios from 'axios'
 import {message} from 'ant-design-vue';
 import router from "@/route/index";
 
-let url = 'https://h.vivivi.club'
+const mode = import.meta.env.MODE
 const baseURL = () =>{
-	return url
+	if(mode=='development'){
+		return 'https://h.vivivi.club'
+	}
+	if(mode=='demo'){
+		return 'https://ebss.vivivi.club'
+	}
+	if(mode=='production'){
+		return 'https://h.vivivi.club'
+	}
 }
-
+const staticURL = () => {
+	return 'https://file.vivivi.club'
+}
 const service = axios.create({
 	baseURL: baseURL(),
 	withCredentials: false,
@@ -41,6 +51,8 @@ service.interceptors.response.use(
 	}
 )
 const http = (method = 'get', url, param,options={}) => {
+	console.log('mode',mode)
+
 	let httpDefaultOpts = {
 		method: method,
 		url,
@@ -70,5 +82,6 @@ const http = (method = 'get', url, param,options={}) => {
 }
 export {
 	http,
-	baseURL
+	baseURL,
+	staticURL,
 }

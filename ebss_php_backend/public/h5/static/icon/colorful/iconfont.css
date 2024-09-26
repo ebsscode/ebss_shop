@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "wx-http8s"; /* Project id 4142464 */
+  /* Color fonts */
+  src: 
+       url('~@/static/icon/colorful/iconfont.woff2?t=1726626958743') format('woff2'),
+       url('~@/static/icon/colorful/iconfont.woff?t=1726626958743') format('woff'),
+       url('~@/static/icon/colorful/iconfont.ttf?t=1726626958743') format('truetype');
+}
+
+.wx-http8s {
+  font-family: "wx-http8s" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ebss-shebeipaibi:before {
+  content: "\e6b1";
+}
+
+.ebss-liwu:before {
+  content: "\e613";
+}
+
+.ebss-fahongbao:before {
+  content: "\e605";
+}
+
+.ebss-zhanghuyue:before {
+  content: "\e609";
+}
+
+.ebss-iconfontzhizuobiaozhunbduan36:before {
+  content: "\e6e9";
+}
+
+.ebss-weixinzhifu:before {
+  content: "\e639";
+}
+
+.ebss-weixin:before {
+  content: "\e637";
+}
+
+.ebss-QQ:before {
+  content: "\e667";
+}
+
+.ebss-xiaochengxu:before {
+  content: "\e63b";
+}
+
+.ebss-zhifubao:before {
+  content: "\e608";
+}
+
+.ebss-QQkongjian:before {
+  content: "\e634";
+}
+

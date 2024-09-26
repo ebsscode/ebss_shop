@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use app\Basic;
 use app\Logined;
+use app\service\system\CheckService;
 use \think\facade\Db;
 class Crud extends Basic
 {
@@ -110,6 +111,7 @@ class Crud extends Basic
     }
     public function save()
     {
+        CheckService::checkForbidden();
         $row = $this->param();
         $table=$this->param('table');
         $table_key = table($table)->getPk();
@@ -202,6 +204,7 @@ class Crud extends Basic
     }
     public function delete()
     {
+        CheckService::checkForbidden();
         $table=$this->param('table');
         foreach ($this->param('table_ids') as $table_id) {
             if( $table=='base_article' ){

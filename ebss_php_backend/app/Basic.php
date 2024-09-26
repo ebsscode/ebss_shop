@@ -42,6 +42,7 @@ class Basic extends BaseController
     public function getSysModule()
     {
         $module_id = $this->request->header('active-module-id')?$this->request->header('active-module-id'):$this->request->header('base-module-id');
+        $module_id=$module_id?:1;
         if($module_id){
             $module = table('sys_module')->where('module_id',$module_id)->find();
             $this->module=  $module;

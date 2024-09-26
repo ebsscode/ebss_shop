@@ -1,6 +1,7 @@
 <?php
 namespace app\api\controller;
 use app\Basic;
+use app\connector\AmapConnector;
 use app\Logined;
 use app\service\system\ConfigsService;
 use think\facade\Config;
@@ -102,6 +103,12 @@ class Location extends Basic
             'location'=>$location,
         ]);
     }
-
+    public function district()
+    {
+        $list = AmapConnector::district();
+        return $this->success('请求成功！',[
+            'list'=>$list,
+        ]);
+    }
 
 }

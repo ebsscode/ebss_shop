@@ -1,4 +1,6 @@
 /.idea
 /.vscode
 *.log
-.env
+.env.demo
+.env.dev
+.env.prod

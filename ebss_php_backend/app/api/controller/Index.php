@@ -1,13 +1,13 @@
 <?php
 namespace app\api\controller;
 use app\Basic;
+use app\service\system\CheckService;
 use app\service\system\ConfigsService;
-use Endroid\QrCode\Builder\Builder;
+use app\service\system\FileService;
 use Flc\Dysms\Client;
 use Flc\Dysms\Request\SendSms;
-use think\facade\Db;
-use think\facade\Config;
 use Nette\Utils\Image;
+use Nette\Utils\FileSystem;
 class Index extends Basic
 {
     public function index(){
@@ -17,14 +17,16 @@ class Index extends Basic
     {
         $debugs = [];
         $file = $this->request->file('file');
-        $savename = \think\facade\Filesystem::putFile( 'upload', $file);
         $extension = $file->extension();
+        CheckService::allowedUploadFile($extension);
+        $savename = \think\facade\Filesystem::putFile( 'upload', $file);
+        $file_abs_name = FileService::saveFile($savename);
         if($extension=='jpg'||$extension=='jpeg'||$extension=='png'||$extension=='gif'){
             for ($i=0;$i<5;$i++){
-                $debugs[]=$size = filesize(PROJECT_ROOT.'/'.$savename);
+                $debugs[]=$size = filesize($file_abs_name);
                 if($size>10*10000){
-                    $image = Image::fromFile(PROJECT_ROOT.'/'.$savename);
-                    $image->save($savename, 75,IMAGETYPE_JPEG);
+                    $image = Image::fromFile($file_abs_name);
+                    $image->save($file_abs_name, 75,IMAGETYPE_JPEG);
                 }else{
                     break;
                 }
@@ -33,11 +35,11 @@ class Index extends Basic
         return $this->success('上传成功',[
             'savename'=>$savename,
 //            '$debugs'=>$debugs,
-//            '$file'=>PROJECT_ROOT.'/'.$savename,
         ]);
     }
     public function sendsms()
     {
+        CheckService::checkForbidden();
         if (empty($this->param('tel'))) {
             return $this->ajax_return(0, '发送失败,手机号不能为空');
         }

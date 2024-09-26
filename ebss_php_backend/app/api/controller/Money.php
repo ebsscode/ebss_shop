@@ -1,6 +1,7 @@
 <?php
 namespace app\api\controller;
 use app\Logined;
+use app\service\system\CheckService;
 use Endroid\QrCode\Builder\Builder;
 use think\facade\Config;
 use think\facade\Db;
@@ -33,6 +34,7 @@ class Money extends Logined
         ]);
     }
     public function withdraw(){
+        CheckService::checkForbidden();
         if(empty($this->param())){
             return $this->error('请输入金额');
         }

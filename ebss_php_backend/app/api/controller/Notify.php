@@ -16,8 +16,8 @@ class Notify extends Basic
         try {
             $config = [
                 'mch_id' => ConfigsService::get('wx_pay_mch_id'),
-                'private_key' => PROJECT_ROOT.'/../extend/wx/apiclient_key.pem',
-                'certificate' => PROJECT_ROOT.'/../extend/wx/apiclient_cert.pem',
+                'private_key' => ConfigsService::get('wx_apiclient_key_pem'),
+                'certificate' => ConfigsService::get('wx_apiclient_cert_pem'),
                 'secret_key' => ConfigsService::get('wx_pay_api_v3_key'),
                 'v2_secret_key' => ConfigsService::get('wx_pay_api_v2_key'),
             ];

@@ -12,12 +12,12 @@
                 <a-input v-model:value="saveFormData.view_count"/>
               </a-form-item>
               <a-form-item label="视频" name="video_url" :rules="[{ required: true, message: '' }]">
-                <a class="ant-btn" target="_blank" :href="baseURL()+'/'+saveFormData.video_url" v-if="saveFormData.video_url" style="margin-bottom: 10px">打开</a>
+                <a class="ant-btn" target="_blank" :href="staticURL()+'/'+saveFormData.video_url" v-if="saveFormData.video_url" style="margin-bottom: 10px">打开</a>
                 <div v-if="percent>0&&percent<100">上传进度:{{percent}}%</div>
                 <a-upload
                     :showUploadList="false"
                     list-type="picture-card"
-                    :action="baseURL()+'/index/index/upload'"
+                    :action="baseURL()+'/api/index/upload'"
                     @change="change" >
                   <div>
                     <span class="QQ811565456 hewei-zengjia"></span>

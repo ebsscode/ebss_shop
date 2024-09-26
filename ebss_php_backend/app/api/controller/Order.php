@@ -1,6 +1,7 @@
 <?php
 namespace app\api\controller;
 use app\Logined;
+use app\service\system\CheckService;
 use think\facade\Db;
 use function MongoDB\BSON\toJSON;
 
@@ -122,6 +123,7 @@ class Order extends Logined
         }
     }
     public function delete(){
+        CheckService::checkForbidden();
         $detail = table($this->table)->find($this->param('order_id'));
         if(!$detail)return $this->error('数据未找到');
         if($detail['status']==4||$detail['status']==5||$detail['status']==8)return $this->error('订单暂时无法删除');

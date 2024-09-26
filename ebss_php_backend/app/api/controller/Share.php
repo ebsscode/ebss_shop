@@ -31,13 +31,13 @@ class Share extends Logined
                 ->size(300)
                 ->margin(10)
                 ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-                ->logoPath(PROJECT_ROOT.'/'.$logo_img)
+                ->logoPath(ConfigsService::get("static_dir").'/'.$logo_img)
                 ->logoResizeToWidth(50)
                 ->logoResizeToWidth(50)
                 ->logoPunchoutBackground(true)
                 ->validateResult(false)
                 ->build();
-            $image->saveToFile(PROJECT_ROOT.'/upload/share/web/'."{$this->user_id}.png");
+            $image->saveToFile(ConfigsService::get("static_dir").'/upload/share/web/'."{$this->user_id}.png");
             $url = 'upload/share/web/'."{$this->user_id}.png";
         }
         if($platform=='mp-weixin'){
@@ -53,7 +53,7 @@ class Share extends Logined
             ]);
             $result_str = $response->getContent();
             $image = Image::fromString($result_str);
-            $image->save(PROJECT_ROOT.'/upload/share/wxminiapp/'."{$this->user_id}.png",NULL,Image::JPEG);
+            $image->save(ConfigsService::get("static_dir").'/upload/share/wxminiapp/'."{$this->user_id}.png",NULL,Image::JPEG);
             $url = 'upload/share/wxminiapp/'."{$this->user_id}.png";
         }
         if($platform=='mp-alipay'){
@@ -61,10 +61,9 @@ class Share extends Logined
             $response = \Alipay\EasySDK\Kernel\Factory::base()->qrcode()->create('pages/index/index',"share_id=".$this->user_id,'邀请好友')->toMap();
             if(empty($response['qr_code_url']))return $this->success('生成二维码失败');
             $image = Image::fromString(file_get_contents($response['qr_code_url']));
-            $image->save(PROJECT_ROOT.'/upload/share/alipayminiapp/'."{$this->user_id}.png",NULL,Image::JPEG);
+            $image->save(ConfigsService::get("static_dir").'/upload/share/alipayminiapp/'."{$this->user_id}.png",NULL,Image::JPEG);
             $url = 'upload/share/alipayminiapp/'."{$this->user_id}.png";
         }
-
 
         return $this->success('请求成功',[
             'url'=> $url,

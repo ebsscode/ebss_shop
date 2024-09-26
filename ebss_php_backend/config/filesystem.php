@@ -1,8 +1,10 @@
 <?php
 
+use app\service\system\ConfigsService;
+
 return [
     // 默认磁盘
-    'default' => env('filesystem.driver', 'public'),
+    'default' => env('filesystem.driver', 'local'),
     // 磁盘列表
     'disks'   => [
         'local'  => [

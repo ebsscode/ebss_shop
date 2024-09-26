@@ -3,11 +3,13 @@ namespace app\admin\controller;
 use app\Basic;
 use app\Logined;
 use app\service\mch\MchService;
+use app\service\system\CheckService;
 use \think\facade\Db;
 class User extends Logined
 {
     public function edit_password()
     {
+        CheckService::checkForbidden();
         table('sys_user')->where('user_id',$this->user_id)->update([
             'password' => $this->param('password'),
             'update_time' => time(),

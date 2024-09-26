@@ -13,7 +13,7 @@ class AmapConnector
         CheckService::isExist($amap_key);
         $res = $http->GET("https://restapi.amap.com/v3/config/district?key=$amap_key&subdistrict=3");
         if($res['status']==1&&$res['infocode']=='10000'){
-            return $res['districts'];
+            return $res['districts'][0]['districts'];
         }else{
             return [];
         }

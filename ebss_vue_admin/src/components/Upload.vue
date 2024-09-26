@@ -3,7 +3,7 @@
         <div v-for="(item,index) in files" :key="index" style="position: relative;width: fit-content;margin: 0 5px 5px 0;">
             <a-image
                 :width="104"
-                :src="baseURL()+'/'+item"
+                :src="staticURL()+'/'+item"
                 :fallback="constant.imgLoad"
             />
           <span @click="remove(index)" class="QQ811565456 hewei-cuowu delete" style="color: #000000;border-radius: 100%;font-size: 24px;position: absolute;top: -12px;right: -6px"/>
@@ -12,7 +12,7 @@
             v-if="files.length<maxCount"
             :showUploadList="false"
             list-type="picture-card"
-            :action="baseURL()+'/index/index/upload'"
+            :action="baseURL()+'/api/index/upload'"
             @change="change"
         >
             <div>
@@ -94,8 +94,12 @@ export default {
         change(file, fileList, event) {
             // console.log(222, file, fileList, event)
             if (file.file.status === 'done') {
-                this.files.push(file.file.response.savename)
-                this.emitValue()
+                if(file.file.response.code==1){
+                    this.files.push(file.file.response.savename)
+                    this.emitValue()
+                }else{
+                    this.error(file.file.response.msg||'上传错误')
+                }
             }
         },
         remove(index) {
