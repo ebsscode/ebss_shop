@@ -53,13 +53,16 @@ export default {
                     key: 'video_id',
                     customRender:(data)=>{
                       return <span>{data.record.video.name}</span>
-                    }
+                    },
+                    sorter: true,
                 },{
                     title: '集数',
                     key: 'sort_num',
+                    sorter: true,
                 },{
                   title: '观看次数',
                   key: 'view_count',
+                  sorter: true,
                 },{
                     title: '添加时间',
                     key: 'add_time',

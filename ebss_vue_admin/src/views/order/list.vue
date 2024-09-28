@@ -96,7 +96,8 @@ export default {
               },{
                   title: '用户ID',
                   key: 'user_id',
-              },{
+                  sorter: true,
+            },{
                   title: '姓名',
                   key: 'order_name',
               },{
@@ -119,8 +120,9 @@ export default {
                   key: 'type',
                   customRender:(data)=>{
                     return <span>{this.constant.orderType(data.text)}</span>
-                  }
-              },{
+                  },
+                  sorter: true,
+            },{
                   title: '折扣',
                   key: 'discount',
               },{

@@ -23,6 +23,7 @@ export default {
                 {
                     title: '用户ID',
                     key: 'user_id',
+                    sorter: true,
                 }, {
                     title: '变动时间',
                     key: 'add_time',

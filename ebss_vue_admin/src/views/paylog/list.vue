@@ -42,7 +42,8 @@ export default {
                 }, {
                     title: '支付时间',
                     key: 'pay_time',
-                }, {
+                    sorter: true,
+              }, {
                     title: '是否支付',
                     key: 'is_pay',
                 }, {

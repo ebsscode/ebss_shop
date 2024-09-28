@@ -74,9 +74,11 @@ export default {
                     title: '总数量',
                     key: 'total',
                     is_edit: true,
+                    sorter: true,
                 },{
                     title: '已领数量',
                     key: 'receive_total',
+                    sorter: true,
                 },{
                     title: '每人可领数量',
                     key: 'person_total',
@@ -88,9 +90,11 @@ export default {
                 },{
                     title: '可用时间',
                     key: 'start_time',
+                    sorter: true,
                 },{
                     title: '过期时间',
                     key: 'expire_time',
+                    sorter: true,
                 },
                 {
                     title: '类型',

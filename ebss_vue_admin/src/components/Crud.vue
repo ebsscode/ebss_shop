@@ -2,7 +2,7 @@
   <div class="justify-between align-center" style="margin-bottom: 5px;">
     <div class="align-center">
       <slot name="search"></slot>
-      <span class="QQ811565456 hewei-sousuoleimufill" v-if="showQuery" @click="getData" style="margin-right:10px;font-size: 25px;padding: 3px 8px;"></span>
+      <a-button type="primary" v-if="showQuery" @click="getData" style="margin-right:10px;">查询</a-button>
     </div>
     <div class="justify-center align-center">
       <slot name="searchBar"></slot>
@@ -14,12 +14,12 @@
           okType="danger"
           @confirm="batchDelete"
       >
-        <span class="QQ811565456 hewei-shanchu" @click="" style="margin-right:10px;font-size: 20px;"></span>
+        <a-button type="primary" danger style="margin-right:10px;">批量删除</a-button>
       </a-popconfirm>
-      <span class="QQ811565456 hewei-zengjia" v-if="showAdd" style="margin-right:10px;font-size: 20px;" @click="$parent.saveFormData={};showSaveModal=true;"></span>
+      <a-button type="primary" v-if="showAdd" style="margin-right:10px;" @click="$parent.saveFormData={};showSaveModal=true;">添加</a-button>
     </div>
   </div>
-  <a-table :scroll="{x:'min-content'}" :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection">
+  <a-table :scroll="{x:'min-content'}" :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection" :loading="tableLoading">
     <template #bodyCell="{ text, record, index, column  }">
       <template v-if="column.key === 'action'">
         <a-popconfirm
@@ -76,13 +76,14 @@
       <a-button type="default" @click.prevent="showSaveModal=false;$parent.saveFormData={};"
                 style="margin-right: 10px">取消
       </a-button>
-      <a-button type="primary" html-type="submit" @click="submit">提交</a-button>
+      <a-button :loading="saveLoading" type="primary" html-type="submit" @click="submit">提交</a-button>
     </div>
   </a-modal>
 </template>
 <script lang="jsx">
 import * as ExcelJS from "exceljs";
 import {saveAs} from 'file-saver';
+import {has} from '@/util/type/base.js'
 export default {
   name: "crud",
   data: function () {
@@ -109,6 +110,9 @@ export default {
         showQuickJumper: true,
       },
       showSaveModal: false,
+      tableLoading: false,
+      saveLoading: false,
+      sort: null,
       tableData: [],
       editableData: [],
       rowSelection: {
@@ -131,6 +135,7 @@ export default {
       let tableColumns = [{
         title: 'ID',
         key: `${this.table_key}`,
+        sorter: true,
       }, ...this.$parent.columns, {
         title: '操作',
         key: 'action',
@@ -141,6 +146,10 @@ export default {
         i.ellipsis = i.ellipsis ? i.ellipsis : false
         i.is_edit = i.is_edit ? i.is_edit : false
         i.customRender = i.customRender ? i.customRender : null
+        i.sorter = i.sorter ? i.sorter : null
+        if(i.key=='add_time'||i.key=='sort_num'||i.key=='user_id'){
+          i.sorter = i.sorter ? i.sorter : true
+        }
         return i
       })
       return tableColumns
@@ -179,7 +188,12 @@ export default {
       })
     },
     tableChange(pagination, filters, sorter, {currentDataSource}) {
-      // console.log(2222,pagination)
+      // console.log(2222,sorter,has(sorter))
+      if(has(sorter)){
+        this.sort = [{
+          [sorter.field]:sorter.order=='ascend'?'asc':'desc'
+        }]
+      }
       this.pagination = {...this.pagination, ...pagination};
       this.getData()
     },
@@ -212,6 +226,7 @@ export default {
       });
     },
     submit() {
+
       // console.log('this.saveFormData',JSON.stringify(this.saveFormData));
       if(this.$parent.$refs.save_form){
         this.$parent.$refs.save_form.validate().then((e) => {
@@ -231,6 +246,7 @@ export default {
         this.$parent.saveFormData={}
         return;
       }
+      this.saveLoading=true
       this.post('/admin/crud/save', {table: this.table, ...this.saveFormData}).then(({code,msg}) => {
         if (code === 1) {
           this.getData()
@@ -238,14 +254,18 @@ export default {
           this.success(msg);
           this.$parent.saveFormData={}
         }
+      }).finally(e=>{
+        this.saveLoading=false
       })
     },
     async getData() {
+      this.tableLoading=true
       let param = {
         page: this.pagination.current,
         limit: this.pagination.pageSize,
         table: this.table,
         join_tables: this.join_tables,
+        sort: this.sort,
         ...this.searchObj,
       }
       let code = null, paginate = null, table_key = null
@@ -268,6 +288,7 @@ export default {
           pageSize: paginate.per_page,
         }
       }
+      this.tableLoading=false
     },
   }
 }

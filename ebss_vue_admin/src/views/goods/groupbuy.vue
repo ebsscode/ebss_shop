@@ -58,7 +58,8 @@ export default {
                     key: 'goods_id',
                     customRender:(data)=>{
                       return <span>{data.record.shop_goods.title}</span>
-                    }
+                    },
+                    sorter: true,
                 },{
                     title: '活动图片',
                     key: 'cover_img',

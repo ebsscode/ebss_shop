@@ -2,7 +2,7 @@
     <div class="admin-content">
         <div class="header justify-between text-ffffff">
             <div class="align-center">
-              <div class="system-name">{{ configs.name }}</div>
+              <div @click="goIndex" class="system-name pointer">{{ configs.name }}</div>
               <div class="justify-center align-center">
                 <div @click="collapsed=!collapsed" style="margin-left: 20px">
                   <span class="QQ811565456 hewei-caidanshouqi" v-if="collapsed"></span>
@@ -148,6 +148,9 @@ export default {
         }
     },
     methods: {
+        goIndex() {
+          router.push('/')
+        },
         getConfigs() {
             this.get('/admin/config/list').then(({code, configs}) => {
                 if (code === 1) {
@@ -205,7 +208,6 @@ export default {
     &:hover{
       background: #e0e4ee;
     }
-
   }
 }
 

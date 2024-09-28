@@ -38,15 +38,19 @@ export default {
                {
                     title: '商家ID',
                     key: 'mch_id',
+                    sorter: true,
                 },{
                     title: '使用时间',
                     key: 'use_time',
+                    sorter: true,
                 },{
                     title: '优惠券ID',
                     key: 'coupon_id',
+                    sorter: true,
                 },{
                     title: '用户ID',
                     key: 'user_id',
+                    sorter: true,
                 },{
                     title: '领取时间',
                     key: 'add_time',
@@ -56,7 +60,8 @@ export default {
                     key: 'status',
                     customRender:(data)=>{
                       return <span>{this.constant.couponStatus(data.text)}</span>
-                    }
+                    },
+                    sorter: true,
                 }
             ],
         };

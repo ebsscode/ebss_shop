@@ -11,7 +11,7 @@ class User extends Logined
     {
         CheckService::checkForbidden();
         table('sys_user')->where('user_id',$this->user_id)->update([
-            'password' => $this->param('password'),
+            'password' => md5($this->param('password')),
             'update_time' => time(),
         ]);
         table('sys_token')->where('token_user_id',$this->user_id)->delete();

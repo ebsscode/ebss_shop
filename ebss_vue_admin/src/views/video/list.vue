@@ -61,7 +61,8 @@ export default {
                 },{
                     title: '观看次数',
                     key: 'view_count',
-                },{
+                    sorter: true,
+              },{
                     title: '添加时间',
                     key: 'add_time',
                 },

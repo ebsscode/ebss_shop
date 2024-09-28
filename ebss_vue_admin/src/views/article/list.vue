@@ -66,6 +66,7 @@ export default {
                 }, {
                     title: '发布时间',
                     key: 'push_time',
+                    sorter: true,
                 }
             ],
         };

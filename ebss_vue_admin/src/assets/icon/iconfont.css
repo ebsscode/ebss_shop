@@ -1,8 +1,8 @@
 @font-face {
   font-family: "QQ811565456"; /* Project id 3810108 */
-  src: url('iconfont.woff2?t=1726629942797') format('woff2'),
-       url('iconfont.woff?t=1726629942797') format('woff'),
-       url('iconfont.ttf?t=1726629942797') format('truetype');
+  src: url('iconfont.woff2?t=1727451796915') format('woff2'),
+       url('iconfont.woff?t=1727451796915') format('woff'),
+       url('iconfont.ttf?t=1727451796915') format('truetype');
 }
 
 .QQ811565456 {
@@ -11,6 +11,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.hewei-shipin:before {
+  content: "\e63e";
+}
+
+.hewei-shipin1:before {
+  content: "\e63c";
+}
+
+.hewei-history:before {
+  content: "\ea10";
+}
+
+.hewei-shaixuan:before {
+  content: "\e70e";
+}
+
+.hewei-gou:before {
+  content: "\e651";
+}
+
+.hewei-camera:before {
+  content: "\e63b";
+}
+
+.hewei-saoyisao:before {
+  content: "\e639";
 }
 
 .hewei-dianpu:before {

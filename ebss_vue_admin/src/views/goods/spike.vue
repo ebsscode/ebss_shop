@@ -70,7 +70,8 @@ export default {
                     key: 'time_type',
                     customRender:(data)=>{
                       return <span>{this.constant.spikeTimeType(data.text)}</span>
-                    }
+                    },
+                    sorter: true,
                 },
                 {
                     title: '开始时间',
@@ -82,7 +83,8 @@ export default {
                       if(data.record.time_type==2){
                         return <span>{formatHmi(data.text)}</span>
                       }
-                    }
+                    },
+                    sorter: true,
                 },{
                     title: '结束时间',
                     key: 'end_at',
@@ -93,7 +95,8 @@ export default {
                       if(data.record.time_type==2){
                         return <span>{formatHmi(data.text)}</span>
                       }
-                    }
+                    },
+                    sorter: true,
                 },
             ],
         };

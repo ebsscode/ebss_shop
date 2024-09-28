@@ -19,6 +19,10 @@ class BaseDao
     }
     public function initTable(){
         $this->sql = Db::name($this->table)->strict(false);
+        if($this->table=='sys_user'){
+            $this->sql->withoutField('password');
+        }
+
         return $this;
     }
     public function find($data = null){
@@ -32,7 +36,6 @@ class BaseDao
         return $this;
     }
     public function save(array $data = [], bool $forceInsert = false){
-        $table_key = $this->getPk();
         $table_key = $this->getPk();
         $table_id = !empty($data[$table_key])?$data[$table_key]:null;
         $filed = $this->getTableFields();
@@ -124,6 +127,7 @@ class BaseDao
         return $this;
     }
     public function page(int $page, int $listRows = null){
+
         $this->sql->page($page,$listRows);
         return $this;
     }

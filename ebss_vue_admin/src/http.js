@@ -51,8 +51,6 @@ service.interceptors.response.use(
 	}
 )
 const http = (method = 'get', url, param,options={}) => {
-	console.log('mode',mode)
-
 	let httpDefaultOpts = {
 		method: method,
 		url,

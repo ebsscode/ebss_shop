@@ -48,6 +48,7 @@ export default {
                 {
                     title: '上级ID',
                     key: 'pid',
+                    sorter: true,
                 },
                 {
                     title: '分类名称',
@@ -71,6 +72,7 @@ export default {
                     title: '是否显示',
                     key: 'is_show',
                     is_edit: true,
+                    sorter: true,
                 },{
                     title: '首页显示',
                     key: 'is_index',

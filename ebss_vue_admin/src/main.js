@@ -10,6 +10,7 @@ import Upload from '@/components/Upload.vue'
 import FullEditor from '@/components/FullEditor.vue'
 import TimePicker from '@/components/TimePicker.vue'
 import DatePicker from '@/components/DatePicker.vue'
+import IconSelect from '@/components/IconSelect.vue'
 import YesOrNo from '@/components/YesOrNo.vue'
 import Select from '@/components/Select.vue'
 import MapSelect from '@/components/MapSelect.vue'
@@ -44,6 +45,7 @@ app.component('YesOrNo', YesOrNo)
 app.component('Select', Select)
 app.component('MapSelect', MapSelect)
 app.component('CheckBox', CheckBox)
+app.component('IconSelect', IconSelect)
 app.use(Antd)
 app.use(router)
 app.mount('#app')

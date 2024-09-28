@@ -9,23 +9,24 @@
                 @click="menuClick"
                 :inline-collapsed="collapsed"
                 :multiple="false"
+
             >
                 <template v-for="(item1,index1) in asideMenu" :key="`${index1}`">
                     <a-sub-menu :key='`${item1.permission_id}`' v-if="item1.children&&item1.children.length>0">
                         <template #icon>
-                            <span class="QQ811565456 hewei-danxuanxuanzhong"/>
+                            <span :class="['QQ811565456',item1.icon]"/>
                         </template>
                         <template #title>{{ item1.name }}</template>
-                        <a-menu-item v-for="(item2,index2) in item1.children" :key='`${item2.permission_id}`' :data="item2">
+                        <a-menu-item class="menu-item" v-for="(item2,index2) in item1.children" :key='`${item2.permission_id}`' :data="item2">
                           <template #icon>
-                            <span class="QQ811565456 hewei-weixuanzhong"/>
+                            <span :class="['QQ811565456',item2.icon]"/>
                           </template>
                             {{ item2.name }}
                         </a-menu-item>
                     </a-sub-menu>
-                    <a-menu-item :key='`${item1.permission_id}`' v-else :data="item1">
+                    <a-menu-item class="menu-item" :key='`${item1.permission_id}`' v-else :data="item1">
                         <template #icon>
-                          <span class="QQ811565456 hewei-danxuanxuanzhong"/>
+                          <span :class="['QQ811565456',item1.icon]"/>
                         </template>
                         {{ item1.name }}
                     </a-menu-item>
@@ -95,5 +96,21 @@ export default {
     overflow-y: scroll;
     height: calc(100vh - 40px);
     flex-shrink: 0;
+  .QQ811565456{
+    font-size: 16px;
+
+  }
+
+}
+</style>
+<style lang="less">
+.menu-item:hover{
+  background: #528de4 !important;
+  color: #ffffff !important;
+}
+.ant-menu-item-selected{
+  background: #528de4 !important;
+  color: #ffffff !important;
+
 }
 </style>

@@ -43,6 +43,10 @@ body {
 .text-ffffff {
     color: #ffffff;
 }
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
 .flex-col {
     display: flex;
     flex-direction: column;

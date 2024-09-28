@@ -116,7 +116,6 @@
         <a-form-item>
           <Select placeholder="商品标签" :constant="labels" name_key="name" value_key="name" v-model:value="searchObj.labels"/>
         </a-form-item>
-
       </a-form>
     </template>
   </Crud>
@@ -151,11 +150,13 @@ export default {
           title: '库存',
           key: 'quantity',
           is_edit: true,
+          sorter: true,
         },
         {
           title: '价格',
           key: 'price',
           is_edit: true,
+          sorter: true,
         },{
           title: '排序',
           key: 'sort_num',

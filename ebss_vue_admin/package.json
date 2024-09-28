@@ -1,5 +1,5 @@
 {
-    "name": "h_admin",
+    "name": "ebss_admin_qq811565456",
     "version": "1.0.0",
     "scripts": {
         "dev": "vite --mode development",
@@ -8,6 +8,7 @@
         "build:demo": "vite build --mode demo"
     },
     "dependencies": {
+        "@antv/g2": "^5.2.5",
         "@vitejs/plugin-vue": "^4.1.0",
         "@wangeditor/editor": "^5.1.23",
         "@wangeditor/editor-for-vue": "^5.1.12",

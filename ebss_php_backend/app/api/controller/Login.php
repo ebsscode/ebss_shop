@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\Basic;
 use app\service\system\ConfigsService;
+use app\service\user\UserService;
 use \think\facade\Db;
 use think\facade\Config;
 use Gregwar\Captcha\CaptchaBuilder;
@@ -41,7 +42,7 @@ class Login extends Basic
         } else {
             $user_id = table('sys_user')->insertGetId([
                 'tel' => $tel,
-                'password' => '123456',
+                'password' => UserService::defaultPassword(),
                 'add_time' => time(),
                 'share_id' => $share_id,
             ]);
@@ -129,7 +130,7 @@ class Login extends Basic
         } else {
             $user_id = table('sys_user')->insertGetId([
                 'openid' => $openid,
-                'password' => '123456',
+                'password' => UserService::defaultPassword(),
                 'share_id' => $share_id,
                 'username' => '',
                 'add_time' => time(),

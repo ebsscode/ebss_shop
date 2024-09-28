@@ -12,5 +12,8 @@ class UserService
             throw new MyException(401, '请登录！');
         }
     }
+    public static function defaultPassword(){
+        return md5('ABC123#');
+    }
 
 }
