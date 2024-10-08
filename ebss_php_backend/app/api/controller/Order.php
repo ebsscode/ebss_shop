@@ -9,28 +9,31 @@ class Order extends Logined
 {
     private $table='shop_order';
     public function create(){
-        $goods = $this->param('goods_list');
+        $goods_list = $this->param('goods_list');
+
+
+
         $price_total = $this->param('price_total')+$this->param('freight')-$this->param('discount');
         $order_id = table($this->table)->insertGetId([
             'user_id'=>$this->user_id,
             'type'=>1,
             'order_sn'=>uniqid(),
-            'add_time'=>time(),
             'mch_id'=>0,//todo
             'is_pay'=>0,
             'order_money'=>$price_total,
             'discount'=>$this->param('discount'),
             'freight'=>$this->param('freight'),
-            'coupon_list'=>encodeJson($this->param('coupon_list')),
-            'order_goods'=>encodeJson($this->param('goods_list')),
-            'addr'=>encodeJson($this->param('addr')),
+            'coupon_list'=>$this->param('coupon_list'),
+            'order_goods'=>$this->param('goods_list'),
+            'addr'=>$this->param('addr'),
             'tel'=>$this->param('addr')['tel'],
             'order_name'=>$this->param('addr')['name'],
             'notes'=>$this->param('notes'),
         ]);
-        foreach ($this->param('goods_list') as $goods) {
+
+        foreach ($goods_list as $goods) {
             table('shop_order_goods')->insert([
-                'goods'=>encodeJson($goods),
+                'goods'=>$goods,
                 'amount'=>$goods['amount'],
                 'selected_spec'=>$goods['selected_spec'],
                 'mch'=>0,//todo
@@ -45,11 +48,10 @@ class Order extends Logined
             'type'=>'goods_order',
             'money'=>$price_total,
             'pay_order_sn'=>uniqid(),
-            'add_time'=>time(),
             'is_pay'=>0,
-            'nofity_data'=>'[]',
+            'notify_data'=>[],
             'busi_table_id'=>$order_id,
-            'desc'=>'购买共计'.count($goods).'件商品',
+            'desc'=>'购买共计'.count($goods_list).'件商品',
         ]);
         return $this->success('创建订单成功',[
             'order_id'=>$order_id,
@@ -70,20 +72,18 @@ class Order extends Logined
             'user_id'=>$this->user_id,
             'type'=>2,
             'order_sn'=>uniqid(),
-            'add_time'=>time(),
             'mch_id'=>$goods['mch_id'],
             'is_pay'=>1,
             'status'=>4,
             'pay_time'=>time(),
             'order_money'=>$goods['price'],
-            'order_goods'=>encodeJson([$goods]),
-            'addr'=>encodeJson($this->param('addr')),
+            'order_goods'=>[$goods],
+            'addr'=>$this->param('addr'),
             'tel'=>$this->param('addr')['tel'],
             'order_name'=>$this->param('addr')['name'],
         ]);
         table('log_integral')->insert([
             'user_id'=>$this->user_id,
-            'add_time'=>time(),
             'log_type'=>1,
             'up_or_down'=>2,
             'change_num'=>$goods['price'],
@@ -99,9 +99,8 @@ class Order extends Logined
         $detail = table($this->table)->find($this->param('order_id'));
         if(!$detail)return $this->error('数据未找到');
         if($detail['status']==6||$detail['status']==7||$detail['status']==8||$detail['status']==9)return $this->error('订单状态暂时无法更改');
-        $coupon_list = decodeJson($detail['coupon_list']);
-        foreach ($coupon_list as $item) {
-            table('base_coupon_user')->update(['status'=>4,'use_time'=>0]);
+        foreach ($detail['coupon_list'] as $item) {
+            table('base_coupon_user')->where(['user_id'=>$this->user_id,'coupon_user_id'=>$item['coupon_user_id'],])->update(['status'=>4,'use_time'=>0]);
         }
         $result = table($this->table)->update(['status'=>9,'order_id'=>$this->param('order_id')]);
 
@@ -109,7 +108,6 @@ class Order extends Logined
         if($res){
             table('log_money')->insert([
                 'user_id'=>$this->user_id,
-                'add_time'=>time(),
                 'log_type'=>4,
                 'up_or_down'=>1,
                 'change_num'=>$detail['order_money'],

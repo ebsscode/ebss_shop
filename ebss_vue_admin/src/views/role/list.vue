@@ -55,7 +55,7 @@ export default {
             // console.log(record)
             this.post('/admin/crud/save', {
                 table: this.table, ...record,
-                permission_ids: JSON.stringify(record.permission_ids.map(i => i.value))
+                permission_ids: record.permission_ids.map(i => i.value),
             }).then(({code}) => {
                 if (code === 1) {
                     this.success('保存成功！');

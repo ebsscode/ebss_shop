@@ -26,10 +26,16 @@ class BaseDao
         return $this;
     }
     public function find($data = null){
-        return $this->sql->find($data);
+        $one = $this->sql->find($data);
+        return JsonHandler::findHandler($this->table,$one);
     }
     public function select($data = null){
-        return $this->sql->select($data)->toArray();
+        $list =  $this->sql->select($data)->toArray();
+        return JsonHandler::selectHandler($this->table,$list);
+    }
+    public function paginate($listRows = null, $simple = false): array{
+        $paginate =  $this->sql->paginate($listRows,$simple)->toArray();
+        return JsonHandler::paginateHandler($this->table,$paginate);
     }
     public function where($field, $op = null, $condition = null){
         $this->sql->where($field,$op,$condition);
@@ -39,20 +45,17 @@ class BaseDao
         $table_key = $this->getPk();
         $table_id = !empty($data[$table_key])?$data[$table_key]:null;
         $filed = $this->getTableFields();
-        if(!$table_id){
-            if(in_array('add_time',$filed)){
-                $data['add_time']=time();
-            }
-            if(in_array('add_date',$filed)){
-                $data['add_date']=date('Y-m-d');
-            }
-        }
-        if(in_array('update_time',$filed)){
-            $data['update_time']=time();
-        }
+
+        $data = JsonHandler::saveHandler($this->table,$data);
+        $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
         return $this->sql->save($data,$forceInsert);
     }
     public function update(array $data = []): int{
+        $table_key = $this->getPk();
+        $table_id = !empty($data[$table_key])?$data[$table_key]:null;
+        $filed = $this->getTableFields();
+        $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
+        $data = JsonHandler::saveHandler($this->table,$data);
         return $this->sql->update($data);
     }
     public function inc(string $field, float $step = 1){
@@ -64,7 +67,20 @@ class BaseDao
     public function count(string $field = '*'): int{
         return (int) $this->sql->count($field);
     }
+    public function insert(array $data = [], bool $getLastInsID = false){
+        $table_key = $this->getPk();
+        $table_id = !empty($data[$table_key])?$data[$table_key]:null;
+        $filed = $this->getTableFields();
+        $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
+        $data = JsonHandler::saveHandler($this->table,$data);
+        return $this->sql->insert($data,$getLastInsID);
+    }
     public function insertGetId(array $data){
+        $table_key = $this->getPk();
+        $table_id = !empty($data[$table_key])?$data[$table_key]:null;
+        $filed = $this->getTableFields();
+        $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
+        $data = JsonHandler::saveHandler($this->table,$data);
         return $this->sql->insertGetId($data);
     }
     public function delete($data = null): int{
@@ -73,9 +89,6 @@ class BaseDao
     public function getPk(){
         return $this->sql->getPk();
     }
-    public function paginate($listRows = null, $simple = false): array{
-        return $this->sql->paginate($listRows,$simple)->toArray();
-    }
     public function getTableFields($tableName = ''): array{
         return $this->sql->getTableFields($tableName);
     }
@@ -83,7 +96,8 @@ class BaseDao
         return $this->sql->getFieldsType();
     }
     public function value(string $field, $default = null){
-        return $this->sql->value($field,$default);
+        $data = $this->sql->value($field,$default);
+        return JsonHandler::valueHandler($this->table,$field,$data);
     }
     public function column($field, string $key = ''): array{
         return $this->sql->column($field,$key);
@@ -95,9 +109,6 @@ class BaseDao
     public function order($field, string $order = ''){
         $this->sql->order($field,$order);
         return $this;
-    }
-    public function insert(array $data = [], bool $getLastInsID = false){
-        return $this->sql->insert($data,$getLastInsID);
     }
     public function insertAll(array $dataSet = [], int $limit = 0): int{
         return $this->sql->insertAll($dataSet,$limit);
@@ -135,4 +146,6 @@ class BaseDao
         $this->sql->whereOr($field, $op, $condition);
         return $this;
     }
+
+
 }

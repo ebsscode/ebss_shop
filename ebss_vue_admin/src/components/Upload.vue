@@ -28,8 +28,8 @@ export default {
     name: 'Upload',
     props: {
         value: {
-            type: String,
-            default: null,
+            type: [Array,String,Object],
+            default: [],
         },
         maxCount: {
             type: Number,
@@ -49,7 +49,7 @@ export default {
                   if(this.maxCount==1){
                     this.$emit('update:value', '')
                   }else{
-                    this.$emit('update:value', '[]')
+                    this.$emit('update:value', [])
                   }
                 }
                 if(newV){
@@ -57,12 +57,7 @@ export default {
                     this.files=[newV]
                   }
                   if(this.maxCount>1){
-                    try {
-                      this.files=JSON.parse(newV)
-                    }catch (e) {
-                      this.files=[]
-                      console.warn('ImgUpload解析错出：',e)
-                    }
+                    this.files=newV
                   }
                 }else{
                   this.files=[]
@@ -85,9 +80,9 @@ export default {
           }
           if(this.maxCount>1){
             if(this.files.length){
-              this.$emit('update:value',JSON.stringify(this.files))
+              this.$emit('update:value',this.files)
             }else{
-              this.$emit('update:value','[]')
+              this.$emit('update:value',[])
             }
           }
         },

@@ -23,7 +23,6 @@ class Groupbuy extends Basic
         $list = table('shop_groupbuy')->where($where)->order('start_time asc')->select();
         foreach ($list as &$item) {
             $item['goods'] = table('shop_goods')->where('goods_id',$item['goods_id'])->find();
-            $item['goods']['labels']=decodeJson($item['goods']['labels']);
         }
         return $this->success('请求成功',[
             'list'=>$list,

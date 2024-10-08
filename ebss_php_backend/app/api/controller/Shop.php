@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\Basic;
 use app\service\mch\MchService;
+use app\service\shop\ActivityService;
 use app\service\user\UserService;
 use think\facade\Config;
 use think\facade\Db;
@@ -11,20 +12,17 @@ class Shop extends Basic
         $banner_list = table('base_banner')->where('module_id',$this->module['module_id'])->order('sort_num desc')->select();
         $nav_list = table('base_nav')->order('sort_num desc')->select();
         $category_list = table('base_category')->where('is_show',1)->where('is_index',1)->order('sort_num desc add_time desc')->select();
-        $hot_goods_list = table('shop_goods')->where('is_index',1)->where('is_spike',1)->order('sort_num desc')->limit(10)->select();
-
-        $endToday=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
-        $h = date('H');
-        $i = date('i');
-        $s = date('s');
-        $now_secons = $h*60*60+$i*60+$s*1;
-        $spike = table('shop_spike')->where("time_type = 1 and end_at >= ".time()." and start_at <= ".time())->whereOr("time_type = 2 and end_at >= ".$now_secons." and start_at <= ".$now_secons)->order('start_at asc')->find();
+        $spike = ActivityService::willStartSpikeOne();
+        $spike_goods_list=[];
+        if($spike){
+            $spike_goods_list = table('shop_goods')->where('goods_id','in',$spike['goods_ids'])->select();
+        }
 
         return $this->success('请求成功',[
             'banner_list'=>$banner_list,
             'nav_list'=>$nav_list,
             'category_list'=>$category_list,
-            'spike_goods_list'=>$hot_goods_list,
+            'spike_goods_list'=>$spike_goods_list,
             'spike'=>$spike,
             'user_info'=>$this->user_info,
 //            'sql'=>table('spike')->getLastSql(),
@@ -48,6 +46,7 @@ class Shop extends Basic
         if(!$addr){
             $addr = table('base_addr')->where('user_id',$this->user_id)->find();
         }
+
         return $this->success('请求成功',[
             'user_info'=>$this->user_info,
             'addr'=>$addr,

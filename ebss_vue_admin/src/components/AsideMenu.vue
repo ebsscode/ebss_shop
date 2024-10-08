@@ -7,9 +7,7 @@
                 mode="inline"
                 :inlineIndent="10"
                 @click="menuClick"
-                :inline-collapsed="collapsed"
                 :multiple="false"
-
             >
                 <template v-for="(item1,index1) in asideMenu" :key="`${index1}`">
                     <a-sub-menu :key='`${item1.permission_id}`' v-if="item1.children&&item1.children.length>0">
@@ -42,10 +40,6 @@ import {arrayToTree} from '@/util/format/array.js'
 export default {
     name: 'AsideMenu',
     props: {
-        collapsed: {
-            type: Boolean,
-            default: true,
-        },
         menus: {
             type: Array,
             required: true,

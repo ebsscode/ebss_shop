@@ -23,7 +23,6 @@ class Cart extends Logined
             ]);
         }else{
             $param['user_id']=$this->user_id;
-            $param['add_time']=time();
             $param['amount']=1;
             $param['mch_id']=$goods['mch_id'];
             table('shop_cart')->insert($param);

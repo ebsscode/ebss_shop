@@ -18,7 +18,7 @@ class Amap extends Basic
                 'center'=>$item['center'],
                 'level'=>$item['level'],
             ];
-            if(has($item['districts'])){
+            if(!empty($item['districts'])){
                 foreach ($item['districts'] as $item2) {
                     $data[]=[
                         'parent_code'=>$item['adcode'],
@@ -27,7 +27,7 @@ class Amap extends Basic
                         'center'=>$item2['center'],
                         'level'=>$item2['level'],
                     ];
-                    if(has($item2['districts'])){
+                    if(!empty($item2['districts'])){
                         foreach ($item2['districts'] as $item3) {
                             $data[]=[
                                 'parent_code'=>$item2['adcode'],
@@ -36,7 +36,7 @@ class Amap extends Basic
                                 'center'=>$item3['center'],
                                 'level'=>$item3['level'],
                             ];
-                            if(has($item3['districts'])){
+                            if(!empty($item3['districts'])){
                                 foreach ($item3['districts'] as $item4) {
                                     $data[]=[
                                         'parent_code'=>$item3['adcode'],

@@ -11,9 +11,8 @@ class Money extends Logined
         $money = $this->param('money');
         $charge_order_id = table('base_charge_order')->insertGetId([
             'order_sn'=>uniqid(),
-            'add_time'=>time(),
             'user_id'=>$this->user_id,
-            'charge_option'=>!empty($this->param('charge_options'))?encodeJson($this->param('charge_options')):'{}',
+            'charge_option'=>!empty($this->param('charge_options'))?$this->param('charge_options'):[],
             'pay_money'=>$money,
             'money'=>$money,
             'is_pay'=>0,
@@ -22,9 +21,8 @@ class Money extends Logined
             'type'=>'money_charge',
             'money'=>$money,
             'pay_order_sn'=>uniqid(),
-            'add_time'=>time(),
             'is_pay'=>0,
-            'nofity_data'=>'{}',
+            'notify_data'=>[],
             'busi_table_id'=>$charge_order_id,
             'desc'=>'充值'.$money.'元',
             'user_id'=>$this->user_id,
@@ -46,7 +44,6 @@ class Money extends Logined
         $res = table('sys_user')->where('user_id', $this->user_id)->update(['money'=> $afterMoney]);
         if($res){
             table('base_withdraw')->insert([
-                'add_time'      =>  time(),
                 'user_id'       =>  $this->user_id,
                 'money'    =>  $this->param('amount'),
                 'type'    =>  $this->param('type'),
@@ -56,7 +53,6 @@ class Money extends Logined
             ]);
 
             table('log_money')->insert([
-                'add_time'      =>  time(),
                 'user_id'       =>  $this->user_id,
                 'log_type'      =>  2,
                 'up_or_down'    =>  2,

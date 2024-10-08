@@ -13,12 +13,12 @@ class Index extends Basic
         if(empty($this->param('username'))||empty($this->param('password'))){
             return $this->error('用户名不存在！');
         }
-        $user = table('sys_user')->where('username',$this->param('username'))->find();
+        $user = table('sys_user')->field('sys_user.*')->where('username',$this->param('username'))->find();
         if(empty($user['password'])){
-            return $this->error('账号或密码不存在！');
+            return $this->error('账号或密码不存在！',['p'=>md5($this->param('password'))]);
         }
         if(md5($this->param('password'))!==$user['password']){
-            return $this->error('密码不正确');
+            return $this->error('密码不正确',['p'=>md5($this->param('password'))]);
         }
         if(empty($user['role_id'])){
             return $this->error('未分配权限，禁止登录');
@@ -29,14 +29,12 @@ class Index extends Basic
             'token' => $token,
             'token_user_id' => $user['user_id'],
             'ip' => $this->request->ip(),
-            'add_time' => time(),
         ]);
         table('log_user')->insert([
             'name' => $user['username'],
             'user_id' => $user['user_id'],
             'url' => $this->request->url(),
             'ip' => $this->request->ip(),
-            'add_time' => time(),
             'title' => '后台登录',
         ]);
         return $this->success('请求成功',[

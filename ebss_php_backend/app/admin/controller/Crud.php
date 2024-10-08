@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use app\Basic;
 use app\Logined;
+use app\service\db\JsonHandler;
 use app\service\system\CheckService;
 use \think\facade\Db;
 class Crud extends Basic
@@ -77,28 +78,9 @@ class Crud extends Basic
                 }
             }
         }
-        if( $table=='sys_role' ){
-            foreach ($list as &$item) {
-                $item["permission_ids"]=decodeJson($item["permission_ids"]);
-            }
-        }
-        if( $table=='shop_goods'){
-            foreach ($list as &$item) {
-                $item["labels"]=decodeJson($item["labels"]);
-                $item["spec"]=decodeJson($item["spec"]);
-            }
-        }
-        if( $table=='shop_cart' ){
-            foreach ($list as &$item) {
-            }
-        }
-        if( $table=='shop_order' ){
-            foreach ($list as &$item) {
-                $item["order_goods"]=decodeJson($item["order_goods"]);
-                $item["addr"]=decodeJson($item["addr"]);
-            }
-        }
-        $paginate['data']=$list;
+        $paginate['data'] = $list;
+
+
         return $this->success('请求成功',[
             'paginate'=>$paginate,
             'table_key'=>$table_key,
@@ -117,17 +99,7 @@ class Crud extends Basic
         $table_key = table($table)->getPk();
         $table_id = $this->param($table_key) ?? null;
         $filed = table($table)->getTableFields();
-        if(!$table_id){
-            if(in_array('add_time',$filed)){
-                $row['add_time']=time();
-            }
-            if(in_array('add_date',$filed)){
-                $row['add_date']=date('Y-m-d');
-            }
-        }
-        if(in_array('update_time',$filed)){
-            $row['update_time']=time();
-        }
+
         if($table!='sys_module'&&$this->module&&in_array('module_id',$filed)){
             $row['module_id']=$this->module['module_id'];
         }
@@ -154,19 +126,10 @@ class Crud extends Basic
             }
         }
         if( $table=='shop_goods' ){
-            $row['spec']=encodeJson($row['spec']);
             if($this->mch){
                 $row['mch_id'] = $this->mch['mch_id'];
             }
         }
-        if( ($table=='shop_goods_comment'||$table=='mch_comment')&&$this->user_id ){
-            $row['user']=encodeJson($this->user_info);
-        }
-        if( $table=='shop_order' ){
-            $row['addr']=encodeJson($row['addr']);
-            $row['order_goods']=encodeJson($row['order_goods']);
-        }
-
         table($table)->save($row);
         return $this->success($table_id?'更新成功':'添加成功',[
         ]);
@@ -181,7 +144,6 @@ class Crud extends Basic
         if(!empty($join_tables)){
             foreach ($join_tables as $join_table) {
                 $join_table_key = table($join_table)->getPk();
-
                 $detail["{$join_table}"]=table($join_table)->where("$join_table_key",$detail["$join_table_key"])->find();
             }
         }
@@ -191,11 +153,6 @@ class Crud extends Basic
                 $favour_info = table('mch_favour')->where('user_id',$this->user_id)->where('mch_id',$table_id)->find();
                 $detail['favour_info']=$favour_info;
             }
-        }
-        if( $table=='shop_order' ){
-            $detail['addr'] = decodeJson($detail['addr']);
-            $detail['order_goods'] = decodeJson($detail['order_goods']);
-            $detail['coupon_list'] = decodeJson($detail['coupon_list']);
         }
         return $this->success('请求成功',[
             'detail'=>$detail,

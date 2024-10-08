@@ -50,31 +50,31 @@ export default {
         },
         value: {
             handler(newV, oldV) {
-                if(isNull(newV) || isUndefined(newV)){
-                  this.$emit('update:value', '[]')
-                }
+              if(isNull(newV) || isUndefined(newV)){
+                this.$emit('update:value', [])
+              }
               let newVArr = []
-                if(newV){
-                  try {
-                    if(isArray(newV)){
-                      newVArr = newV
-                    }else{
-                      newVArr = JSON.parse(newV)
-                    }
-                    this.checks = newVArr.map(i=>{
-                      if(!i[this.value_key]){
-                        return i
-                      }else{
-                        return i[this.value_key]
-                      }
-                    })
-                  }catch (e) {
-                    console.error('CheckBox',e)
-                    this.checks = []
+              if(newV){
+                try {
+                  if(isArray(newV)){
+                    newVArr = newV
+                  }else{
+                    newVArr = JSON.parse(newV)
                   }
-                }else{
+                  this.checks = newVArr.map(i=>{
+                    if(!i[this.value_key]){
+                      return i
+                    }else{
+                      return i[this.value_key]
+                    }
+                  })
+                }catch (e) {
+                  console.error('CheckBox',e)
                   this.checks = []
                 }
+              }else{
+                  this.checks = []
+              }
             },
             immediate: true
         }
@@ -94,7 +94,7 @@ export default {
             }else{
               data = this.options.filter(i=>e.includes(i[this.value_key]))
             }
-            this.$emit('update:value', JSON.stringify(data))
+            this.$emit('update:value', data)
         },
     }
 }

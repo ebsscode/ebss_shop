@@ -128,7 +128,6 @@ class Pay extends Logined
         if($res){
             table('log_money')->insert([
                 'user_id'=>$this->user_id,
-                'add_time'=>time(),
                 'log_type'=>3,
                 'up_or_down'=>2,
                 'change_num'=>$paylog['money'],

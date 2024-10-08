@@ -14,7 +14,7 @@ class Login extends Basic
         $tel = $this->param('tel');
         $code = $this->param('code');
         $login_type = $this->param('login_type');
-        $user_info = table('sys_user')->where([
+        $user_info = table('sys_user')->field('sys_user.*')->where([
             ['tel', '=', $tel],
         ])->find();
         if($login_type==2){
@@ -43,7 +43,6 @@ class Login extends Basic
             $user_id = table('sys_user')->insertGetId([
                 'tel' => $tel,
                 'password' => UserService::defaultPassword(),
-                'add_time' => time(),
                 'share_id' => $share_id,
             ]);
             $user_info = table('sys_user')->where([
@@ -55,14 +54,12 @@ class Login extends Basic
             'token' => $token,
             'token_user_id' => $user_info['user_id'],
             'ip' => $this->request->ip(),
-            'add_time' => time(),
         ]);
         table('log_user')->insert([
             'name' => $user_info['username'],
             'user_id' => $user_info['user_id'],
             'url' => $this->request->url(),
             'ip' => $this->request->ip(),
-            'add_time' => time(),
             'title' => '手机号登录',
         ]);
         return $this->ajax_return(1, '登录成功', [
@@ -133,7 +130,6 @@ class Login extends Basic
                 'password' => UserService::defaultPassword(),
                 'share_id' => $share_id,
                 'username' => '',
-                'add_time' => time(),
             ]);
             $user_info = table('sys_user')->where([
                 ['openid', '=', $openid],
@@ -144,14 +140,12 @@ class Login extends Basic
             'token' => $token,
             'token_user_id' => $user_id,
             'ip' => $this->request->ip(),
-            'add_time' => time(),
         ]);
         table('log_user')->insert([
             'name' => $user_info['username'],
             'user_id' => $user_info['user_id'],
             'url' => $this->request->url(),
             'ip' => $this->request->ip(),
-            'add_time' => time(),
             'title' => $title,
         ]);
         return $this->ajax_return(1, '登录成功', [

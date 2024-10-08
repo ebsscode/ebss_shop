@@ -25,9 +25,7 @@ class User extends Logined
     public function save_usage(){
         if($this->param('type')=='in'){
             $usage_log_id = table('log_usage')->insertGetId([
-                'add_time'=>time(),
                 'user_id'=>$this->user_id,
-                'add_date'=>date('Y-m-d'),
             ]);
             return $this->success('请求成功',[
                 'usage_log_id'=>$usage_log_id,

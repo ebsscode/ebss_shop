@@ -14,7 +14,6 @@ class Coupon extends Logined
 
         table('base_coupon_user')->insert([
             'user_id'=>$this->user_id,
-            'add_time'=>time(),
             'mch_id'=>$coupon['mch_id'],
             'status'=>4,
             'coupon_id'=>$this->param('coupon_id'),
@@ -24,7 +23,6 @@ class Coupon extends Logined
     public function detail(){
         $coupon=table('base_coupon')->where('coupon_id',$this->param('coupon_id'))->find();
         if(!$coupon) return $this->error('数据未找到');
-        $coupon['goods_ids']=decodeJson($coupon['goods_ids']);
         if(!empty($coupon['goods_ids'])){
             $coupon['goods']=table('shop_goods')->where('goods_id','in',$coupon['goods_ids'])->select();
         }else{
@@ -46,7 +44,6 @@ class Coupon extends Logined
         $coupon_user_list=table('base_coupon_user')->where($whereArr)->where('user_id',$this->user_id)->order('add_time desc')->select();
         foreach ($coupon_user_list as &$item) {
             $item['coupon']=table('base_coupon')->where('coupon_id',$item['coupon_id'])->find();
-            $item['coupon']['goods_ids']=decodeJson($item['coupon']['goods_ids']);
         }
         return $this->success('请求成功',[
             'list'=>$coupon_user_list,

@@ -64,12 +64,20 @@
             </div>
         </div>
         <div class="flex-row block-2">
-            <div style="flex:0 0 10%;">
-              <AsideMenu :menus="menus" :collapsed="collapsed"/>
-            </div>
-            <div class="content" style="flex:0 0 89%;padding: 5px">
-                <router-view/>
-            </div>
+          <a-layout>
+            <a-layout-sider v-model:collapsed="collapsed" :style="{backgroundColor:'#f8f8f8'}">
+              <AsideMenu :menus="menus" />
+            </a-layout-sider>
+            <!-- todo... 按标签页打开和关闭页面-->
+            <a-layout-content :style="{padding: '5px'}">
+<!--              <a-tabs v-model:activeKey="activeKey" type="editable-card" @edit="onEdit" hide-add>-->
+<!--                <a-tab-pane v-for="(pane,i) in panes" :key="i" :tab="pane.title" :closable="pane.closable">-->
+
+<!--                </a-tab-pane>-->
+<!--              </a-tabs>-->
+              <router-view/>
+            </a-layout-content>
+          </a-layout>
         </div>
         <EditMy v-model:showEditMy="showEditMy"/>
     </div>
@@ -103,7 +111,25 @@ export default {
             menus: [],
             mch_list: [],
             module_list: [],
-            configs: {}
+            configs: {},
+            panes:[
+              {
+                title: '订单管理',
+                content: 'Content of Tab 1',
+                key: '1',
+              },
+              {
+                title: '用户管理',
+                content: 'Content of Tab 2',
+                key: '2',
+              },
+              {
+                title: '商品管理',
+                content: 'Content of Tab 3',
+                key: '3',
+              },
+            ],
+            activeKey:'1'
         }
     },
     watch: {
@@ -121,7 +147,7 @@ export default {
         this.permissions = await getPermissions();
         this.getMch();
         let selectedKeys = localStorage.getItem('menuSelectedKeys')
-        // console.log(111,selectedKeys,JSON.stringify(this.menus))
+        // console.log(111,selectedKeys,this.menus)
         if (this.$route.path=='/home'&&selectedKeys&&selectedKeys.length) {
             this.selectedKeys = JSON.parse(selectedKeys)
             let findMenu = this.menus.find(i => i.permission_id == this.selectedKeys[0])
@@ -148,7 +174,10 @@ export default {
         }
     },
     methods: {
-        goIndex() {
+      onEdit(index) {
+          this.panes.splice(index,1)
+      },
+      goIndex() {
           router.push('/')
         },
         getConfigs() {

@@ -340,6 +340,7 @@ export default {
               position: 'outside',
               text: (data) => `${data.item}: ${data.percent * 100}%`,
             })
+            .animate('enter', { type: 'waveIn', duration: 1500 })
             .tooltip((data) => ({
               name: data.item,
               value: `${data.percent * 100}%`,

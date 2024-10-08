@@ -136,6 +136,7 @@ export default {
         spec:[],
       },
       searchObj: {},
+      showCopy: ()=>true,
       columns: [
         {
           title: '商品名称',

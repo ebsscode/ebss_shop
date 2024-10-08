@@ -22,6 +22,7 @@
   <a-table :scroll="{x:'min-content'}" :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection" :loading="tableLoading">
     <template #bodyCell="{ text, record, index, column  }">
       <template v-if="column.key === 'action'">
+        <span @click="copy(record)" v-if="showCopy(record)" class="QQ811565456 hewei-fuzhi ml-10"></span>
         <a-popconfirm
             v-if="showDelete(record)"
             title="确定删除此数据吗？"
@@ -100,7 +101,7 @@ export default {
       showAdd: this.$parent.showAdd!==undefined?this.$parent.showAdd:true,
       showDelete: this.$parent.showDelete?this.$parent.showDelete:(e)=>true,
       showEdit: this.$parent.showEdit!==undefined?this.$parent.showEdit:(e)=>true,
-      showCopy: this.$parent.showCopy!==undefined?this.$parent.showCopy:(e)=>true,
+      showCopy: this.$parent.showCopy!==undefined?this.$parent.showCopy:(e)=>false,
       pagination:{
         current: 1,
         total: null,
@@ -179,6 +180,11 @@ export default {
     batchDelete(){
       this.deleteSubmit(this.rowSelection.selectedRowKeys)
     },
+    copy(record){
+      delete record[this.table_key]
+      this.$parent.saveFormData=record;
+      this.showSaveModal=true
+    },
     deleteSubmit(table_ids){
       this.post('/admin/crud/delete', {table: this.table, table_ids: table_ids }).then(({code,msg}) => {
         if (code === 1) {
@@ -226,8 +232,7 @@ export default {
       });
     },
     submit() {
-
-      // console.log('this.saveFormData',JSON.stringify(this.saveFormData));
+      // console.log('this.saveFormData',this.saveFormData);
       if(this.$parent.$refs.save_form){
         this.$parent.$refs.save_form.validate().then((e) => {
           this.submitPost();

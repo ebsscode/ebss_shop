@@ -4,11 +4,11 @@ use think\facade\Db;
 
 class PaymentService
 {
-    public static function handlePaySuccess($paylog=null,$nofity_data=[]){
+    public static function handlePaySuccess($paylog=null,$notify_data=[]){
         Db::name('log_pay')->where('paylog_id',$paylog['paylog_id'])->update([
             'is_pay'=>1,
             'pay_time'=>time(),
-            'nofity_data'=>encodeJson($nofity_data),
+            'notify_data'=>$notify_data,
         ]);
         if($paylog['type']=='goods_order'){
             Db::name('shop_order')->where('order_id',$paylog['busi_table_id'])->update([
@@ -23,7 +23,6 @@ class PaymentService
             Db::name('sys_user')->where('user_id',$paylog['user_id'])->inc('money',$charge_order['money']);
             Db::name('log_money')->insert([
                 'user_id'=>$paylog['user_id'],
-                'add_time'=>time(),
                 'log_type'=>1,
                 'up_or_down'=>1,
                 'change_num'=>$charge_order['money'],
@@ -33,7 +32,4 @@ class PaymentService
             ]);
         }
     }
-
-
-
 }

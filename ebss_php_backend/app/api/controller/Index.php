@@ -64,7 +64,6 @@ class Index extends Basic
                 'tel' => $this->param('tel'),
                 'code' => $code,
                 'type' => $this->param('type'),
-                'add_time' => time(),
             ]);
             return $this->success( '短信发送成功');
         } else {

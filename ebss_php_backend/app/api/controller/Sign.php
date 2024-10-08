@@ -12,7 +12,6 @@ class Sign extends Logined
         $yes_sign_record = table('base_sign_record')->where('user_id',$this->user_id)->where('add_date',date('Y-m-d',time()-24*60*60))->find();
         table('base_sign_record')->insert([
             'user_id'=>$this->user_id,
-            'add_time'=>time(),
             'add_date'=>date('Y-m-d'),
             'continuous_day'=>$yes_sign_record?$yes_sign_record['continuous_day']+1:1,
         ]);

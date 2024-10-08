@@ -5,9 +5,6 @@ use app\service\db\BaseDao;
 function table($table){
     return BaseDao::instance($table)->initTable();
 }
-function has($v){
-    return !empty($v);
-}
 function getAliPayOptions($platform=null)
 {
     //开发文档 https://github.com/alipay/alipay-easysdk/tree/0b0f31d7f901b43031531fe241ff1bf0db668fb5/php
