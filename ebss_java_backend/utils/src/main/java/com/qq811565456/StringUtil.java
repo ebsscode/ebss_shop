@@ -1,5 +1,7 @@
 package com.qq811565456;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,27 +13,13 @@ import java.util.List;
  */
 public class StringUtil {
 
+
   public static boolean isEmpty(String str) {
     return (str == null || "".equals(str));
   }
 
   public static boolean has(String str) {
     return !isEmpty(str);
-  }
-
-  public static String capitalize(String str) {
-    if (isEmpty(str)) {
-      return str;
-    }
-    char baseChar = str.charAt(0);
-    char updatedChar;
-    updatedChar = Character.toUpperCase(baseChar);
-    if (baseChar == updatedChar) {
-      return str;
-    }
-    char[] chars = str.toCharArray();
-    chars[0] = updatedChar;
-    return new String(chars, 0, chars.length);
   }
 
   public static <T> String collectionToString(Collection<T> collection, String split) {

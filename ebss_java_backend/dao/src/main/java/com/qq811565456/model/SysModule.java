@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_module")
-public class SysModule implements Serializable {
+@TableName(value = "sys_module",autoResultMap = true)
+public class SysModule extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

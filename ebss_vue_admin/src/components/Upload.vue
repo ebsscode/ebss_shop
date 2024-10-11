@@ -12,7 +12,7 @@
             v-if="files.length<maxCount"
             :showUploadList="false"
             list-type="picture-card"
-            :action="baseURL()+'/api/index/upload'"
+            :action="baseURL()+'/api/file/upload'"
             @change="change"
         >
             <div>

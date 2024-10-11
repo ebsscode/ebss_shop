@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.lang.annotation.Inherited;
 import java.math.BigDecimal;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +21,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_user")
-public class SysUser implements Serializable {
+@TableName(value = "sys_user",autoResultMap = true)
+public class SysUser extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

@@ -14,7 +14,7 @@
         <result column="full_amount" property="fullAmount" />
         <result column="total" property="total" />
         <result column="person_total" property="personTotal" />
-        <result column="goods_ids" property="goodsIds" />
+        <result column="goods_ids" property="goodsIds" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="receive_total" property="receiveTotal" />
         <result column="desc" property="desc" />
         <result column="is_superimposed" property="isSuperimposed" />

@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_test")
-public class SysTest implements Serializable {
+@TableName(value = "sys_test",autoResultMap = true)
+public class SysTest extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

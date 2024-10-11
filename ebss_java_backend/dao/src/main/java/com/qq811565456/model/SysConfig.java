@@ -16,8 +16,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_config")
-public class SysConfig implements Serializable {
+@TableName(value = "sys_config",autoResultMap = true)
+public class SysConfig extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_banner")
-public class BaseBanner implements Serializable {
+@TableName(value = "base_banner",autoResultMap = true)
+public class BaseBanner extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

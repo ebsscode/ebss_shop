@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("shop_groupbuy")
-public class ShopGroupbuy implements Serializable {
+@TableName(value = "shop_groupbuy",autoResultMap = true)
+public class ShopGroupbuy extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

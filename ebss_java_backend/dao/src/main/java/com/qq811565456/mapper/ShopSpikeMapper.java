@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author qq811565456
  * @since 2024-09-19
  */
-public interface ShopSpikeMapper extends BaseMapper<ShopSpike> {
+public interface ShopSpikeMapper extends MyBaseMapper<ShopSpike> {
 
 }

@@ -19,8 +19,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_withdraw")
-public class BaseWithdraw implements Serializable {
+@TableName(value = "base_withdraw",autoResultMap = true)
+public class BaseWithdraw extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

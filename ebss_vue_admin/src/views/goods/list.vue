@@ -58,9 +58,6 @@
             <a-form-item label="上架" name="is_listing" >
               <YesOrNo v-model:value="saveFormData.is_listing"/>
             </a-form-item>
-            <a-form-item label="秒杀" name="is_spike" >
-              <YesOrNo v-model:value="saveFormData.is_spike"/>
-            </a-form-item>
             <a-form-item label="积分商品" name="is_integral" >
               <YesOrNo v-model:value="saveFormData.is_integral"/>
             </a-form-item>
@@ -193,7 +190,7 @@ export default {
   watch: {},
   methods: {
     getLabel() {
-      this.get('/admin/crud/list',{table:'base_label',type:2}).then(({code, paginate}) => {
+      this.post('/admin/crud/list',{table:'base_label',type:2}).then(({code, paginate}) => {
         if (code === 1) {
           this.labels = paginate.data
         }

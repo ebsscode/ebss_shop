@@ -2,7 +2,7 @@ import {http} from '@/http.js'
 import layoutIndex from '@/views/layout.index.vue'
 
 const getPermissions = async () => {
-    let {permissions,role_id, code} = await http('get','/admin/user/permissions')
+    let {permissions,role_id, code} = await http('post','/admin/user/permissions')
     if (code == 1) {
        return permissions
     }else{

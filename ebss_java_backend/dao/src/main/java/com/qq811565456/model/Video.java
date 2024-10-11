@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-public class Video implements Serializable {
+@TableName(value = "video",autoResultMap = true)
+public class Video extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

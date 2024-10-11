@@ -63,7 +63,7 @@ export default {
             })
         },
         async getPermissions() {
-            const {paginate, code} = await this.get('/admin/crud/list', {table: 'sys_permission'})
+            const {paginate, code} = await this.post('/admin/crud/list', {table: 'sys_permission'})
             if (code === 1) {
                 let permissions = paginate.data.filter(i => i.is_show)
                 this.treeData = permissions.map(i => {

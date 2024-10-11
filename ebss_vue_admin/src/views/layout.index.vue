@@ -181,7 +181,7 @@ export default {
           router.push('/')
         },
         getConfigs() {
-            this.get('/admin/config/list').then(({code, configs}) => {
+            this.post('/admin/config/front').then(({code, configs}) => {
                 if (code === 1) {
                     this.configs = configs
                 }
@@ -213,16 +213,16 @@ export default {
           window.location.reload()
         },
         getMch() {
-          this.get('/admin/user/mch_list',{}).then(({code, list}) => {
+          this.post('/admin/user/mch_list',{}).then(({code, list}) => {
             if (code === 1) {
               this.mch_list = list
             }
           })
         },
         getModule() {
-          this.get('/admin/module/list').then(({code, paginate}) => {
+          this.post('/admin/module/list').then(({code, list}) => {
             if (code === 1) {
-              this.module_list = paginate.data
+              this.module_list = list
             }
           })
         },

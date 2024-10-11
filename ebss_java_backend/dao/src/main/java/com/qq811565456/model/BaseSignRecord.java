@@ -19,8 +19,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_sign_record")
-public class BaseSignRecord implements Serializable {
+@TableName(value = "base_sign_record",autoResultMap = true)
+public class BaseSignRecord extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

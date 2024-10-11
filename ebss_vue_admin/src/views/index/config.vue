@@ -21,16 +21,16 @@
           </a-tab-pane>
           <a-tab-pane key="2" tab="数据管理" force-render>
             <a-popconfirm title="清除数据后不可恢复！！！" ok-text="确定" cancel-text="取消" @confirm="clear_data('order')" >
-              <a-button type="danger" style="margin-right: 10px;">清除订单数据</a-button>
+              <a-button danger type="primary" style="margin-right: 10px;">清除订单数据</a-button>
             </a-popconfirm>
             <a-popconfirm title="清除数据后不可恢复！！！" ok-text="确定" cancel-text="取消" @confirm="clear_data('goods')" >
-              <a-button type="danger" style="margin-right: 10px;">清除商品数据</a-button>
+              <a-button danger type="primary" style="margin-right: 10px;">清除商品数据</a-button>
             </a-popconfirm>
             <a-popconfirm
                 title="清除数据后不可恢复！！！"
                 ok-text="确定"
                 cancel-text="取消" @confirm="clear_data('all')" >
-              <a-button type="danger" style="margin-right: 10px;">清除所有数据</a-button>
+              <a-button danger type="primary" style="margin-right: 10px;">清除所有数据</a-button>
             </a-popconfirm>
           </a-tab-pane>
           <a-tab-pane key="3" tab="PC商城" force-render>
@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         getConfigs() {
-            this.get('/admin/config/list').then(({code, configs}) => {
+            this.post('/admin/config/list').then(({code, configs}) => {
                 if (code === 1) {
                     this.saveFormData = configs
                 }

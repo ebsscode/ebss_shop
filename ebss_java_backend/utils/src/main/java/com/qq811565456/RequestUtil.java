@@ -26,21 +26,20 @@ public class RequestUtil {
   }
 
   public static Integer getMchId() {
-//    System.out.println("88:"+getHeaderValue("mch-id"));
-//    System.out.println("99:"+StringUtil.isEmpty(getHeaderValue("mch-id")));
     return StringUtil.isEmpty(getHeaderValue("mch-id"))?null:Integer.parseInt(getHeaderValue("mch-id"));
   }
   public static String getToken() {
     return getHeaderValue("token");
   }
   public static Integer getModuleId() {
-    String s = StringUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("base-module-id"):getHeaderValue("active-module-id");
+    String s = StringUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("base-module-id"):!StringUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("active-module-id"):"1";
     return Integer.valueOf(s);
   }
 
-  /**
-   * 获取ip
-   */
+  public static String getUrl() {
+    HttpServletRequest request = getRequest();
+    return request.getRequestURL().toString();
+  }
   public static String getIp() {
     HttpServletRequest request = getRequest();
     String ip = request.getHeader("J-Forwarded-For");

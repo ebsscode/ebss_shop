@@ -51,7 +51,7 @@ export default {
             this.$emit('update:value', inputValue)
         },
         fetchList() {
-          this.get('/admin/module/list').then(({code, paginate}) => {
+          this.post('/admin/module/list').then(({code, paginate}) => {
             if (code === 1) {
               this.list = paginate.data
             }

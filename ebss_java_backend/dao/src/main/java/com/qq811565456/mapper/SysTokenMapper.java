@@ -15,7 +15,7 @@ import java.util.List;
  * @author qq811565456
  * @since 2024-09-19
  */
-public interface SysTokenMapper extends BaseMapper<SysToken> {
+public interface SysTokenMapper extends MyBaseMapper<SysToken> {
 
 
 }

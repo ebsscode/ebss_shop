@@ -1,10 +1,13 @@
 package com.qq811565456.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
 
+import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +21,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("mch_comment")
-public class MchComment implements Serializable {
+@TableName(value = "mch_comment",autoResultMap = true)
+public class MchComment extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +40,8 @@ public class MchComment implements Serializable {
     /**
      * 评价图片
      */
-    private String imgs;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private List<String> imgs;
 
     /**
      * 评分
@@ -62,5 +66,6 @@ public class MchComment implements Serializable {
     /**
      * 用户
      */
-    private String user;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private SysUser user;
 }

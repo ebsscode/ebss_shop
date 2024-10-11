@@ -10,6 +10,9 @@ class User extends Logined
     public function edit_password()
     {
         CheckService::checkForbidden();
+        if(!$this->param('password')){
+            return $this->success('密码不能为空！');
+        }
         table('sys_user')->where('user_id',$this->user_id)->update([
             'password' => md5($this->param('password')),
         ]);

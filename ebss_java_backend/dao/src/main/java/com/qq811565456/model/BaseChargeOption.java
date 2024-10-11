@@ -19,8 +19,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_charge_option")
-public class BaseChargeOption implements Serializable {
+@TableName(value = "base_charge_option",autoResultMap = true)
+public class BaseChargeOption extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

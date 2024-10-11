@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_token")
-public class SysToken implements Serializable {
+@TableName(value = "sys_token",autoResultMap = true)
+public class SysToken extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

@@ -19,8 +19,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("log_usage")
-public class LogUsage implements Serializable {
+@TableName(value = "log_usage",autoResultMap = true)
+public class LogUsage extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

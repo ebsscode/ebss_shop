@@ -4,14 +4,23 @@ import router from "@/route/index";
 
 const mode = import.meta.env.MODE
 const baseURL = () =>{
-	if(mode=='development'){
+	if(mode=='php'){
 		return 'https://h.vivivi.club'
 	}
-	if(mode=='demo'){
-		return 'https://ebss.vivivi.club'
+	if(mode=='java'){
+		return 'http://localhost:8050'
 	}
-	if(mode=='production'){
-		return 'https://h.vivivi.club'
+	if(mode=='java_prod'){
+		return ''
+	}
+	if(mode=='php_prod'){
+		return ''
+	}
+	if(mode=='java_demo'){
+		return 'https://ebss-java.vivivi.club'
+	}
+	if(mode=='php_demo'){
+		return 'https://ebss-php.vivivi.club'
 	}
 }
 const staticURL = () => {
@@ -60,7 +69,7 @@ const http = (method = 'get', url, param,options={}) => {
 			'token': localStorage.getItem('token') || '',
 			'user-id': localStorage.getItem('user_id') || '',
 			'mch-id': localStorage.getItem('mch_id') || '',
-			'base-module-id': localStorage.getItem('base_module_id') || '',
+			'base-module-id': localStorage.getItem('base_module_id') || 1,
 			'active-module-id': options.module_id || '',
 			'platform': 'admin',
 		},

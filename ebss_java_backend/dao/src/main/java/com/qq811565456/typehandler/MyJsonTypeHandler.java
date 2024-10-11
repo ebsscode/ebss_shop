@@ -24,7 +24,6 @@ public class MyJsonTypeHandler<T> extends BaseTypeHandler<T> {
     }
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
-//        System.out.println("11:");
         String content = null;
         try {
             content = objectMapper.writeValueAsString(parameter);
@@ -37,25 +36,21 @@ public class MyJsonTypeHandler<T> extends BaseTypeHandler<T> {
     @Override
     public T getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String jsonString = rs.getString(columnName);
-//        System.out.println("22:"+objToString(jsonString));
         return objToString(jsonString);
     }
 
     @Override
     public T getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-//        System.out.println("33:");
         String jsonString = rs.getString(columnIndex);
         return objToString(jsonString);
     }
 
     @Override
     public T getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-//        System.out.println("44:");
         String jsonString = cs.getString(columnIndex);
         return objToString(jsonString);
     }
     private T objToString(String jsonString) {
-//        System.out.println("type:"+type);
         T result = null;
         try {
             result = objectMapper.readValue(jsonString,type);

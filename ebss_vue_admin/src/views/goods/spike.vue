@@ -104,7 +104,7 @@ export default {
     computed: {},
     components: {},
     created() {
-      this.get('/admin/crud/list', {table: 'shop_goods', is_spike: 1,is_listing: 1 }).then(({code,paginate}) => {
+      this.post('/admin/crud/list', {table: 'shop_goods', is_spike: 1,is_listing: 1 }).then(({code,paginate}) => {
         if (code === 1) {
           this.goods=paginate.data;
         }

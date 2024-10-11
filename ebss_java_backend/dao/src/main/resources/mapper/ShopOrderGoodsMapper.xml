@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.qq811565456.model.ShopOrderGoods">
         <id column="order_goods_id" property="orderGoodsId" />
-        <result column="goods" property="goods" />
+        <result column="goods" property="goods" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="selected_spec" property="selectedSpec" />
         <result column="amount" property="amount" />
         <result column="mch" property="mch" />

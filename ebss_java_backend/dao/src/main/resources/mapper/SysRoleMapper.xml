@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.qq811565456.model.SysRole">
         <id column="role_id" property="roleId" />
         <result column="role_name" property="roleName" />
-        <result column="permission_ids" property="permissionIds" />
+        <result column="permission_ids" property="permissionIds" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
     </resultMap>
 
 </mapper>

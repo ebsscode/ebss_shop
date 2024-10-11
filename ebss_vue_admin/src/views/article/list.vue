@@ -59,7 +59,7 @@ export default {
                 }, {
                     title: '类型',
                     key: `article_category_id`,
-                    dataIndex: [`article_category`, 'name'], // 获取 article_category.name
+                    dataIndex: [`base_article_category`, 'name'], // 获取 article_category.name
                 }, {
                     title: '封面图片',
                     key: 'cover_img',

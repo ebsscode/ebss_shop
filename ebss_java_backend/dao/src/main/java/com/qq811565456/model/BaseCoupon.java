@@ -1,11 +1,14 @@
 package com.qq811565456.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +22,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_coupon")
-public class BaseCoupon implements Serializable {
+@TableName(value = "base_coupon",autoResultMap = true)
+public class BaseCoupon extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -78,7 +81,9 @@ public class BaseCoupon implements Serializable {
     /**
      * 可用商品
      */
-    private String goodsIds;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private List<Integer> goodsIds;
+
 
     /**
      * 已领取张数

@@ -13,7 +13,7 @@
         <result column="type" property="type" />
         <result column="busi_table_id" property="busiTableId" />
         <result column="notify_pay_money" property="notifyPayMoney" />
-        <result column="nofity_data" property="nofityData" />
+        <result column="nofity_data" property="nofityData" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="pay_order_sn" property="payOrderSn" />
         <result column="desc" property="desc" />
     </resultMap>

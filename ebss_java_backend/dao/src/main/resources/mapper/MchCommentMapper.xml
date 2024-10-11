@@ -6,12 +6,12 @@
     <resultMap id="BaseResultMap" type="com.qq811565456.model.MchComment">
         <id column="comment_mch_id" property="commentMchId" />
         <result column="content" property="content" />
-        <result column="imgs" property="imgs" />
+        <result column="imgs" property="imgs" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="rate" property="rate" />
         <result column="user_id" property="userId" />
         <result column="mch_id" property="mchId" />
         <result column="add_time" property="addTime" />
-        <result column="user" property="user" />
+        <result column="user" property="user" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
     </resultMap>
 
 </mapper>

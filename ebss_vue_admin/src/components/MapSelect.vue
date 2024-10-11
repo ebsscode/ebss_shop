@@ -111,7 +111,7 @@ export default {
                     longitude: this.value.longitude,
                 }
             } else {
-                let location = await this.get('/index/location/ip_info')
+                let location = await this.post('/index/location/ip_info')
                 if (location.code === 1) {
                     this.location = location
                     latlng = {

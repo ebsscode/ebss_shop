@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author qq811565456
  * @since 2024-09-19
  */
-public interface SysModuleMapper extends BaseMapper<SysModule> {
+public interface SysModuleMapper extends MyBaseMapper<SysModule> {
 
 }

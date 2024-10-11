@@ -4,6 +4,7 @@ use app\Basic;
 use app\Logined;
 use app\service\system\CheckService;
 use app\service\system\ConfigsService;
+use app\service\user\UserService;
 use \think\facade\Db;
 class Config extends Basic
 {
@@ -20,8 +21,15 @@ class Config extends Basic
     }
     public function list()
     {
+        UserService::checkLogin();
         return $this->success('请求成功！',[
             'configs'=>ConfigsService::getAll(),
+        ]);
+    }
+    public function front()
+    {
+        return $this->success('请求成功！',[
+            'configs'=>ConfigsService::getFront(),
         ]);
     }
 }

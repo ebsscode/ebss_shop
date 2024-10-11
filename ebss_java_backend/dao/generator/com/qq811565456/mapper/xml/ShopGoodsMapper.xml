@@ -20,7 +20,6 @@
         <result column="is_listing" property="isListing" />
         <result column="is_integral" property="isIntegral" />
         <result column="integral" property="integral" />
-        <result column="is_spike" property="isSpike" />
         <result column="view_count" property="viewCount" />
         <result column="sale_count" property="saleCount" />
         <result column="labels" property="labels" />

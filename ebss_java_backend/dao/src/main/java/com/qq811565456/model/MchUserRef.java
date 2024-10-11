@@ -17,8 +17,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("mch_user_ref")
-public class MchUserRef implements Serializable {
+@TableName(value = "mch_user_ref",autoResultMap = true)
+public class MchUserRef extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

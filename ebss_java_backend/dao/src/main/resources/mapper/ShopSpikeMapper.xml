@@ -8,7 +8,7 @@
         <result column="start_at" property="startAt" />
         <result column="end_at" property="endAt" />
         <result column="time_type" property="timeType" />
-        <result column="goods_ids" property="goodsIds" />
+        <result column="goods_ids" property="goodsIds" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="name" property="name" />
         <result column="add_time" property="addTime" />
         <result column="cover_img" property="coverImg" />

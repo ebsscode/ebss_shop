@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_permission")
-public class SysPermission implements Serializable {
+@TableName(value = "sys_permission",autoResultMap = true)
+public class SysPermission extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

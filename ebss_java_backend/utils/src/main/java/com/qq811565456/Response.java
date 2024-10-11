@@ -16,6 +16,11 @@ public class Response extends HashMap<String,Object> implements Serializable
         return restResult(MessageCode.SUCCESS,null,null);
     }
 
+    public static  Response ok(String msg)
+    {
+        return restResult(MessageCode.SUCCESS, msg,null);
+    }
+
     public static Response ok(Map<String,Object> data)
     {
         return restResult(MessageCode.SUCCESS,null,data);
@@ -67,9 +72,11 @@ public class Response extends HashMap<String,Object> implements Serializable
         apiResult.put("code",messageCode.getCode());
         apiResult.put("msg",StringUtil.isEmpty(msg)?messageCode.getMsg():msg);
 
-        data.forEach((key,value)->{
-            apiResult.put(key,value);
-        });
+        if(data!=null){
+            data.forEach((key,value)->{
+                apiResult.put(key,value);
+            });
+        }
         return apiResult;
     }
 

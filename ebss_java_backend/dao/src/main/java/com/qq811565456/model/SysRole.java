@@ -1,10 +1,13 @@
 package com.qq811565456.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
 
+import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +21,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_role")
-public class SysRole implements Serializable {
+@TableName(value = "sys_role",autoResultMap = true)
+public class SysRole extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,5 +40,6 @@ public class SysRole implements Serializable {
     /**
      * 权限ID,JSON
      */
-    private String permissionIds;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private List<Integer> permissionIds;
 }

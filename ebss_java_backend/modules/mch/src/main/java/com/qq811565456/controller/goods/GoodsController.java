@@ -2,6 +2,7 @@ package com.qq811565456.controller.goods;
 
 
 import cn.hutool.json.JSONObject;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.qq811565456.Response;
 import com.qq811565456.aop.annotation.WebApi;
 import com.qq811565456.config.MyPage;
@@ -25,7 +26,7 @@ public class GoodsController {
     @WebApi
     @PostMapping("list")
     public Response list(@RequestBody JSONObject params) {
-        MyPage<ShopGoods> paginate = shopGoodsMapper.selectMyPage(sqlService.toPage(params,ShopGoods.class), sqlService.ParamToWhere(params,ShopGoods.class));
+        MyPage<ShopGoods> paginate = shopGoodsMapper.selectMyPage(sqlService.toPage(params), sqlService.ParamToWhere(params,ShopGoods.class));
         return Response.ok(Map.of("paginate",paginate));
     }
 

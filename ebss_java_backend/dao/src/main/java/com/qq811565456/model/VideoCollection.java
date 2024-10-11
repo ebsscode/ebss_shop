@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("video_collection")
-public class VideoCollection implements Serializable {
+@TableName(value = "video_collection",autoResultMap = true)
+public class VideoCollection extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

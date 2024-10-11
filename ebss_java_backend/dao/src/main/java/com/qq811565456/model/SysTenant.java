@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_tenant")
-public class SysTenant implements Serializable {
+@TableName(value = "sys_tenant",autoResultMap = true)
+public class SysTenant extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

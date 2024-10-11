@@ -9,9 +9,9 @@ class Module extends Basic
     private $table = 'sys_module';
     public function list()
     {
-        $paginate = table($this->table)->paginate($this->param('limit'));
+        $list = table($this->table)->select();
         return $this->success('请求成功',[
-            'paginate'=>$paginate,
+            'list'=>$list,
         ]);
     }
 }

@@ -2,10 +2,12 @@
     "name": "ebss_admin_qq811565456",
     "version": "1.0.0",
     "scripts": {
-        "dev": "vite --mode development",
-        "build:prod": "vite build --mode production",
-        "build:dev": "vite build --mode development",
-        "build:demo": "vite build --mode demo"
+        "php": "vite --mode php",
+        "java": "vite --mode java",
+        "build:java_prod": "vite build --mode java_prod",
+        "build:php_prod": "vite build --mode php_prod",
+        "build:java_demo": "vite build --mode java_demo",
+        "build:php_demo": "vite build --mode php_demo"
     },
     "dependencies": {
         "@antv/g2": "^5.2.5",

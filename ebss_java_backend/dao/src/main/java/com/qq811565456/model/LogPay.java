@@ -1,11 +1,15 @@
 package com.qq811565456.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +23,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("log_pay")
-public class LogPay implements Serializable {
+@TableName(value = "log_pay",autoResultMap = true)
+public class LogPay extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,7 +77,8 @@ public class LogPay implements Serializable {
     /**
      * 回调数据，json
      */
-    private String nofityData;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private JsonNode nofityData;
 
     /**
      * 支付订单号

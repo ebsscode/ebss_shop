@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author qq811565456
  * @since 2024-09-19
  */
-public interface BaseWithdrawMapper extends BaseMapper<BaseWithdraw> {
+public interface BaseWithdrawMapper extends MyBaseMapper<BaseWithdraw> {
 
 }

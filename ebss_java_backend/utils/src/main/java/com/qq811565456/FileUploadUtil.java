@@ -68,9 +68,7 @@ public class FileUploadUtil
      * @throws FileSizeLimitExceededException 如果超出最大大小
      * @throws IOException 比如读写文件出错时
      */
-    public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension)
-            throws FileSizeLimitExceededException, IOException
-
+    public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension) throws IOException
     {
         int fileNamelength = Objects.requireNonNull(file.getOriginalFilename()).length();
         if (fileNamelength > DEFAULT_FILE_NAME_LENGTH)
@@ -84,7 +82,7 @@ public class FileUploadUtil
 
         String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
         file.transferTo(Paths.get(absPath));
-        return getPathFileName(fileName);
+        return fileName;
     }
 
     /**
@@ -93,7 +91,7 @@ public class FileUploadUtil
     public static final String extractFilename(MultipartFile file)
     {
         String ext = FileNameUtil.extName(file.getOriginalFilename());
-        return String.format("{}/{}.{}", "张三", DateUtil.formatDateToNumberDate(new Date()), IdUtil.randomUUID(), ext);
+        return String.format("%s/%s.%s", DateUtil.formatDateToNumberDate(new Date()), IdUtil.simpleUUID(), ext);
     }
 
     private static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException
@@ -108,12 +106,6 @@ public class FileUploadUtil
             }
         }
         return desc.isAbsolute() ? desc : desc.getAbsoluteFile();
-    }
-
-    private static final String getPathFileName(String fileName) throws IOException
-    {
-        String pathFileName = "/" + fileName;
-        return pathFileName;
     }
 
     /**

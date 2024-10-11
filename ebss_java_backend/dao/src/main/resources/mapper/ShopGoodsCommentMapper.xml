@@ -6,10 +6,10 @@
     <resultMap id="BaseResultMap" type="com.qq811565456.model.ShopGoodsComment">
         <id column="comment_goods_id" property="commentGoodsId" />
         <result column="content" property="content" />
-        <result column="imgs" property="imgs" />
+        <result column="imgs" property="imgs" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="rate" property="rate" />
         <result column="user_id" property="userId" />
-        <result column="user" property="user" />
+        <result column="user" property="user" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="goods_id" property="goodsId" />
         <result column="add_time" property="addTime" />
     </resultMap>

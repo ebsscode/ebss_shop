@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("sys_debug")
-public class SysDebug implements Serializable {
+@TableName(value = "sys_debug",autoResultMap = true)
+public class SysDebug extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

@@ -22,7 +22,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "shop_order",autoResultMap = true)
-public class ShopOrder implements Serializable {
+public class ShopOrder extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 

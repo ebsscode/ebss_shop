@@ -23,7 +23,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "shop_goods",autoResultMap = true)
-public class ShopGoods implements Serializable {
+public class ShopGoods extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -108,11 +108,6 @@ public class ShopGoods implements Serializable {
      * 返还多少积分
      */
     private Integer integral;
-
-    /**
-     * 是否秒杀商品
-     */
-    private Integer isSpike;
 
     /**
      * 浏览量

@@ -1,11 +1,11 @@
 package com.qq811565456.controller.order;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.qq811565456.NumberUtil;
-import com.qq811565456.ObjectUtil;
 import com.qq811565456.Response;
 import com.qq811565456.StringUtil;
 import com.qq811565456.aop.annotation.WebApi;
@@ -13,6 +13,7 @@ import com.qq811565456.config.MyPage;
 import com.qq811565456.mapper.ShopOrderMapper;
 import com.qq811565456.model.ShopGoods;
 import com.qq811565456.model.ShopOrder;
+import com.qq811565456.service.MyQueryWrapper;
 import com.qq811565456.service.SqlService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +35,11 @@ public class OrderController {
     @WebApi
     @PostMapping("list")
     public Response list(@RequestBody JSONObject params, HttpServletRequest request) {
-        QueryWrapper<ShopOrder> where = Wrappers.query();
-        if(ObjectUtil.has(params.get("status"))){
+        MyQueryWrapper<ShopOrder> where = new MyQueryWrapper<>(ShopOrder.class);
+        if(!ObjectUtil.isEmpty(params.get("status"))){
             where.and(j -> j.eq("status", params.get("status")));
         }
-        if(ObjectUtil.has(params.get("keyword"))){
+        if(!ObjectUtil.isEmpty(params.get("keyword"))){
             where.and(i -> i.
                 like("order_sn",params.get("keyword")).or().
                 like("tel",params.get("keyword")).or().
@@ -52,7 +53,7 @@ public class OrderController {
 
         log.info("data:{}",params.get("status"));
 
-        MyPage<ShopOrder> paginate = shopOrderMapper.selectMyPage(sqlService.toPage(params,ShopOrder.class), where);
+        MyPage<ShopOrder> paginate = shopOrderMapper.selectMyPage(sqlService.toPage(params), where);
         return Response.ok(Map.of("paginate",paginate));
     }
 

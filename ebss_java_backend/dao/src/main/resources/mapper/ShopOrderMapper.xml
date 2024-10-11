@@ -27,9 +27,4 @@
         <result column="add_time" property="addTime" />
         <result column="add_date" property="addDate" />
     </resultMap>
-    <select id="selectMyPage" resultMap="BaseResultMap">
-        select * from shop_order ${ew.customSqlSegment}
-    </select>
-
-
 </mapper>

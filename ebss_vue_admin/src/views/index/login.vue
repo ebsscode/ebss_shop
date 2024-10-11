@@ -32,7 +32,7 @@ export default {
       await this.getConfigs()
       let token = localStorage.getItem('token')
       if(token){
-        this.get('/admin/user/user_info').then(({code, user_info}) => {
+        this.post('/admin/user/user_info').then(({code, user_info}) => {
           if (code === 1) {
             localStorage.setItem('username', user_info.nickname||user_info.username)
             router.replace('/home')
@@ -45,7 +45,7 @@ export default {
     },
     methods: {
       async getConfigs() {
-        const {code,configs} = await this.get('/admin/config/list')
+        const {code,configs} = await this.post('/admin/config/front')
         if(code==1){
           this.configs = configs
         }

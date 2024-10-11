@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.qq811565456.config.MyPage;
 import com.qq811565456.model.ShopGoods;
+import com.qq811565456.model.ShopOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
@@ -21,7 +22,7 @@ import java.util.Map;
 @Slf4j
 public class SqlService<T> {
 
-    public MyPage<T> toPage(JSONObject params,Class<T> type){
+    public MyPage<T> toPage(JSONObject params){
         long page = 1;
         long limit = 10;
         if( null!=params.get("page")){
@@ -33,9 +34,11 @@ public class SqlService<T> {
         MyPage<T> myPage = new MyPage<>(page,limit);
         return myPage;
     }
-    public QueryWrapper<T> ParamToWhere(JSONObject params,Class<T> type){
+    public MyQueryWrapper<T> ParamToWhere(JSONObject params,Class<T> type){
 //        log.info("params:{}",params);
-        QueryWrapper<T> where = Wrappers.query();
+//        MyQueryWrapper<T> where = Wrappers.query();
+
+        MyQueryWrapper<T> where = new MyQueryWrapper<>(type);
 
         List<String> paramNames = new ArrayList<>();
         params.forEach((k,v)->{

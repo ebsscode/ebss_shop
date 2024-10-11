@@ -194,11 +194,13 @@ export default {
       })
     },
     tableChange(pagination, filters, sorter, {currentDataSource}) {
-      // console.log(2222,sorter,has(sorter))
-      if(has(sorter)){
+      // console.log(2222,sorter)
+      if(has(sorter)&&sorter.order){
         this.sort = [{
           [sorter.field]:sorter.order=='ascend'?'asc':'desc'
         }]
+      }else{
+        this.sort = []
       }
       this.pagination = {...this.pagination, ...pagination};
       this.getData()

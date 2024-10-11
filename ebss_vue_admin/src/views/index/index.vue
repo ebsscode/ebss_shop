@@ -10,7 +10,7 @@ export default {
       if(!token){
         router.push('/login')
       }else{
-        let {code, user_info} = await this.get('/admin/user/user_info')
+        let {code, user_info} = await this.post('/admin/user/user_info')
         if(code == 1){
           localStorage.setItem('username', user_info.username)
           router.push('/home')

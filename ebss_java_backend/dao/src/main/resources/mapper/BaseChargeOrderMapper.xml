@@ -8,7 +8,7 @@
         <result column="order_sn" property="orderSn" />
         <result column="add_time" property="addTime" />
         <result column="user_id" property="userId" />
-        <result column="charge_option" property="chargeOption" />
+        <result column="charge_option" property="chargeOption" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="pay_money" property="payMoney" />
         <result column="is_pay" property="isPay" />
         <result column="money" property="money" />

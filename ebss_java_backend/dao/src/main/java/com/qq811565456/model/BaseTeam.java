@@ -18,8 +18,8 @@ import lombok.Setter;
  * @since 2024-09-19
  */
 @Data
-@TableName("base_team")
-public class BaseTeam implements Serializable {
+@TableName(value = "base_team",autoResultMap = true)
+public class BaseTeam extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
