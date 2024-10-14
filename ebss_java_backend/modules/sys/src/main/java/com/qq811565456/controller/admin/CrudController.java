@@ -1,12 +1,11 @@
 package com.qq811565456.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.DynaBean;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,7 +16,6 @@ import com.qq811565456.*;
 import com.qq811565456.aop.annotation.WebApi;
 import com.qq811565456.config.MyPage;
 import com.qq811565456.mapper.MyBaseMapper;
-import com.qq811565456.mapper.SysUserMapper;
 import com.qq811565456.model.BaseModel;
 import com.qq811565456.model.ShopGoods;
 import com.qq811565456.model.ShopOrder;
@@ -26,9 +24,7 @@ import com.qq811565456.service.CrudService;
 import com.qq811565456.service.MyQueryWrapper;
 import com.qq811565456.service.SqlService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -51,7 +46,7 @@ public class CrudController {
 
     @PostMapping("list")
     @WebApi
-    public Response list(@RequestBody JSONObject params) throws Exception {
+    public Response list(@RequestBody JSONObject params) {
         String table = toTable(params);
         List<String> joinTables = toJoinTables(params);
         List<Map<String,String>> sortList = toSort(params);
@@ -83,7 +78,7 @@ public class CrudController {
                 where.orderByAsc("add_time");
             }
         }
-        if(!CollectionUtil.isEmpty((List<Integer>) params.get("table_ids"))){
+        if(!CollUtil.isEmpty((List<Integer>) params.get("table_ids"))){
             where.in(table_key,params.get("table_ids"));
         }
         if(Objects.equals(table, "shop_order")){
@@ -126,7 +121,7 @@ public class CrudController {
             paginate.setData(data);
         }
 
-        return Response.ok(Map.of("paginate",paginate,"table_key",table_key));
+        return Response.ok(Map.of("paginate",paginate,"table_key",table_key,"where",where.getExpression().getSqlSegment()));
     }
 
     @PostMapping("save")
@@ -134,8 +129,10 @@ public class CrudController {
     public Response save(@RequestBody JSONObject params){
         String table = toTable(params);
         MyBaseMapper myBaseMapper = crudService.tableToMapper(table);
-        BaseModel model = params.toBean(crudService.tableToModel(table).getClass());
+        BaseModel model = (BaseModel) params.toBean(crudService.tableToModel(table).getClass());
         List<String> filedList = SqlHelper.table(model.getClass()).getFieldList().stream().map(TableFieldInfo::getColumn).toList();
+        String table_key = SqlHelper.table(model.getClass()).getKeyColumn();
+        Integer table_id = (Integer)ReflectUtil.getFieldValue(model, StrUtil.toCamelCase(table_key));
 
         if(ObjectUtil.equals("sys_module",table)&&!ObjectUtil.isEmpty(RequestUtil.getModuleId())&&filedList.contains("module_id")){
             ReflectUtil.setFieldValue(model,"module_id",RequestUtil.getModuleId());
@@ -145,10 +142,9 @@ public class CrudController {
                 ReflectUtil.setFieldValue(model,"mch_id",RequestUtil.getMchId());
             }
         }
-
-
+        log.info("model:{},{},{}",model);
         myBaseMapper.insertOrUpdate(model);
-        return Response.ok();
+        return Response.ok(ObjectUtil.isEmpty(table_id)?"新增成功":"更新成功");
     }
 
     @PostMapping("detail")
@@ -185,7 +181,7 @@ public class CrudController {
     public Response delete(@RequestBody JSONObject params){
         String table = toTable(params);
         MyBaseMapper myBaseMapper = crudService.tableToMapper(table);
-        BaseModel model = params.toBean(crudService.tableToModel(table).getClass());
+        BaseModel model = (BaseModel) params.toBean(crudService.tableToModel(table).getClass());
 
         List<Integer> table_ids = (List<Integer>) params.get("table_ids");
         table_ids.forEach(table_id->{

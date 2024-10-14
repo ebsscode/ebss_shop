@@ -1,5 +1,6 @@
 package com.qq811565456;
 
+import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -26,13 +27,13 @@ public class RequestUtil {
   }
 
   public static Integer getMchId() {
-    return StringUtil.isEmpty(getHeaderValue("mch-id"))?null:Integer.parseInt(getHeaderValue("mch-id"));
+    return StrUtil.isEmpty(getHeaderValue("mch-id"))?null:Integer.parseInt(getHeaderValue("mch-id"));
   }
   public static String getToken() {
     return getHeaderValue("token");
   }
   public static Integer getModuleId() {
-    String s = StringUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("base-module-id"):!StringUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("active-module-id"):"1";
+    String s = StrUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("base-module-id"):!StrUtil.isEmpty(getHeaderValue("active-module-id"))?getHeaderValue("active-module-id"):"1";
     return Integer.valueOf(s);
   }
 

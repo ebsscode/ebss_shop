@@ -11,7 +11,9 @@ import java.util.List;
 import com.qq811565456.model.dto.ShopGoodsSpec;
 import com.qq811565456.model.meta.NameMeta;
 import com.qq811565456.typehandler.MyJsonTypeHandler;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -62,7 +64,7 @@ public class ShopGoods extends BaseModel {
      * 图片
      */
     @TableField(typeHandler = MyJsonTypeHandler.class)
-    private List<NameMeta> imglist;
+    private List<String> imglist;
 
     /**
      * 内容

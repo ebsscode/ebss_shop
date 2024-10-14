@@ -10,9 +10,6 @@ class Order extends Logined
     private $table='shop_order';
     public function create(){
         $goods_list = $this->param('goods_list');
-
-
-
         $price_total = $this->param('price_total')+$this->param('freight')-$this->param('discount');
         $order_id = table($this->table)->insertGetId([
             'user_id'=>$this->user_id,

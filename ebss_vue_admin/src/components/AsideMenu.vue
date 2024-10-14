@@ -88,13 +88,11 @@ export default {
 <style scoped lang="less">
 .AsideMenu {
     overflow-y: scroll;
-    height: calc(100vh - 40px);
+    height: calc(100vh - @top-bar-height);
     flex-shrink: 0;
   .QQ811565456{
     font-size: 16px;
-
   }
-
 }
 </style>
 <style lang="less">

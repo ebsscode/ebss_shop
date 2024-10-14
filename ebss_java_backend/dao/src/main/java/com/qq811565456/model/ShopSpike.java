@@ -68,5 +68,6 @@ public class ShopSpike extends BaseModel {
     /**
      * 描述
      */
+    @TableField(value = "`desc`")
     private String desc;
 }

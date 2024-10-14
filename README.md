@@ -5,8 +5,10 @@
 #### 演示与说明
 |  项目   | 演示地址 | 说明 |
 |  :----:  | :----:  | :----:|
-| 前端H5  | https://ebss.vivivi.club/h5| 前端H5、小程序和APP端效果一致，请用移动端打开 |
-| PC端后台管理  | 	https://ebss.vivivi.club/admin| 已完成 |
+| PC端官网-关于EBS介绍  | https://ebss.vivivi.club/web| 前端H5、小程序和APP端效果一致，请用移动端打开 |
+| 前端H5  | ![](doc/ebss_mobile.png)| 前端H5、小程序和APP端效果一致，请扫码打开 |
+| PC端后台管理-JAVA版  | 	https://ebss-java.vivivi.club| 已完成 |
+| PC端后台管理-PHP版  | 	https://ebss-php.vivivi.club/admin| 已完成 |
 | PC端商城  | https://ebss.vivivi.club/shop| 开发中 |
 
 

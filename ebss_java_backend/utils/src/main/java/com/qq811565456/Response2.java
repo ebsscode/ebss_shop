@@ -1,4 +1,6 @@
 package com.qq811565456;
+import cn.hutool.core.util.StrUtil;
+
 import java.io.Serializable;
 
 /**
@@ -71,7 +73,7 @@ public class Response2<T> implements Serializable
         Response2<T> apiResult = new Response2<>();
         apiResult.setCode(messageCode.getCode());
         apiResult.setData(data);
-        apiResult.setMsg(StringUtil.isEmpty(msg)?messageCode.getMsg():msg);
+        apiResult.setMsg(StrUtil.isEmpty(msg)?messageCode.getMsg():msg);
         return apiResult;
     }
 

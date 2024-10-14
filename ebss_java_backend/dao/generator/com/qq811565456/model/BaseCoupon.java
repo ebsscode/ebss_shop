@@ -87,6 +87,7 @@ public class BaseCoupon implements Serializable {
     /**
      * 使用说明
      */
+    @TableField(value = "`desc`")
     private String desc;
 
     /**

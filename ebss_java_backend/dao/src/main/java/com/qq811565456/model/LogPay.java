@@ -88,5 +88,6 @@ public class LogPay extends BaseModel {
     /**
      * 支付描述
      */
+    @TableField(value = "`desc`")
     private String desc;
 }

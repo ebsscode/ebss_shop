@@ -58,6 +58,7 @@ public class ShopGroupbuy implements Serializable {
     /**
      * 描述
      */
+    @TableField(value = "`desc`")
     private String desc;
 
     /**

@@ -21,6 +21,7 @@ public class FileUploadUtil
      * 默认大小 50M
      */
     public static final long DEFAULT_MAX_SIZE = 50 * 1024 * 1024L;
+    public static final String UPLOAD_DIR = "upload";
     public static final String[] DEFAULT_ALLOWED_EXTENSION = {
             // 图片
             "bmp", "gif", "jpg", "jpeg", "png",
@@ -91,7 +92,7 @@ public class FileUploadUtil
     public static final String extractFilename(MultipartFile file)
     {
         String ext = FileNameUtil.extName(file.getOriginalFilename());
-        return String.format("%s/%s.%s", DateUtil.formatDateToNumberDate(new Date()), IdUtil.simpleUUID(), ext);
+        return String.format("%s/%s/%s.%s", UPLOAD_DIR,DateUtil.formatDateToNumberDate(new Date()), IdUtil.simpleUUID(), ext);
     }
 
     private static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException

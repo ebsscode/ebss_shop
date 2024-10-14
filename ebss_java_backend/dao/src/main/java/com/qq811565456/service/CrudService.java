@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class CrudService<T> {
+public class CrudService<K>  {
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -23,21 +23,25 @@ public class CrudService<T> {
         return model_name;
     }
 
-
-    public BaseModel tableToModel(String table_name,Object... params){
+    public <T> T tableToModel(String table_name){
         String model_name =tableToModelName(table_name);
-        Class<?> entity = ClassLoaderUtil.loadClass("com.qq811565456.model." + model_name);
-        BaseModel entityInstance = (BaseModel) ReflectUtil.newInstance(entity,params);
+        Class<T> entity = (Class<T>) ClassLoaderUtil.loadClass("com.qq811565456.model." + model_name);
+        T entityInstance =  ReflectUtil.newInstance(entity);
         log.info("entityInstance:{}",entityInstance);
         return entityInstance;
     }
 
-    public MyBaseMapper<T> tableToMapper(String table_name){
-        Object model_name = tableToModelName(table_name);
+    public MyBaseMapper<K> tableToMapper(String table_name){
+        String model_name = tableToModelName(table_name);
         Class<?> mapper = ClassLoaderUtil.loadClass("com.qq811565456.mapper."+model_name+"Mapper");
-        MyBaseMapper<T> mapperInstance = (MyBaseMapper<T>) applicationContext.getBean(mapper);
+        MyBaseMapper<K> mapperInstance = (MyBaseMapper<K>) applicationContext.getBean(mapper);
+        log.info("mapperInstance:{}",mapperInstance);
+        return mapperInstance;
+    }
 
-//        MyBaseMapper<?> mapperInstance = (MyBaseMapper<?>) applicationContext.getBean(mapper);
+    public MyBaseMapper<K> modelToMapper(K model){
+        Class<K> mapper = (Class<K>) ClassLoaderUtil.loadClass("com.qq811565456.mapper."+model.getClass().getName()+"Mapper");
+        MyBaseMapper<K> mapperInstance = (MyBaseMapper<K>) applicationContext.getBean(mapper);
         log.info("mapperInstance:{}",mapperInstance);
         return mapperInstance;
     }

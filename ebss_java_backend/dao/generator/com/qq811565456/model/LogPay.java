@@ -82,5 +82,6 @@ public class LogPay implements Serializable {
     /**
      * 支付描述
      */
+    @TableField(value = "`desc`")
     private String desc;
 }

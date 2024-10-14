@@ -69,12 +69,14 @@
               <AsideMenu :menus="menus" />
             </a-layout-sider>
             <!-- todo... 按标签页打开和关闭页面-->
-            <a-layout-content :style="{padding: '5px'}">
+            <a-layout-content class="layout-content" :style="{padding: '0 5px 5px 5px'}">
 <!--              <a-tabs v-model:activeKey="activeKey" type="editable-card" @edit="onEdit" hide-add>-->
 <!--                <a-tab-pane v-for="(pane,i) in panes" :key="i" :tab="pane.title" :closable="pane.closable">-->
 
 <!--                </a-tab-pane>-->
 <!--              </a-tabs>-->
+
+
               <router-view/>
             </a-layout-content>
           </a-layout>
@@ -239,21 +241,29 @@ export default {
     }
   }
 }
-
+.layout-content {
+  overflow-y: scroll;
+  height: calc(100vh - @top-bar-height);
+  flex-shrink: 0;
+}
 </style>
 <style lang="less" scoped>
 .admin-content {
     .header {
-        @header-font-size: 18px;
-        height: 40px;
+        position: sticky;
+        top: 0;
+        left: 0;
+
+        height: @top-bar-height;
         background: linear-gradient(to left, #7b4397, #2196f3);
         border-radius: 0;
-        font-size: @header-font-size;
+        font-size: 18px;
         .system-name {
             padding-left: 20px;
             color: #ffffff;
             font-weight: 600;
         }
     }
+
 }
 </style>

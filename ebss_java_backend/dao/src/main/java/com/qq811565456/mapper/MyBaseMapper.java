@@ -26,14 +26,7 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
     @Select("select * from ${ew.tableName} ${ew.customSqlSegment}")
     MyPage<T> selectMyPage(MyPage<?> page, @Param(Constants.WRAPPER) MyQueryWrapper<T> wrapper);
 
-
-
-
     @ResultMap("BaseResultMap")
     @Select("select * from ${tableName}")
     List<T> selectALL(@Param("tableName") String tableName);
-
-    @Delete("truncate ${tableName}")
-    void cleatTable(@Param("tableName") String tableName);
-
 }

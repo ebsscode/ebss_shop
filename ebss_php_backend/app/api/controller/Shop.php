@@ -11,7 +11,6 @@ class Shop extends Basic
     public function page_index(){
         $banner_list = table('base_banner')->where('module_id',$this->module['module_id'])->order('sort_num desc')->select();
         $nav_list = table('base_nav')->order('sort_num desc')->select();
-        $category_list = table('base_category')->where('is_show',1)->where('is_index',1)->order('sort_num desc add_time desc')->select();
         $spike = ActivityService::willStartSpikeOne();
         $spike_goods_list=[];
         if($spike){
@@ -21,7 +20,6 @@ class Shop extends Basic
         return $this->success('请求成功',[
             'banner_list'=>$banner_list,
             'nav_list'=>$nav_list,
-            'category_list'=>$category_list,
             'spike_goods_list'=>$spike_goods_list,
             'spike'=>$spike,
             'user_info'=>$this->user_info,

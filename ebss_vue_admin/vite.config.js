@@ -32,6 +32,7 @@ export default defineConfig({
 					"form-item-margin-bottom": "10px",
 					"menu-item-height": "30px",
 					"menu-inline-toplevel-item-height": "30px",
+					"top-bar-height": "40px",
 				},
 			},
 		},

@@ -1,4 +1,6 @@
 package com.qq811565456;
+import cn.hutool.core.util.StrUtil;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +15,17 @@ public class Response extends HashMap<String,Object> implements Serializable
 
     public static Response ok()
     {
-        return restResult(MessageCode.SUCCESS,null,null);
+        return restResult(MessageCode.SUCCESS,MessageCode.SUCCESS.getMsg(), Map.of());
     }
 
     public static  Response ok(String msg)
     {
-        return restResult(MessageCode.SUCCESS, msg,null);
+        return restResult(MessageCode.SUCCESS, msg,Map.of());
     }
 
     public static Response ok(Map<String,Object> data)
     {
-        return restResult(MessageCode.SUCCESS,null,data);
+        return restResult(MessageCode.SUCCESS,MessageCode.SUCCESS.getMsg(),data);
     }
 
     public static  Response ok(String msg,Map<String,Object> data)
@@ -37,17 +39,17 @@ public class Response extends HashMap<String,Object> implements Serializable
 
     public static  Response fail()
     {
-        return restResult(MessageCode.ERROR,null,  null);
+        return restResult(MessageCode.ERROR,MessageCode.SUCCESS.getMsg(),  Map.of());
     }
 
     public static  Response fail(String msg)
     {
-        return restResult(MessageCode.ERROR, msg,null);
+        return restResult(MessageCode.ERROR, msg,Map.of());
     }
 
     public static  Response fail(Map<String,Object> data)
     {
-        return restResult(MessageCode.ERROR, null,data);
+        return restResult(MessageCode.ERROR, MessageCode.SUCCESS.getMsg(),data);
     }
 
     public static  Response fail(String msg,Map<String,Object> data)
@@ -57,7 +59,7 @@ public class Response extends HashMap<String,Object> implements Serializable
 
     public static  Response fail(MessageCode code, String msg)
     {
-        return restResult(code, msg,null);
+        return restResult(code, msg,Map.of());
     }
 
     public static  Response fail(MessageCode code, String msg,Map<String,Object> data)
@@ -70,7 +72,7 @@ public class Response extends HashMap<String,Object> implements Serializable
         Response apiResult = new Response();
 
         apiResult.put("code",messageCode.getCode());
-        apiResult.put("msg",StringUtil.isEmpty(msg)?messageCode.getMsg():msg);
+        apiResult.put("msg", StrUtil.isEmpty(msg)?messageCode.getMsg():msg);
 
         if(data!=null){
             data.forEach((key,value)->{

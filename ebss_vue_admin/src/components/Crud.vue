@@ -1,5 +1,5 @@
 <template>
-  <div class="justify-between align-center" style="margin-bottom: 5px;">
+  <div class="justify-between align-center action-bar">
     <div class="align-center">
       <slot name="search"></slot>
       <a-button type="primary" v-if="showQuery" @click="getData" style="margin-right:10px;">查询</a-button>
@@ -16,10 +16,10 @@
       >
         <a-button type="primary" danger style="margin-right:10px;">批量删除</a-button>
       </a-popconfirm>
-      <a-button type="primary" v-if="showAdd" style="margin-right:10px;" @click="$parent.saveFormData={};showSaveModal=true;">添加</a-button>
+      <a-button type="primary" v-if="showAdd" style="margin-right:10px;" @click="$parent.saveFormData=JSON.parse(oldSaveFormData);showSaveModal=true;">添加</a-button>
     </div>
   </div>
-  <a-table :scroll="{x:'min-content'}" :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection" :loading="tableLoading">
+  <a-table sticky :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection" :loading="tableLoading">
     <template #bodyCell="{ text, record, index, column  }">
       <template v-if="column.key === 'action'">
         <span @click="copy(record)" v-if="showCopy(record)" class="QQ811565456 hewei-fuzhi ml-10"></span>
@@ -70,11 +70,11 @@
     </template>
   </a-table>
   <a-modal :footer="null" v-model:open="showSaveModal" :width="modelWidth"
-           :title="saveFormData&&saveFormData[`${table_key}`]?editTexT:'新增'"
+           :title="$parent.saveFormData[`${table_key}`]?editTexT:'新增'"
            @cancel="showSaveModal=false" :style="$parent.modalStyle||{}">
     <slot name="save"></slot>
     <div class="justify-end">
-      <a-button type="default" @click.prevent="showSaveModal=false;$parent.saveFormData={};"
+      <a-button type="default" @click.prevent="cancel"
                 style="margin-right: 10px">取消
       </a-button>
       <a-button :loading="saveLoading" type="primary" html-type="submit" @click="submit">提交</a-button>
@@ -86,12 +86,13 @@ import * as ExcelJS from "exceljs";
 import {saveAs} from 'file-saver';
 import {has} from '@/util/type/base.js'
 export default {
-  name: "crud",
+  name: "Crud",
   data: function () {
     return {
       modelWidth: this.$parent.modelWidth?this.$parent.modelWidth:'70%',
       table: this.$parent.table,
       table_key: '',
+      oldSaveFormData: '{}',
       join_tables: this.$parent.join_tables?this.$parent.join_tables:[],
       editTexT: this.$parent.editTexT?this.$parent.editTexT:'编辑',
       deleteFunc: this.$parent.deleteFunc?this.$parent.deleteFunc:null,
@@ -159,9 +160,11 @@ export default {
   created() {
     this.getData()
   },
+  mounted() {
+    this.oldSaveFormData = JSON.stringify(this.$parent.saveFormData)
+  },
   methods: {
     saveColumn(index) {
-      console.log(index)
       this.post('/admin/crud/save', {table: this.table, ...this.tableData[index]}).then(({code,msg}) => {
         if (code === 1) {
           this.getData()
@@ -176,6 +179,10 @@ export default {
         return;
       }
       this.deleteSubmit([row[this.table_key]])
+    },
+    cancel(){
+      this.$parent.saveFormData=JSON.parse(this.oldSaveFormData);
+      this.showSaveModal=false;
     },
     batchDelete(){
       this.deleteSubmit(this.rowSelection.selectedRowKeys)
@@ -194,7 +201,6 @@ export default {
       })
     },
     tableChange(pagination, filters, sorter, {currentDataSource}) {
-      // console.log(2222,sorter)
       if(has(sorter)&&sorter.order){
         this.sort = [{
           [sorter.field]:sorter.order=='ascend'?'asc':'desc'
@@ -234,7 +240,7 @@ export default {
       });
     },
     submit() {
-      // console.log('this.saveFormData',this.saveFormData);
+
       if(this.$parent.$refs.save_form){
         this.$parent.$refs.save_form.validate().then((e) => {
           this.submitPost();
@@ -247,10 +253,11 @@ export default {
       }
     },
     submitPost(){
+      // console.log('this.$parent.saveFormData',this.$parent.saveFormData);return;
       if (this.saveFunc) {
         this.saveFunc(this.saveFormData);
         this.showSaveModal = false
-        this.$parent.saveFormData={}
+        this.$parent.saveFormData=JSON.parse(this.oldSaveFormData)
         return;
       }
       this.saveLoading=true
@@ -259,7 +266,7 @@ export default {
           this.getData()
           this.showSaveModal = false
           this.success(msg);
-          this.$parent.saveFormData={}
+          this.$parent.saveFormData=JSON.parse(this.oldSaveFormData)
         }
       }).finally(e=>{
         this.saveLoading=false
@@ -301,4 +308,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
+.action-bar{
+  padding: 5px 0;
+}
 </style>

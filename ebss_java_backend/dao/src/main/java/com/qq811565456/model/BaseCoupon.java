@@ -93,6 +93,7 @@ public class BaseCoupon extends BaseModel {
     /**
      * 使用说明
      */
+    @TableField(value = "`desc`")
     private String desc;
 
     /**

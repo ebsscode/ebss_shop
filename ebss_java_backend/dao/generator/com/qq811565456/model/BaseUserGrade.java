@@ -47,5 +47,6 @@ public class BaseUserGrade implements Serializable {
     /**
      * 描述
      */
+    @TableField(value = "`desc`")
     private String desc;
 }

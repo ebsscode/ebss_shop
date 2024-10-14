@@ -67,28 +67,31 @@
           <CheckBox v-model:value="saveFormData.labels" :options="labels" name_key="name" value_key="name"/>
         </a-form-item>
         <a-form-item label="规格">
-          <div v-for="(item,index) in saveFormData.spec" :key="index" class="flex-row">
-            <span class="QQ811565456 hewei-jianshao2" @click="saveFormData.spec.splice(index,1)" style="font-size: 28px;"></span>
-            <a-input-group compact>
-              <a-input v-model:value="item.name" style="width: 20%" >
-                <template #prefix>
-                  名称:
-                </template>
-                <template #suffix>
-                  <span class="QQ811565456 hewei-cuowu"  @click="item.name=''"></span>
-                </template>
-              </a-input>
-              <a-input v-model:value="item.values[index2].name" style="width: 20%" v-for="(item2,index2) in item.values" :key="index2">
-                <template #prefix>
-                  值{{index2+1}}:
-                </template>
-                <template #suffix>
-                  <span class="QQ811565456 hewei-shanchu"  @click="item.values.splice(index2,1)"></span>
-                </template>
-              </a-input>
-              <span class="QQ811565456 hewei-jia" @click="item.values.push({name:''})" style="font-size: 24px;"></span>
-            </a-input-group>
+          <div v-if="saveFormData.spec&&saveFormData.spec.length">
+            <div v-for="(item,index) in saveFormData.spec" :key="index" class="flex-row">
+              <span class="QQ811565456 hewei-jianshao2" @click="saveFormData.spec.splice(index,1)" style="font-size: 28px;"></span>
+              <a-input-group compact>
+                <a-input v-model:value="item.name" style="width: 20%" >
+                  <template #prefix>
+                    名称:
+                  </template>
+                  <template #suffix>
+                    <span class="QQ811565456 hewei-cuowu"  @click="item.name=''"></span>
+                  </template>
+                </a-input>
+                <a-input v-model:value="item.values[index2].name" style="width: 20%" v-for="(item2,index2) in item.values" :key="index2">
+                  <template #prefix>
+                    值{{index2+1}}:
+                  </template>
+                  <template #suffix>
+                    <span class="QQ811565456 hewei-shanchu"  @click="item.values.splice(index2,1)"></span>
+                  </template>
+                </a-input>
+                <span class="QQ811565456 hewei-jia" @click="item.values.push({name:''})" style="font-size: 24px;"></span>
+              </a-input-group>
+            </div>
           </div>
+
           <span class="QQ811565456 hewei-jia" @click="saveFormData.spec.push({name:'',values:[]})" style="font-size: 28px;"></span>
         </a-form-item>
         <a-form-item label="详情" name="content" >
@@ -131,6 +134,7 @@ export default {
       saveFormData: {
         integral:0,
         spec:[],
+        imglist:[],
       },
       searchObj: {},
       showCopy: ()=>true,

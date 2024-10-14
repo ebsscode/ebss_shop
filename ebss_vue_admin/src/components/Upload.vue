@@ -12,7 +12,7 @@
             v-if="files.length<maxCount"
             :showUploadList="false"
             list-type="picture-card"
-            :action="baseURL()+'/api/file/upload'"
+            :action="baseURL()+'/admin/file/upload'"
             @change="change"
         >
             <div>
@@ -29,7 +29,7 @@ export default {
     props: {
         value: {
             type: [Array,String,Object],
-            default: [],
+            default: ()=>[],
         },
         maxCount: {
             type: Number,
@@ -46,23 +46,21 @@ export default {
         value: {
             handler(newV, oldV) {
                 if(isNull(newV) || isUndefined(newV)){
-                  if(this.maxCount==1){
+                  if(this.maxCount===1){
                     this.$emit('update:value', '')
                   }else{
                     this.$emit('update:value', [])
                   }
+                  return;
                 }
                 if(newV){
-                  if(this.maxCount==1){
+                  if(this.maxCount===1){
                     this.files=[newV]
                   }
                   if(this.maxCount>1){
                     this.files=newV
                   }
-                }else{
-                  this.files=[]
                 }
-              this.emitValue();
             },
             immediate: true
         },
@@ -71,7 +69,7 @@ export default {
     },
     methods: {
         emitValue(){
-          if(this.maxCount==1){
+          if(this.maxCount===1){
             if(this.files.length){
               this.$emit('update:value',this.files[0])
             }else{
