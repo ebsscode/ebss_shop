@@ -1,4 +1,4 @@
-package com.qq811565456.controller;
+package com.qq811565456.controller.video;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController("videoVideoController")
 @RequestMapping("/video")
 public class VideoController {
     @Autowired

@@ -43,7 +43,6 @@ export default {
         };
     },
   created() {
-      console.log(icons)
   },
   methods: {
         choose(item) {

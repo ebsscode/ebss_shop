@@ -1,7 +1,5 @@
 <?php
 
-use app\service\system\ConfigsService;
-
 return [
     // 默认磁盘
     'default' => env('filesystem.driver', 'local'),

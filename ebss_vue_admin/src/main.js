@@ -15,6 +15,7 @@ import YesOrNo from '@/components/YesOrNo.vue'
 import Select from '@/components/Select.vue'
 import MapSelect from '@/components/MapSelect.vue'
 import CheckBox from '@/components/CheckBox.vue'
+import SearchSelect from '@/components/SearchSelect.vue'
 import "./assets/icon/iconfont.css"
 import {formatTime} from '@/util/time.js'
 import {imgPreview} from '@/util/img/base.js'
@@ -46,6 +47,7 @@ app.component('Select', Select)
 app.component('MapSelect', MapSelect)
 app.component('CheckBox', CheckBox)
 app.component('IconSelect', IconSelect)
+app.component('SearchSelect', SearchSelect)
 app.use(Antd)
 app.use(router)
 app.mount('#app')

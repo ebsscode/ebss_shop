@@ -1,13 +1,11 @@
 package com.qq811565456.service;
 
 import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.qq811565456.MessageCode;
 import com.qq811565456.RequestUtil;
-import com.qq811565456.Response;
 import com.qq811565456.TimeUtil;
 import com.qq811565456.mapper.*;
 import com.qq811565456.model.*;
@@ -15,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -33,7 +30,7 @@ public class UserService {
         if (ObjectUtil.isEmpty(username)||ObjectUtil.isEmpty(password)){
             return MessageCode.create(MessageCode.ERROR_CODE,"账号或密码为空！");
         }
-        MyQueryWrapper<SysUser> where = new MyQueryWrapper<>(SysUser.class);
+        QueryWrapperService<SysUser> where = new QueryWrapperService<>(SysUser.class);
         where.eq("username",username);
         SysUser user = sysUserMapper.selectOne(where);
         if (ObjectUtil.isEmpty(user)){
@@ -61,7 +58,7 @@ public class UserService {
         token.setToken(makeToken());
         token.setTokenUserId(user.getUserId());
         token.setIp(RequestUtil.getIp());
-        token.setAddTime((int) DateTime.now().getTime());
+        token.setAddTime(TimeUtil.getTime10());
         sysTokenMapper.insert(token);
 
         LogUser logUser = new LogUser();
@@ -70,7 +67,7 @@ public class UserService {
         logUser.setUrl(RequestUtil.getUrl());
         logUser.setIp(RequestUtil.getIp());
         logUser.setTitle("后台登录");
-        logUser.setAddTime((int) DateTime.now().getTime());
+        logUser.setAddTime(TimeUtil.getTime10());
         logUserMapper.insert(logUser);
 
         return Map.of("token",token.getToken(),

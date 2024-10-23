@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
@@ -21,7 +22,7 @@ import com.qq811565456.model.ShopGoods;
 import com.qq811565456.model.ShopOrder;
 import com.qq811565456.model.SysUser;
 import com.qq811565456.service.CrudService;
-import com.qq811565456.service.MyQueryWrapper;
+import com.qq811565456.service.QueryWrapperService;
 import com.qq811565456.service.SqlService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Slf4j
-@RestController
+@RestController("adminCrudController")
 @RequestMapping("/admin/crud")
 public class CrudController {
     @Autowired
@@ -50,13 +51,14 @@ public class CrudController {
         String table = toTable(params);
         List<String> joinTables = toJoinTables(params);
         List<Map<String,String>> sortList = toSort(params);
+        List<JSONArray> whereQuery = toWhereQuery(params);
         BaseModel model = crudService.tableToModel(table);
         MyBaseMapper modelMapper = crudService.tableToMapper(table);
-        MyQueryWrapper where = sqlService.ParamToWhere(params, model.getClass());
+        QueryWrapperService where = sqlService.ParamToWhere(params, model.getClass());
         List<String> filedList = SqlHelper.table(model.getClass()).getFieldList().stream().map(TableFieldInfo::getColumn).toList();
         String table_key = SqlHelper.table(model.getClass()).getKeyColumn();
-
 //        log.info("filedList:{},{},{}",filedList);
+
         if(!sortList.isEmpty()){
             sortList.forEach(sort_item->{
                 sort_item.keySet().forEach(sort_filed->{
@@ -78,6 +80,43 @@ public class CrudController {
                 where.orderByAsc("add_time");
             }
         }
+
+        if(!whereQuery.isEmpty()){
+            whereQuery.forEach(where_item->{
+//                log.info("where_item:{},{}",where_item.size(), where_item);
+
+                if(where_item.size()==2){
+                    where.eq(where_item.get(0),where_item.get(1));
+                }
+                if(where_item.size()==3){
+                    String exp = (String) where_item.get(1);
+                    switch (exp){
+                        case "=":
+                            where.eq(where_item.get(0),where_item.get(2));break;
+                        case ">":
+                            where.gt(where_item.get(0),where_item.get(2));break;
+                        case "<":
+                            where.lt(where_item.get(0),where_item.get(2));break;
+                        case ">=":
+                            where.ge(where_item.get(0),where_item.get(2));break;
+                        case "<=":
+                            where.le(where_item.get(0),where_item.get(2));break;
+                        case "like":
+                            where.like(where_item.get(0),where_item.get(2));break;
+                        case "not like":
+                            where.notLike(where_item.get(0),where_item.get(2));break;
+                        case "!=":
+                        case "<>":
+                            where.ne(where_item.get(0),where_item.get(2));break;
+                        case "in":
+                            where.in(where_item.get(0),where_item.get(2));break;
+                        case "not in":
+                            where.notIn(where_item.get(0),where_item.get(2));break;
+                    }
+                }
+            });
+        }
+
         if(!CollUtil.isEmpty((List<Integer>) params.get("table_ids"))){
             where.in(table_key,params.get("table_ids"));
         }
@@ -258,6 +297,9 @@ public class CrudController {
     }
     private List<Map<String,String>> toSort(JSONObject params){
         return !ObjectUtil.isEmpty(params.get("sort"))?(List<Map<String,String>>) params.get("sort"):new ArrayList<>();
+    }
+    private List<JSONArray> toWhereQuery(JSONObject params){
+        return !ObjectUtil.isEmpty(params.get("where"))?(List<JSONArray>) params.get("where"):new ArrayList<>();
     }
 
 }

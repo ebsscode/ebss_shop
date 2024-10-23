@@ -6,8 +6,8 @@
         allowClear
         placeholder="请选择..."
         style="width: 100%;min-width: 120px"
-        :filter-option="filterOption"
         :show-search="true"
+        :filter-option="false"
         :options="list"
         :fieldNames="{ label: name_key, value: table_key,}"
         @change="change"
@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-    name: 'RemoteSelect',
+    name: 'SearchSelect',
     components: {},
     props: {
         value: {
@@ -52,6 +52,7 @@ export default {
             selected: null,
             table_key: '',
             list: [],
+            search_field: [],
         };
     },
     watch: {
@@ -81,18 +82,18 @@ export default {
     },
     methods: {
         change(inputValue, option) {
-            // console.log(111, inputValue, option)
             this.$emit('update:value', inputValue)
         },
-        filterOption(inputValue, option) {
-            // console.log(111, inputValue, option)
-            return option[this.name_key].toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
-        },
         search (v) {
-          console.log(v)
+          if(v){
+            this.search_field = [ [this.name_key,'like',v ] ]
+          }else{
+            this.search_field = []
+          }
+          this.fetchList()
         },
         fetchList() {
-            this.post('/admin/crud/list', {table: this.table,where: this.where,limit:9999 }).then(({code, paginate, table_key}) => {
+            this.post('/admin/crud/list', {table: this.table,where: [...this.where,...this.search_field],limit:9999 }).then(({code, paginate, table_key}) => {
                 if (code === 1) {
                     this.table_key = table_key
                     this.list = paginate.data

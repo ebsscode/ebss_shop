@@ -48,7 +48,7 @@
           </div>
         </a-form-item>
         <a-form-item label="所属商家" name="mch_id">
-          <RemoteSelect table="mch" name_key="name" v-model:value="saveFormData.mch_id"/>
+          <SearchSelect table="mch" name_key="name" v-model:value="saveFormData.mch_id"/>
         </a-form-item>
         <a-form-item label=" " :colon="false">
           <div class="justify-between">

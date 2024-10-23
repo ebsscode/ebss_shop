@@ -27,6 +27,7 @@
         <result column="freight" property="freight" />
         <result column="distribution_money" property="distributionMoney" />
         <result column="brand_id" property="brandId" />
+        <result column="comment_count" property="commentCount" />
     </resultMap>
 
 

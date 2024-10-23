@@ -16,7 +16,6 @@ class Location extends Basic
         if(empty($response)){
             return $this->ajax_return(2,'解析失败1',[
                 'param'=>$this->param(),
-                '$baidumap_key'=>$baidumap_key,
                 '$response'=>$response,
             ]);
         }
@@ -24,7 +23,6 @@ class Location extends Basic
         if($response['status']!==0){
             return $this->ajax_return(2,'解析失败2',[
                 'param'=>$this->param(),
-                '$baidumap_key'=>$baidumap_key,
                 '$response'=>$response,
             ]);
         }
@@ -43,66 +41,7 @@ class Location extends Basic
 //            '$response'=>$response['result'],
         ]);
     }
-    public function text_to_addr()
-    {
-        $ip = $this->request->ip();
-        $baidumap_key = ConfigsService::get('baidumap_key');
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', "https://api.map.baidu.com/location/ip?ak={$baidumap_key}&ip={$ip}&coor=gcj02ll");
-        $response=$res->getBody()->getContents();
-        if(empty($response)){
-            return $this->ajax_return(2,'IP解析失败1',[
-                '$ip'=>$ip,
-                '$baidumap_key'=>$baidumap_key,
-                '$response'=>$response,
-            ]);
-        }
-        $response=decodeJson($response);
-        if($response['status']!==0){
-            return $this->ajax_return(2,'IP解析失败2',[
-                '$ip'=>$ip,
-                '$baidumap_key'=>$baidumap_key,
-                '$response'=>$response,
-            ]);
-        }
-        return $this->success('解析成功',[
-            'ip_info'=>$response,
-//            '$ip'=>$ip,
-//            '$baidumap_key'=>$baidumap_key,
-//            '$response'=>$response,
-        ]);
-    }
-    public function ip_info(){
-        $ip = $this->request->ip();
-        $baidumap_key = ConfigsService::get('baidumap_key');
-        $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', "https://api.map.baidu.com/location/ip?ak={$baidumap_key}&ip={$ip}&coor=gcj02");
-        $response=$res->getBody()->getContents();
-        $location = [
-            'province'=>'',
-            'city'=>'',
-            'district'=>'',
-            'latitude'=>'',
-            'longitude'=>'',
-            'address'=>'',
-        ];
-        if(!empty($response)){
-            $response=decodeJson($response);
-            if($response['status']===0){
-                $location = [
-                    'province'=>$response['content']['address_detail']['province'],
-                    'city'=>$response['content']['address_detail']['city'],
-                    'district'=>$response['content']['address_detail']['district'],
-                    'latitude'=>$response['content']['point']['y'],
-                    'longitude'=>$response['content']['point']['x'],
-                    'address'=>$response['content']['address'],
-                ];
-            }
-        }
-        return $this->success('请求成功！',[
-            'location'=>$location,
-        ]);
-    }
+
     public function district()
     {
         $list = AmapConnector::district();

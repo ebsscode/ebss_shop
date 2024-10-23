@@ -9,7 +9,6 @@ import com.qq811565456.Response;
 import com.qq811565456.aop.annotation.WebApi;
 import com.qq811565456.mapper.SysUserMapper;
 import com.qq811565456.model.SysUser;
-import com.qq811565456.service.MyQueryWrapper;
 import com.qq811565456.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
@@ -25,7 +24,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Objects;
 
-@RestController
+@RestController("adminSystemController")
 @Slf4j
 @RequestMapping("/admin")
 public class SystemController {

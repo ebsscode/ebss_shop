@@ -12,7 +12,7 @@
         <module>video</module>
         <module>mch</module>
         <module>base</module>
-        <module>sys</module>
+        <module>admin</module>
     </modules>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>

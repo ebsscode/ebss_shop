@@ -1,13 +1,15 @@
 <?php
-namespace app\api\controller;
+namespace app\admin\controller;
 use app\Basic;
 use app\service\system\CheckService;
 use app\service\system\FileService;
+use Nette\Utils\Image;
 
 class File extends Basic
 {
     public function upload()
     {
+        $debugs = [];
         $file = $this->request->file('file');
         $extension = $file->extension();
         CheckService::allowedUploadFile($extension);

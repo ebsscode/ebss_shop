@@ -2,17 +2,10 @@ package com.qq811565456.service;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.qq811565456.config.MyPage;
-import com.qq811565456.model.ShopGoods;
-import com.qq811565456.model.ShopOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,11 +27,10 @@ public class SqlService<T> {
         MyPage<T> myPage = new MyPage<>(page,limit);
         return myPage;
     }
-    public MyQueryWrapper<T> ParamToWhere(JSONObject params,Class<T> type){
+    public QueryWrapperService<T> ParamToWhere(JSONObject params, Class<T> type){
 //        log.info("params:{}",params);
-//        MyQueryWrapper<T> where = Wrappers.query();
 
-        MyQueryWrapper<T> where = new MyQueryWrapper<>(type);
+        QueryWrapperService<T> where = new QueryWrapperService<>(type);
 
         List<String> paramNames = new ArrayList<>();
         params.forEach((k,v)->{
@@ -55,7 +47,7 @@ public class SqlService<T> {
             fieldTypes.put(fieldName,fieldType);
             fieldNames.add(fieldName);
         }
-
+//        log.info("paramNames:{},{}",paramNames,fieldNames);
         paramNames.forEach((paramName)->{
             if(fieldNames.contains(paramName)){
                 String fieldType = fieldTypes.get(paramName);

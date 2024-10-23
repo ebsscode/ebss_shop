@@ -1,4 +1,4 @@
-package com.qq811565456.controller;
+package com.qq811565456.controller.shop;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@RestController("shopShopCartMapper")
 @RequestMapping("/api/shop/cart")
 public class CartController {
     @Autowired

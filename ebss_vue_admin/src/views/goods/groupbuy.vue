@@ -18,7 +18,7 @@
                   <a-input v-model:value="saveFormData.people_total"/>
                 </a-form-item>
                 <a-form-item label="团购商品" name="goods_id" :rules="[{ required: true, message: '' }]">
-                  <RemoteSelect table="shop_goods" name_key="title" :where="[['is_listing','=',1],]" v-model:value="saveFormData.goods_id"/>
+                  <GoodsSelect v-model:value="saveFormData.goods_id" :maxCount="1"/>
                 </a-form-item>
                 <a-form-item label="活动图片" name="cover_img" :rules="[{ required: true, message: '' }]">
                   <Upload :maxCount="1" v-model:value="saveFormData.cover_img"/>
@@ -35,8 +35,12 @@
     </Crud>
 </template>
 <script lang="jsx">
+import GoodsSelect from '@/views/goods/components/GoodsSelect.vue'
 export default {
     name: "list",
+    components:{
+      GoodsSelect,
+    },
     data: function () {
         return {
             table: 'shop_groupbuy',
@@ -74,11 +78,6 @@ export default {
             ],
         };
     },
-    computed: {},
-    components: {},
-    created() {
-    },
-    methods: {}
 }
 </script>
 <style scoped lang="less">

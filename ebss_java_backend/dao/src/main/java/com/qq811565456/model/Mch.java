@@ -1,10 +1,13 @@
 package com.qq811565456.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -99,7 +102,8 @@ public class Mch extends BaseModel {
      */
     private Integer userId;
 
-    private String imgs;
+    @TableField(typeHandler = MyJsonTypeHandler.class)
+    private List<String> imgs;
 
     private Integer isOpen;
 }

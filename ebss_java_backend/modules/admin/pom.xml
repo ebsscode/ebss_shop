@@ -7,10 +7,10 @@
         <artifactId>modules</artifactId>
         <version>0.0.1</version>
     </parent>
-    <artifactId>sys</artifactId>
+    <artifactId>admin</artifactId>
     <version>0.0.1</version>
-    <name>sys</name>
-    <description>sys</description>
+    <name>admin</name>
+    <description>admin</description>
     <dependencies>
     </dependencies>
     <build>

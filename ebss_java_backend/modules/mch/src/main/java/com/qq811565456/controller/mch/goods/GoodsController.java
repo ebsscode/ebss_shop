@@ -1,4 +1,4 @@
-package com.qq811565456.controller.goods;
+package com.qq811565456.controller.mch.goods;
 
 
 import cn.hutool.json.JSONObject;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Slf4j
-@RestController
+@RestController("mchGoodsController")
 @RequestMapping("/api/mch/goods")
 public class GoodsController {
     @Autowired

@@ -20,7 +20,7 @@
                   <TimePicker v-if="saveFormData.time_type==2" v-model:value="saveFormData.end_at"/>
                 </a-form-item>
                 <a-form-item label="秒杀商品" name="goods_ids" :rules="[{ required: true, message: '' }]">
-                  <CheckBox onlyvalue v-model:value="saveFormData.goods_ids" :options="goods" value_key="goods_id" name_key="title"/>
+                  <GoodsSelect v-model:value="saveFormData.goods_ids" />
                 </a-form-item>
                 <a-form-item label="活动图片" name="cover_img" :rules="[{ required: true, message: '' }]">
                   <Upload :maxCount="1" v-model:value="saveFormData.cover_img"/>
@@ -42,9 +42,12 @@
 
 <script lang="jsx">
 import {formatTime,formatHmi} from '@/util/time.js'
-
+import GoodsSelect from '@/views/goods/components/GoodsSelect.vue'
 export default {
     name: "list",
+    components:{
+      GoodsSelect,
+    },
     data: function () {
         return {
             table: 'shop_spike',
@@ -66,6 +69,12 @@ export default {
                     key: 'cover_img',
                 },
                 {
+                    title: '商品总计',
+                    key: 'goods_total',
+                    customRender:(data)=>{
+                      return <span>{data.record.goods_ids.length}个</span>
+                    },
+                },{
                     title: '时间段',
                     key: 'time_type',
                     customRender:(data)=>{
@@ -102,7 +111,6 @@ export default {
         };
     },
     computed: {},
-    components: {},
     created() {
       this.post('/admin/crud/list', {table: 'shop_goods', is_spike: 1,is_listing: 1 }).then(({code,paginate}) => {
         if (code === 1) {

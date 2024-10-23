@@ -17,10 +17,13 @@ class Shop extends Basic
             $spike_goods_list = table('shop_goods')->where('goods_id','in',$spike['goods_ids'])->select();
         }
 
+        $swiper_goods_list = table('shop_goods')->where(['is_listing'=>1])->order('sale_count desc')->limit(5)->select();
+
         return $this->success('请求成功',[
             'banner_list'=>$banner_list,
             'nav_list'=>$nav_list,
             'spike_goods_list'=>$spike_goods_list,
+            'swiper_goods_list'=>$swiper_goods_list,
             'spike'=>$spike,
             'user_info'=>$this->user_info,
 //            'sql'=>table('spike')->getLastSql(),

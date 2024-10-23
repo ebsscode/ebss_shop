@@ -1,12 +1,9 @@
 package com.qq811565456.mapper;
 
-import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.qq811565456.config.MyPage;
-import com.qq811565456.model.SysPermission;
-import com.qq811565456.service.MyQueryWrapper;
-import org.apache.ibatis.annotations.Delete;
+import com.qq811565456.service.QueryWrapperService;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -24,7 +21,7 @@ import java.util.List;
 public interface MyBaseMapper<T> extends BaseMapper<T> {
     @ResultMap("BaseResultMap")
     @Select("select * from ${ew.tableName} ${ew.customSqlSegment}")
-    MyPage<T> selectMyPage(MyPage<?> page, @Param(Constants.WRAPPER) MyQueryWrapper<T> wrapper);
+    MyPage<T> selectMyPage(MyPage<?> page, @Param(Constants.WRAPPER) QueryWrapperService<T> wrapper);
 
     @ResultMap("BaseResultMap")
     @Select("select * from ${tableName}")

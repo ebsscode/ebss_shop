@@ -7,7 +7,7 @@ import com.qq811565456.Response;
 import com.qq811565456.aop.annotation.WebApi;
 import com.qq811565456.mapper.SysUserMapper;
 import com.qq811565456.model.SysUser;
-import com.qq811565456.service.MyQueryWrapper;
+import com.qq811565456.service.QueryWrapperService;
 import com.qq811565456.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
-@RestController
+@RestController("adminIndexController")
 @RequestMapping("/admin")
 public class IndexController {
     @Autowired
@@ -34,7 +34,7 @@ public class IndexController {
         if(!check.isSuccess()){
             return Response.fail(check.getMsg());
         }
-        MyQueryWrapper<SysUser> where = new MyQueryWrapper<>(SysUser.class);
+        QueryWrapperService<SysUser> where = new QueryWrapperService<>(SysUser.class);
         where.eq("username",username);
         where.eq("password", userService.cryptoPassword(password));
         SysUser user = sysUserMapper.selectOne(where);

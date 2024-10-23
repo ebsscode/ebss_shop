@@ -1,5 +1,5 @@
 <template>
-    <a-checkbox-group v-model:value="checks" :options="optionsInner" @change="change"/>
+    <a-checkbox-group v-model:value="checks" :options="optionsInner" @change="change" :disabled="disabled"/>
 </template>
 
 <script>
@@ -20,6 +20,10 @@ export default {
           default: 'name',
         },
         onlyvalue: {
+          type: Boolean,
+          default: false,
+        },
+        disabled: {
           type: Boolean,
           default: false,
         },

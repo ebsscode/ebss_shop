@@ -5,7 +5,7 @@
 
 <script>
 import dayjs from "dayjs";
-
+import {getTime10} from '@/util/time.js'
 export default {
     name: "DatePicker",
     props: {
@@ -22,7 +22,12 @@ export default {
         value: {
             handler(newV, oldV) {
                 // console.log(2222, newV)
-                this.datetime = dayjs.unix(newV)
+                if(newV){
+                  this.datetime = dayjs.unix(newV)
+                }else{
+                  this.datetime = dayjs.unix(getTime10())
+                  this.$emit('update:value', getTime10())
+                }
             },
             immediate: true
         }

@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Map;
 
-@RestController
+@RestController("baseFileController")
 public class FileController {
     @Autowired
     private ConfigService configService;

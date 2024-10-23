@@ -8,7 +8,7 @@ import com.qq811565456.mapper.SysPermissionMapper;
 import com.qq811565456.model.SysConfig;
 import com.qq811565456.model.SysPermission;
 import com.qq811565456.service.ConfigService;
-import com.qq811565456.service.MyQueryWrapper;
+import com.qq811565456.service.QueryWrapperService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@RestController("adminConfigController")
 @Slf4j
 @RequestMapping("/admin")
 public class ConfigController {
@@ -53,9 +53,9 @@ public class ConfigController {
             sysConfig.setName(i.getKey());
             sysConfig.setValue((String) i.getValue());
 
-            MyQueryWrapper<SysConfig> myQueryWrapper = new MyQueryWrapper<>(SysConfig.class);
-            myQueryWrapper.eq("name",i.getKey());
-            sysConfigMapper.update(sysConfig, myQueryWrapper);
+            QueryWrapperService<SysConfig> queryWrapper = new QueryWrapperService<>(SysConfig.class);
+            queryWrapper.eq("name",i.getKey());
+            sysConfigMapper.update(sysConfig, queryWrapper);
         });
         return Response.ok();
     }

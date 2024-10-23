@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.qq811565456</groupId>
-            <artifactId>sys</artifactId>
+            <artifactId>admin</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -36,7 +36,7 @@
                   <YesOrNo v-model:value="saveFormData.is_superimposed"/>
                 </a-form-item>
                 <a-form-item label="可用商品" name="goods_ids" :rules="[{ required: true, message: '' }]">
-                  <CheckBox onlyvalue v-model:value="saveFormData.goods_ids" :options="goods" value_key="goods_id" name_key="title"/>
+                  <GoodsSelect v-model:value="saveFormData.goods_ids" />
                 </a-form-item>
             </a-form>
         </template>
@@ -56,8 +56,12 @@
     </Crud>
 </template>
 <script lang="jsx">
+import GoodsSelect from '@/views/goods/components/GoodsSelect.vue'
 export default {
     name: "list",
+    components:{
+      GoodsSelect,
+    },
     data: function () {
         return {
             table: 'base_coupon',
@@ -106,8 +110,6 @@ export default {
             ],
         };
     },
-    computed: {},
-    components: {},
     created() {
       this.post('/admin/crud/list', {table: 'shop_goods', is_spike: 1,is_listing: 1 }).then(({code,paginate}) => {
         if (code === 1) {

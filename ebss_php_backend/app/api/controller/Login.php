@@ -31,7 +31,7 @@ class Login extends Basic
             if(!$user_info){
                 return $this->error('手机号未注册，请使用验证码登录');
             }
-            if($user_info['password']!=$this->param('password')){
+            if($user_info['password']!=md5($this->param('password'))){
                 return $this->error('密码不正确');
             }
         }else{

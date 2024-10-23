@@ -14,6 +14,8 @@ import com.qq811565456.typehandler.MyJsonTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.One;
 
 /**
  * <p>
@@ -115,6 +117,9 @@ public class ShopGoods extends BaseModel {
      * 浏览量
      */
     private Integer viewCount;
+
+
+    private Integer commentCount;
 
     /**
      * 销量

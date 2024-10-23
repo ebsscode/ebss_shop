@@ -6,6 +6,503 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1147",
+      "name": "竞价",
+      "font_class": "jingjia",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "108775",
+      "name": "流量",
+      "font_class": "liuliang",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "450264",
+      "name": "预售",
+      "font_class": "yushou",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "658008",
+      "name": "多语言",
+      "font_class": "duoyuyan",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "666886",
+      "name": "省钱",
+      "font_class": "shengqian",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "1262484",
+      "name": "会员",
+      "font_class": "huiyuan2",
+      "unicode": "e715",
+      "unicode_decimal": 59157
+    },
+    {
+      "icon_id": "1312045",
+      "name": "讲师-01",
+      "font_class": "jiangshi-01",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "1317776",
+      "name": "砍价",
+      "font_class": "kanjia",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "2611813",
+      "name": "BI报表",
+      "font_class": "BIbaobiao",
+      "unicode": "e748",
+      "unicode_decimal": 59208
+    },
+    {
+      "icon_id": "2681674",
+      "name": "抽奖",
+      "font_class": "choujiang",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "2811147",
+      "name": "会员",
+      "font_class": "huiyuan3",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "2971872",
+      "name": "卡密",
+      "font_class": "qiami",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "3851379",
+      "name": "推广",
+      "font_class": "tuiguang",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "5708857",
+      "name": "仓库",
+      "font_class": "cangku",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "5858488",
+      "name": "交易所",
+      "font_class": "jiaoyisuo",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "5873067",
+      "name": "用户画像",
+      "font_class": "svg-",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "6286024",
+      "name": "试卷",
+      "font_class": "shijuan",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "6296995",
+      "name": "出入库管理",
+      "font_class": "churukuguanli",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "6510092",
+      "name": "系统",
+      "font_class": "xitong",
+      "unicode": "e835",
+      "unicode_decimal": 59445
+    },
+    {
+      "icon_id": "6606715",
+      "name": "考试",
+      "font_class": "kaoshi",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "6866631",
+      "name": "直播",
+      "font_class": "zhibo1",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "7979634",
+      "name": "核销员",
+      "font_class": "hexiaoyuan",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "9026990",
+      "name": "以旧换新",
+      "font_class": "yijiuhuanxin",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "9810482",
+      "name": "分销",
+      "font_class": "fenxiao",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "10097009",
+      "name": "多语言",
+      "font_class": "duoyuyan1",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "10164902",
+      "name": "社区",
+      "font_class": "shequ",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "10232776",
+      "name": "模拟考试",
+      "font_class": "monikaoshi",
+      "unicode": "e78c",
+      "unicode_decimal": 59276
+    },
+    {
+      "icon_id": "10235284",
+      "name": "种草",
+      "font_class": "zhongcao",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "10404811",
+      "name": "多语言",
+      "font_class": "duoyuyan2",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "10477703",
+      "name": "盘点",
+      "font_class": "pandian",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "10594757",
+      "name": "表-带图表单_jurassic",
+      "font_class": "jurassic_form-image",
+      "unicode": "e6b0",
+      "unicode_decimal": 59056
+    },
+    {
+      "icon_id": "10742547",
+      "name": "自定义",
+      "font_class": "zidingyi",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "11111000",
+      "name": "出库",
+      "font_class": "chuku",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "11111007",
+      "name": "盘点",
+      "font_class": "pandian1",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "11111014",
+      "name": "入库",
+      "font_class": "ruku",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "11179909",
+      "name": "表单模式",
+      "font_class": "biaodanmoshi",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "11239054",
+      "name": "抽奖",
+      "font_class": "choujiang1",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "11442572",
+      "name": "市场活动",
+      "font_class": "shichanghuodong",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "12791529",
+      "name": "习题",
+      "font_class": "xiti",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "12999048",
+      "name": "满赠促销",
+      "font_class": "manzengcuxiao",
+      "unicode": "e767",
+      "unicode_decimal": 59239
+    },
+    {
+      "icon_id": "13547754",
+      "name": "种草",
+      "font_class": "zhongcao1",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "15571556",
+      "name": "分销管理",
+      "font_class": "fenxiaoguanli",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "15726996",
+      "name": "直播",
+      "font_class": "zhibo2",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "21622566",
+      "name": "加入调拔车",
+      "font_class": "jiarutiaobache",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "27402285",
+      "name": "分销",
+      "font_class": "fenxiao1",
+      "unicode": "ee15",
+      "unicode_decimal": 60949
+    },
+    {
+      "icon_id": "31312995",
+      "name": "剧院",
+      "font_class": "juyuan",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "31312996",
+      "name": "节假日",
+      "font_class": "jiejiari",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "35167479",
+      "name": "分销",
+      "font_class": "fenxiao2",
+      "unicode": "e69d",
+      "unicode_decimal": 59037
+    },
+    {
+      "icon_id": "39048992",
+      "name": "满减券D",
+      "font_class": "manjianquanD",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "39604517",
+      "name": "考试结果",
+      "font_class": "kaoshijieguo",
+      "unicode": "e879",
+      "unicode_decimal": 59513
+    },
+    {
+      "icon_id": "598001",
+      "name": "个人借款 借款",
+      "font_class": "gerenjiekuanjiekuan",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "39048982",
+      "name": "限购活动D",
+      "font_class": "xiangouhuodongD",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "386440",
+      "name": "查找房源",
+      "font_class": "chazhaofangyuan",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "1221709",
+      "name": "限时抢购",
+      "font_class": "xianshiqianggou",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "1317780",
+      "name": "限时",
+      "font_class": "xianshi",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "1356156",
+      "name": "我的房间",
+      "font_class": "wodefangjian",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "1985072",
+      "name": "最新房源",
+      "font_class": "zuixinfangyuan",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "8543992",
+      "name": "加价换购",
+      "font_class": "jiajiahuangou",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "8554280",
+      "name": "户型库",
+      "font_class": "tubiao_huxingku",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "8634416",
+      "name": "小区",
+      "font_class": "xiaoqu",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "12557127",
+      "name": "房型",
+      "font_class": "fangxing",
+      "unicode": "e6cd",
+      "unicode_decimal": 59085
+    },
+    {
+      "icon_id": "13674839",
+      "name": "读数-02",
+      "font_class": "dushu-",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "15023390",
+      "name": "骑手",
+      "font_class": "qishou",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "15581107",
+      "name": "新人_A",
+      "font_class": "xinren_A",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "20374957",
+      "name": "房间",
+      "font_class": "fangjian",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "21652097",
+      "name": "icon-超值换购",
+      "font_class": "icon-chaozhihuangou",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "25135730",
+      "name": "N元N件",
+      "font_class": "NyuanNjian",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "27390706",
+      "name": "买赠",
+      "font_class": "maizeng",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "30371647",
+      "name": "买赠管理",
+      "font_class": "maizengguanli",
+      "unicode": "e6d9",
+      "unicode_decimal": 59097
+    },
+    {
+      "icon_id": "33762296",
+      "name": "新人礼",
+      "font_class": "xinrenli",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "41554219",
+      "name": "freight",
+      "font_class": "a-yunfei1",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
       "icon_id": "2325926",
       "name": "视频",
       "font_class": "shipin",
@@ -707,14 +1204,14 @@
     },
     {
       "icon_id": "954233",
-      "name": "积分商城-实名认证",
+      "name": "实名认证",
       "font_class": "zhuanjifenshimingrenzheng",
       "unicode": "e68a",
       "unicode_decimal": 59018
     },
     {
       "icon_id": "1346359",
-      "name": "yly_积分商城",
+      "name": "积分商城",
       "font_class": "yly_jifenshangcheng",
       "unicode": "e611",
       "unicode_decimal": 58897
@@ -798,14 +1295,14 @@
     },
     {
       "icon_id": "681814",
-      "name": "积分商城－继续兑换",
+      "name": "继续兑换",
       "font_class": "jixuduihuan",
       "unicode": "e672",
       "unicode_decimal": 58994
     },
     {
       "icon_id": "681817",
-      "name": "积分商城－兑换",
+      "name": "兑换",
       "font_class": "duihuan",
       "unicode": "e675",
       "unicode_decimal": 58997

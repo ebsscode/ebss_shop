@@ -11,8 +11,8 @@ import com.qq811565456.mapper.SysTokenMapper;
 import com.qq811565456.mapper.SysUserMapper;
 import com.qq811565456.model.*;
 import com.qq811565456.service.MchService;
-import com.qq811565456.service.MyQueryWrapper;
 import com.qq811565456.service.PermissionService;
+import com.qq811565456.service.QueryWrapperService;
 import com.qq811565456.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@RestController("adminUserController")
 @RequestMapping("/admin")
 public class UserController {
     @Autowired
@@ -65,11 +65,11 @@ public class UserController {
         if(ObjectUtil.isEmpty(password)){
             return Response.fail("密码不能为空!");
         }
-        MyQueryWrapper<SysUser> myQueryWrapper = new MyQueryWrapper<>(SysUser.class);
-        myQueryWrapper.eq("user_id",request.getAttribute("user_id"));
+        QueryWrapperService<SysUser> queryWrapper = new QueryWrapperService<>(SysUser.class);
+        queryWrapper.eq("user_id",request.getAttribute("user_id"));
         SysUser user = new SysUser();
         user.setPassword(userService.cryptoPassword(password));
-        sysUserMapper.update(user, myQueryWrapper);
+        sysUserMapper.update(user, queryWrapper);
 
         sysTokenMapper.deleteByMap(Map.of("token_user_id",request.getAttribute("user_id")));
 

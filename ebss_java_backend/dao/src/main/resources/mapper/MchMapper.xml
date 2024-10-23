@@ -19,7 +19,7 @@
         <result column="longitude" property="longitude" />
         <result column="latitude" property="latitude" />
         <result column="user_id" property="userId" />
-        <result column="imgs" property="imgs" />
+        <result column="imgs" property="imgs" typeHandler="com.qq811565456.typehandler.MyJsonTypeHandler"/>
         <result column="is_open" property="isOpen" />
     </resultMap>
 

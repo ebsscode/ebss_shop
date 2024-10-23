@@ -43,6 +43,19 @@ body {
 .text-ffffff {
     color: #ffffff;
 }
+
+.flex {
+  display: flex;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse !important;
+}
+.flex-column-reverse {
+  flex-direction: column-reverse !important;
+}
 .flex-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -93,5 +106,11 @@ body {
 }
 .pointer{
   cursor: pointer;
+}
+.clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 </style>
