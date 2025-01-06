@@ -15,6 +15,7 @@
     </a-select>
 </template>
 <script>
+import {isNull,isUndefined,has} from '@/util/type/base.js'
 export default {
     name: 'Select',
     components: {},
@@ -36,7 +37,7 @@ export default {
             default: '请选择',
         },
         value: {
-            type: [Number, String],
+            type: [Number, String, Array],
             default: null,
         },
         value_key: {
@@ -58,6 +59,14 @@ export default {
     watch: {
         value: {
           handler(newV, oldV) {
+            if(isNull(newV) || isUndefined(newV)){
+              if(this.mode==='multiple'){
+                this.$emit('update:value', [])
+              }else{
+                this.$emit('update:value', null)
+              }
+              return;
+            }
             this.selected = newV
           },
           immediate: true

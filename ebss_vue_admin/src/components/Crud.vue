@@ -16,13 +16,15 @@
       >
         <a-button type="primary" danger style="margin-right:10px;">批量删除</a-button>
       </a-popconfirm>
-      <a-button type="primary" v-if="showAdd" style="margin-right:10px;" @click="$parent.saveFormData=JSON.parse(oldSaveFormData);showSaveModal=true;">添加</a-button>
+      <a-button type="primary" v-if="showAdd" style="margin-right:10px;" @click="add">添加</a-button>
     </div>
   </div>
   <a-table sticky :columns="tableColumns" :data-source="tableData" :pagination="pagination" @change="tableChange" :row-selection="rowSelection" :loading="tableLoading">
     <template #bodyCell="{ text, record, index, column  }">
       <template v-if="column.key === 'action'">
-        <span @click="copy(record)" v-if="showCopy(record)" class="QQ811565456 hewei-fuzhi ml-10"></span>
+        <a-tooltip title="复制并新建此数据">
+          <span @click="copy(record)" v-if="showCopy(record)" class="QQ811565456 hewei-fuzhi ml-10"></span>
+        </a-tooltip>
         <a-popconfirm
             v-if="showDelete(record)"
             title="确定删除此数据吗？"
@@ -33,7 +35,7 @@
         >
           <span class="QQ811565456 hewei-shanchu ml-10"></span>
         </a-popconfirm>
-        <span @click="$parent.saveFormData=record;showSaveModal=true" v-if="showEdit(record)" class="QQ811565456 hewei-bianji ml-10"></span>
+        <span @click="edit(record)" v-if="showEdit(record)" class="QQ811565456 hewei-bianji ml-10"></span>
         <slot name="actionBar" :record="record" :column="column"></slot>
       </template>
       <template v-if="record[column.key]&&column.key.endsWith('_time')">
@@ -69,14 +71,12 @@
       </template>
     </template>
   </a-table>
-  <a-modal :footer="null" v-model:open="showSaveModal" :width="modelWidth"
-           :title="$parent.saveFormData[`${table_key}`]?editTexT:'新增'"
-           @cancel="showSaveModal=false" :style="$parent.modalStyle||{}">
-    <slot name="save"></slot>
+  <a-modal :footer="null" v-model:open="showSaveModal" :width="modelWidth" :title="$parent.saveFormData[`${table_key}`]?editTexT:'新增'" @cancel="hide" :style="$parent.modalStyle||{}">
+    <div style="overflow-y: scroll;max-height: 92vh;">
+      <slot name="save"></slot>
+    </div>
     <div class="justify-end">
-      <a-button type="default" @click.prevent="cancel"
-                style="margin-right: 10px">取消
-      </a-button>
+      <a-button type="default" @click.prevent="cancel" style="margin-right: 10px">取消</a-button>
       <a-button :loading="saveLoading" type="primary" html-type="submit" @click="submit">提交</a-button>
     </div>
   </a-modal>
@@ -85,8 +85,10 @@
 import * as ExcelJS from "exceljs";
 import {saveAs} from 'file-saver';
 import {has} from '@/util/type/base.js'
+import {paginate} from '@/util/content/page.js'
 export default {
   name: "Crud",
+  emits: ["hide","show"],
   data: function () {
     return {
       modelWidth: this.$parent.modelWidth?this.$parent.modelWidth:'70%',
@@ -103,14 +105,7 @@ export default {
       showDelete: this.$parent.showDelete?this.$parent.showDelete:(e)=>true,
       showEdit: this.$parent.showEdit!==undefined?this.$parent.showEdit:(e)=>true,
       showCopy: this.$parent.showCopy!==undefined?this.$parent.showCopy:(e)=>false,
-      pagination:{
-        current: 1,
-        total: null,
-        pageSize: this.$parent.pageSize?this.$parent.pageSize:20,
-        showTotal: (total, range) => `当前:${range[0]}-${range[1]}  共:${total} 条`,
-        showSizeChanger: true,
-        showQuickJumper: true,
-      },
+      pagination:paginate(this.$parent.pageSize),
       showSaveModal: false,
       tableLoading: false,
       saveLoading: false,
@@ -149,7 +144,7 @@ export default {
         i.is_edit = i.is_edit ? i.is_edit : false
         i.customRender = i.customRender ? i.customRender : null
         i.sorter = i.sorter ? i.sorter : null
-        if(i.key=='add_time'||i.key=='sort_num'||i.key=='user_id'){
+        if(i.key=='add_time'||i.key=='update_time'||i.key=='sort_num'||i.key=='user_id'){
           i.sorter = i.sorter ? i.sorter : true
         }
         return i
@@ -182,18 +177,19 @@ export default {
     },
     cancel(){
       this.$parent.saveFormData=JSON.parse(this.oldSaveFormData);
-      this.showSaveModal=false;
+      this.toggleModel()
     },
     batchDelete(){
       this.deleteSubmit(this.rowSelection.selectedRowKeys)
     },
     copy(record){
-      delete record[this.table_key]
-      this.$parent.saveFormData=record;
-      this.showSaveModal=true
+      let record_copy = JSON.parse(JSON.stringify(record))
+      delete record_copy[this.table_key]
+      this.$parent.saveFormData=record_copy;
+      this.toggleModel()
     },
     deleteSubmit(table_ids){
-      this.post('/admin/crud/delete', {table: this.table, table_ids: table_ids }).then(({code,msg}) => {
+      this.post('/admin/crud/del  ete', {table: this.table, table_ids: table_ids }).then(({code,msg}) => {
         if (code === 1) {
           this.success(msg);
           this.getData()
@@ -209,6 +205,7 @@ export default {
         this.sort = []
       }
       this.pagination = {...this.pagination, ...pagination};
+      localStorage.setItem('pageSize',this.pagination.pageSize)
       this.getData()
     },
     async exports() {
@@ -219,7 +216,6 @@ export default {
       workbook.modified = new Date();
       workbook.lastPrinted = new Date();
       const sheet = workbook.addWorksheet('My Sheet');
-
       sheet.columns = this.tableColumns.filter(i => i.key != 'action').map(i => {
         return {
           header: i.title, key: i.key, width: i.title.length * 3
@@ -228,7 +224,6 @@ export default {
       const data = this.tableData.map(i => {
         return i
       });
-
       sheet.addRows(data);
       let fileName = window.location.href
       workbook.xlsx.writeBuffer().then(function (buffer) {
@@ -239,13 +234,34 @@ export default {
         );
       });
     },
+    edit(record) {
+      this.$parent.saveFormData=record;
+      this.toggleModel()
+    },
+    add() {
+      this.$parent.saveFormData=JSON.parse(this.oldSaveFormData);
+      this.toggleModel();
+    },
+    hide() {
+      this.showSaveModal = false
+      this.$emit('hide')
+    },
+    show() {
+      this.showSaveModal = true
+      this.$emit('show')
+    },
+    toggleModel() {
+      if(this.showSaveModal){
+        this.hide()
+      }else{
+        this.show()
+      }
+    },
     submit() {
-
       if(this.$parent.$refs.save_form){
         this.$parent.$refs.save_form.validate().then((e) => {
           this.submitPost();
         }).catch(err => {
-          // console.log('error', err);
           this.error(err.errorFields[0].errors[0]||err.errorFields[0].name[0]+'数据校验失败！')
         });
       }else{
@@ -256,15 +272,15 @@ export default {
       // console.log('this.$parent.saveFormData',this.$parent.saveFormData);return;
       if (this.saveFunc) {
         this.saveFunc(this.saveFormData);
-        this.showSaveModal = false
+        this.toggleModel()
         this.$parent.saveFormData=JSON.parse(this.oldSaveFormData)
         return;
       }
       this.saveLoading=true
       this.post('/admin/crud/save', {table: this.table, ...this.saveFormData}).then(({code,msg}) => {
         if (code === 1) {
+          this.toggleModel()
           this.getData()
-          this.showSaveModal = false
           this.success(msg);
           this.$parent.saveFormData=JSON.parse(this.oldSaveFormData)
         }

@@ -41,6 +41,13 @@ class JsonHandler
         if( $table=='log_pay' ){
             $one["notify_data"]=decodeJson($one["notify_data"]);
         }
+        if( $table=='mch' ){
+            $one["imgs"]=decodeJson($one["imgs"]);
+        }
+        if( $table=='shop_goods_spec_quantity_price' ){
+            $one["imgs"]=decodeJson($one["imgs"]);
+            $one["spec"]=decodeJson($one["spec"]);
+        }
         return $one;
     }
     public static function selectHandler($table,$list){
@@ -89,6 +96,13 @@ class JsonHandler
         }
         if( $table=='log_pay' ){
             isset($row['notify_data'])?$row["notify_data"]=encodeJson($row["notify_data"]):false;
+        }
+        if( $table=='mch' ){
+            isset($row['imgs'])?$row["imgs"]=encodeJson($row["imgs"]):false;
+        }
+        if( $table=='shop_goods_spec_quantity_price' ){
+            isset($row['imgs'])?$row["imgs"]=encodeJson($row["imgs"]):false;
+            isset($row['spec'])?$row["spec"]=encodeJson($row["spec"]):false;
         }
         return $row;
     }

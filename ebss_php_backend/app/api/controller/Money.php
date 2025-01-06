@@ -27,7 +27,7 @@ class Money extends Logined
             'desc'=>'充值'.$money.'元',
             'user_id'=>$this->user_id,
         ]);
-        return $this->ajax_return(1,'请求成功',[
+        return $this->success('请求成功',[
             'paylog_id'=>$paylog_id,
         ]);
     }

@@ -10,7 +10,7 @@ class Category extends Basic
         $list = table('base_category')->where('is_show',1)->order('sort_num desc')->select();
         $result = getTree($list,0,'category_id','pid','children');
 
-        return $this->ajax_return(1,'请求成功',[
+        return $this->success('请求成功',[
             'list'=>$result,
             'debug'=>$list,
         ]);

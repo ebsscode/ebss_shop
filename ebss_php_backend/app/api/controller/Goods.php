@@ -1,9 +1,23 @@
 <?php
 namespace app\api\controller;
 use app\Basic;
+use app\service\user\UserService;
 use think\facade\Db;
 class Goods extends Basic
 {
+    public function favour(){
+        UserService::checkLogin();
+        $row['user_id']=$this->user_id;
+        $row['goods_id']=$this->param('goods_id');
+        $has = table('shop_goods_favour')->where('user_id',$this->user_id)->where('goods_id',$this->param('goods_id'))->find();
+        if($has){
+            table('shop_goods_favour')->where('favour_goods_id',$has['favour_goods_id'])->delete();
+            return $this->success('取消收藏成功');
+        }else{
+            table('shop_goods_favour')->save($row);
+            return $this->success('收藏成功');
+        }
+    }
     public function comment(){
         $order = table('shop_order')->find($this->param('order_id'));
         if(!$order)return $this->error('订单不存在！');

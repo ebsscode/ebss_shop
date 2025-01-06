@@ -50,7 +50,7 @@ class Page extends Basic
             $next_grade = table('base_user_grade')->where('amount','>',$this->user_info['experience'])->order('amount asc')->find();
             $last_sign_record = table('base_sign_record')->where('user_id',$this->user_id)->order('add_time desc')->find();
         }
-        return $this->ajax_return(1,'请求成功',[
+        return $this->success('请求成功',[
             'user_info'=>$this->user_info,
             'next_grade'=>$next_grade,
             'last_sign_record'=>$last_sign_record,

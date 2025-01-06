@@ -19,10 +19,10 @@ class BaseDao
     }
     public function initTable(){
         $this->sql = Db::name($this->table)->strict(false);
+//        $this->sql = Db::table($this->table)->strict(false);
         if($this->table=='sys_user'){
             $this->sql->withoutField('password');
         }
-
         return $this;
     }
     public function find($data = null){
@@ -46,6 +46,15 @@ class BaseDao
         $table_id = !empty($data[$table_key])?$data[$table_key]:null;
         $filed = $this->getTableFields();
 
+        if($this->table!='sys_module'&&request()->module&&in_array('module_id',$filed)){
+            $data['module_id']=request()->module['module_id'];
+        }
+        if( $this->table=='shop_goods' ){
+            if(request()->mch){
+                $data['mch_id'] = request()->mch['mch_id'];
+            }
+        }
+
         $data = JsonHandler::saveHandler($this->table,$data);
         $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
         return $this->sql->save($data,$forceInsert);
@@ -57,6 +66,16 @@ class BaseDao
         $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
         $data = JsonHandler::saveHandler($this->table,$data);
         return $this->sql->update($data);
+    }
+    public function insertAll(array $dataSet = [], int $limit = 0): int{
+        $table_key = $this->getPk();
+        $table_id = !empty($data[$table_key])?$data[$table_key]:null;
+        $filed = $this->getTableFields();
+        foreach ($dataSet as $index => &$data) {
+            $data = JsonHandler::saveHandler($this->table,$data);
+            $data = TimeHandler::filedTimeStamp($filed,$table_id,$data);
+        }
+        return $this->sql->insertAll($dataSet,$limit);
     }
     public function inc(string $field, float $step = 1){
         return $this->sql->inc($field,$step)->update();
@@ -109,9 +128,6 @@ class BaseDao
     public function order($field, string $order = ''){
         $this->sql->order($field,$order);
         return $this;
-    }
-    public function insertAll(array $dataSet = [], int $limit = 0): int{
-        return $this->sql->insertAll($dataSet,$limit);
     }
     public function getLastSql(): string{
         return $this->sql->getLastSql();

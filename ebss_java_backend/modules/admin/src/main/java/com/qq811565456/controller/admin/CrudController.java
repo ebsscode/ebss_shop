@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -223,15 +222,15 @@ public class CrudController {
         BaseModel model = (BaseModel) params.toBean(crudService.tableToModel(table).getClass());
 
         List<Integer> table_ids = (List<Integer>) params.get("table_ids");
-        table_ids.forEach(table_id->{
+        for (Integer table_id : table_ids) {
             if(Objects.equals(table, "base_article")){
                 if(table_id<10){
-                    Response.fail("禁止删除！");
+                    return Response.fail("禁止删除！");
                 }
             }
             if(Objects.equals(table, "base_article_category")){
                 if(table_id<10){
-                    Response.fail("禁止删除！");
+                    return Response.fail("禁止删除！");
                 }
             }
             if(Objects.equals(table, "base_article_category")){
@@ -242,26 +241,26 @@ public class CrudController {
                 MyBaseMapper shop_order_mapper = crudService.tableToMapper("shop_order");
                 ShopOrder shopOrder = (ShopOrder) shop_order_mapper.selectById(table_id);
                 if(!ObjectUtil.isEmpty(shopOrder)){
-                    Response.fail("商户有订单，禁止删除！");
+                    return Response.fail("商户有订单，禁止删除！");
                 }
                 MyBaseMapper shop_goods_mapper = crudService.tableToMapper("shop_goods");
                 ShopGoods shopGoods = (ShopGoods) shop_goods_mapper.selectById(table_id);
                 if(!ObjectUtil.isEmpty(shopGoods)
                 ){
-                    Response.fail("商户有商品，禁止删除！");
+                    return Response.fail("商户有商品，禁止删除！");
                 }
                 MyBaseMapper mch_favour_mapper = crudService.tableToMapper("mch_favour");
                 mch_favour_mapper.deleteByMap(Map.of("mch_id",table_id));
             }
             if(Objects.equals(table, "sys_role")){
                 if(table_id<10){
-                    Response.fail("禁止删除！");
+                    return Response.fail("禁止删除！");
                 }
                 MyBaseMapper sys_user_mapper = crudService.tableToMapper("sys_user");
                 SysUser sysUser = (SysUser) sys_user_mapper.selectById(table_id);
                 if(!ObjectUtil.isEmpty(sysUser)
                 ){
-                    Response.fail("角色正在使用，禁止删除！");
+                    return Response.fail("角色正在使用，禁止删除！");
                 }
             }
             if(Objects.equals(table, "shop_goods")){
@@ -280,7 +279,7 @@ public class CrudController {
                 MyBaseMapper shop_order_goods_mapper = crudService.tableToMapper("shop_order_goods");
                 shop_order_goods_mapper.deleteByMap(Map.of("order_id",table_id));
             }
-        });
+        }
         int result = myBaseMapper.deleteBatchIds(table_ids);
         return Response.ok("成功删除"+result+"条数据");
     }
@@ -301,6 +300,5 @@ public class CrudController {
     private List<JSONArray> toWhereQuery(JSONObject params){
         return !ObjectUtil.isEmpty(params.get("where"))?(List<JSONArray>) params.get("where"):new ArrayList<>();
     }
-
 }
 

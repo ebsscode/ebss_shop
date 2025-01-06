@@ -2,15 +2,17 @@
 namespace app\api\controller;
 use app\Logined;
 use app\service\mch\MchService;
+use app\service\system\TimeService;
+
 class User extends Logined
 {
     public function user_info(){
-        return $this->ajax_return(1,'请求成功',[
+        return $this->success('请求成功',[
             'user_info'=>$this->user_info,
         ]);
     }
     public function chart(){
-        $beginToday = $this->beginToday();
+        $beginToday = TimeService::beginToday();
         $last_days[date('m/d',$beginToday-6*24*60*60)] = table('log_usage')->where('add_date',date('Y-m-d',$beginToday-6*24*60*60))->where('user_id',$this->user_id)->sum('duration');
         $last_days[date('m/d',$beginToday-5*24*60*60)] = table('log_usage')->where('add_date',date('Y-m-d',$beginToday-5*24*60*60))->where('user_id',$this->user_id)->sum('duration');
         $last_days[date('m/d',$beginToday-4*24*60*60)] = table('log_usage')->where('add_date',date('Y-m-d',$beginToday-4*24*60*60))->where('user_id',$this->user_id)->sum('duration');

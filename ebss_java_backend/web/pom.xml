@@ -9,6 +9,7 @@
     </parent>
     <modules>
         <module>api</module>
+        <module>socket</module>
     </modules>
     <artifactId>web</artifactId>
     <packaging>pom</packaging>

@@ -18,10 +18,10 @@ class Index extends Basic
     {
         CheckService::checkForbidden();
         if (empty($this->param('tel'))) {
-            return $this->ajax_return(0, '发送失败,手机号不能为空');
+            return $this->error( '发送失败,手机号不能为空');
         }
         if (empty($this->param('type'))) {
-            return $this->ajax_return(0, '发送失败,type不能为空');
+            return $this->error( '发送失败,type不能为空');
         }
         $config = [
             'accessKeyId' => ConfigsService::get('SmsAccessKeyId'),

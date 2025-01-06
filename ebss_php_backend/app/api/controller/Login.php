@@ -62,7 +62,7 @@ class Login extends Basic
             'ip' => $this->request->ip(),
             'title' => '手机号登录',
         ]);
-        return $this->ajax_return(1, '登录成功', [
+        return $this->success( '登录成功', [
             'user_id' => $user_id,
             'token' => $token,
         ]);
@@ -148,7 +148,7 @@ class Login extends Basic
             'ip' => $this->request->ip(),
             'title' => $title,
         ]);
-        return $this->ajax_return(1, '登录成功', [
+        return $this->success( '登录成功', [
             'user_id' => $user_id,
             'openid'=>$openid,
             'token' => $token,

@@ -16,12 +16,13 @@
     </a-select>
 </template>
 <script>
+import {isNull,isUndefined,has} from '@/util/type/base.js'
 export default {
     name: 'RemoteSelect',
     components: {},
     props: {
         value: {
-            type: [Number, String],
+            type: [Number, String ,Array],
             default: null,
         },
         table: {
@@ -57,6 +58,14 @@ export default {
     watch: {
       value: {
         handler(newV, oldV) {
+          if(isNull(newV) || isUndefined(newV)){
+            if(this.mode==='multiple'){
+              this.$emit('update:value', [])
+            }else{
+              this.$emit('update:value', null)
+            }
+            return;
+          }
           this.selected = newV
         },
         immediate: true
@@ -64,20 +73,20 @@ export default {
       where: {
         handler(newV, oldV) {
           if(JSON.stringify(newV)!=JSON.stringify(oldV)){
-            this.fetchList()
+            this.getData()
           }
         },
         immediate: false
       },
       table: {
         handler(newV, oldV) {
-          this.fetchList()
+          this.getData()
         },
         immediate: false
       },
     },
     created() {
-      this.fetchList()
+      this.getData()
     },
     methods: {
         change(inputValue, option) {
@@ -91,7 +100,7 @@ export default {
         search (v) {
           console.log(v)
         },
-        fetchList() {
+        getData() {
             this.post('/admin/crud/list', {table: this.table,where: this.where,limit:9999 }).then(({code, paginate, table_key}) => {
                 if (code === 1) {
                     this.table_key = table_key

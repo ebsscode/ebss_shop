@@ -53,18 +53,17 @@ class ExceptionHandle extends Handle
      */
     public function render($request, Throwable $e): Response
     {
-        $response_code = $e instanceof MyException ? $e->getCode() : ResponseService::getMessageCode();
+        $response_code = $e instanceof MyException ? $e->getCode() : ResponseService::messageCode();
         $env = ConfigsService::get('env');
         $result = [
-            'code' => $response_code,
-            'msg'  => $e->getMessage(),
-            'data' => [],
+            ResponseService::codeField() => $response_code,
+            ResponseService::messageCode()  => $e->getMessage(),
         ];
         if($env=='dev'){
             $result = [
-                'code' => $response_code,
-                'msg'  => $e->getMessage(),
-                'data' => [
+                ResponseService::codeField() => $response_code,
+                ResponseService::messageCode()  => $e->getMessage(),
+                'errors' => [
                     'getCode'=>$e->getCode(),
                     'getLine'=>$e->getLine(),
                     'getFile'=>$e->getFile(),

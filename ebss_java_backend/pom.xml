@@ -69,10 +69,14 @@
                 <artifactId>auth</artifactId>
                 <version>${ebss.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.qq811565456</groupId>
                 <artifactId>api</artifactId>
+                <version>${ebss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qq811565456</groupId>
+                <artifactId>socket</artifactId>
                 <version>${ebss.version}</version>
             </dependency>
 
@@ -101,7 +105,6 @@
                 <artifactId>admin</artifactId>
                 <version>${ebss.version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>

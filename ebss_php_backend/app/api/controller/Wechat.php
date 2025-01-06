@@ -24,7 +24,7 @@ class Wechat extends Logined
             'tel' =>$decryptedData['phoneNumber'],
         ]);
         $user_info=table('sys_user')->where('user_id',$this->user_id)->find();
-        $this->ajax_return(1,'保存成功',[
+        $this->success('保存成功',[
             'user_info'=>$user_info,
         ]);
     }

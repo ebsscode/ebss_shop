@@ -28,7 +28,7 @@ class Basic extends BaseController
         if($name=='limit'&&empty($this->request->param('limit'))){
             return 99999;
         }
-        return $this->request->param($name,$default,$filter);
+        return $this->request->param($name, $default, $filter);
     }
     public function getMch(){
         $mch_id = $this->request->header('mch-id');
@@ -68,24 +68,17 @@ class Basic extends BaseController
         return true;
     }
     public function error( $msg = '请求成功',$data=[]){
-        return $this->ajax_return(ResponseService::getMessageCode(),$msg,$data);
+        return $this->ajax_return(ResponseService::messageCode(),$msg,$data);
     }
     public function success( $msg = '请求成功',$data=[])
     {
-        return $this->ajax_return(ResponseService::getSuccessCode(),$msg,$data);
+        return $this->ajax_return(ResponseService::successCode(),$msg,$data);
     }
     public function ajax_return( $code, $msg = '请求成功',$data=[])
     {
-        $result = [
-            'code' => $code,
-            'msg'  => $msg,
-            'requestParam' => $this->request->param(),
-        ];
-        return json(array_merge($result,$data));
+        return json(ResponseService::responseModel($code,$msg,array_merge($data,$this->request->param())));
     }
-    public function beginToday(){
-        return mktime(0,0,0,date('m'),date('d'),date('Y'));
-    }
+
 
 
 }

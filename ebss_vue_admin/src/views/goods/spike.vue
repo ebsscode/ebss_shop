@@ -19,8 +19,8 @@
                   <DatePicker v-if="saveFormData.time_type==1" v-model:value="saveFormData.end_at"/>
                   <TimePicker v-if="saveFormData.time_type==2" v-model:value="saveFormData.end_at"/>
                 </a-form-item>
-                <a-form-item label="秒杀商品" name="goods_ids" :rules="[{ required: true, message: '' }]">
-                  <GoodsSelect v-model:value="saveFormData.goods_ids" />
+                <a-form-item label="秒杀商品" name="goods_ids" :rules="[{ required: true, message: '' }]" :autoLink="false">
+                  <GoodsSelect is_spec_select type="秒杀" v-model:value="saveFormData.goods_ids" @goodsChange="goodsChange"/>
                 </a-form-item>
                 <a-form-item label="活动图片" name="cover_img" :rules="[{ required: true, message: '' }]">
                   <Upload :maxCount="1" v-model:value="saveFormData.cover_img"/>
@@ -51,8 +51,8 @@ export default {
     data: function () {
         return {
             table: 'shop_spike',
-            goods: [],
             saveFormData: {
+              selected_goods: [],
             },
             searchObj: {},
             columns: [
@@ -118,7 +118,11 @@ export default {
         }
       })
     },
-    methods: {}
+    methods: {
+      goodsChange(goods){
+        this.saveFormData.selected_goods = goods
+      }
+    }
 }
 </script>
 <style scoped lang="less">

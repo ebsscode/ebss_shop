@@ -3,31 +3,33 @@ namespace app\api\controller;
 use app\Basic;
 use app\MyException;
 use app\service\system\TimeService;
+use app\service\user\UserService;
 
 class Mch extends Basic
 {
-//    public function __construct(){
-//        if(!$this->mch)throw new MyException(403, '请选择商户！');
-//    }
-    public function page_index(){
-        $待发货 = table('shop_order')->where('status',4)->where('mch_id',$this->mch['mch_id'])->count();
-        $待收货 = table('shop_order')->where('status',5)->where('mch_id',$this->mch['mch_id'])->count();
-        $待售后 = table('shop_order')->where('status',8)->where('mch_id',$this->mch['mch_id'])->count();
-        $已完成 = table('shop_order')->where('status',7)->where('mch_id',$this->mch['mch_id'])->count();
-        $total = table('shop_order')->where('mch_id',$this->mch['mch_id'])->count();
-        $今日工单  = table('shop_order')->where('add_date',TimeService::todayDate())->where('mch_id',$this->mch['mch_id'])->count();
-
-        return $this->ajax_return(1,'请求成功',[
-            'page_data'=>[
-                '待发货'=>$待发货,
-                '待收货'=>$待收货,
-                '待售后'=>$待售后,
-                '已完成'=>$已完成,
-                'total'=>$total,
-                '今日工单'=>$今日工单,
-            ],
-            'mch'=>$this->mch,
+    public function detail(){
+        $table_id = $this->param('mch_id');
+        $detail=table('mch')->find($table_id);
+        if($this->user_id){
+            $favour_info = table('mch_favour')->where('user_id',$this->user_id)->where('mch_id',$table_id)->find();
+            $detail['favour_info']=$favour_info;
+        }
+        return $this->success('请求成功',[
+            'detail'=>$detail,
         ]);
+    }
+    public function favour(){
+        UserService::checkLogin();
+        $row['user_id']=$this->user_id;
+        $row['mch_id']=$this->param('mch_id');
+        $has = table('mch_favour')->where('user_id',$this->user_id)->where('mch_id',$this->param('mch_id'))->find();
+        if($has){
+            table('mch_favour')->where('favour_mch_id',$has['favour_mch_id'])->delete();
+            return $this->success('取消收藏成功');
+        }else{
+            table('mch_favour')->save($row);
+            return $this->success('收藏成功');
+        }
     }
 
 }
