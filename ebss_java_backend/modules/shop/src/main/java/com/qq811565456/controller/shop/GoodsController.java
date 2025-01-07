@@ -38,7 +38,7 @@ public class GoodsController {
     @Autowired
     private GroupBuyService groupBuyService;
 
-    @WebApi
+    @WebApi(checkLoginStatus = false)
     @PostMapping("waterFallData")
     public Response waterFallData(@RequestBody JSONObject params)
     {

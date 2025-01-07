@@ -17,11 +17,11 @@ $config = [
      * OAuth 配置
      *
      * scopes：公众平台（snsapi_userinfo / snsapi_base），开放平台：snsapi_login
-     * callback：OAuth授权完成后的回调页地址
+     * redirect_url：OAuth授权完成后的回调页地址
      */
     'oauth' => [
         'scopes'   => ['snsapi_userinfo'],
-        'callback' => '/examples/oauth_callback.php',
+        'redirect_url' => '/examples/oauth_callback.php',
     ],
 
     /**
@@ -35,7 +35,7 @@ $config = [
         'retry' => true, // 使用默认重试配置
         //  'retry' => [
         //      // 仅以下状态码重试
-        //      'http_codes' => [429, 500]
+        //      'status_codes' => [429, 500]
         //       // 最大重试次数
         //      'max_retries' => 3,
         //      // 请求间隔 (毫秒)

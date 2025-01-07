@@ -18,12 +18,9 @@ use EasyWeChat\Kernel\Support\UserAgent;
 use EasyWeChat\Kernel\Support\Xml;
 use EasyWeChat\Kernel\Traits\MockableHttpClient;
 use Exception;
-use function is_array;
-use function is_string;
 use Mockery;
 use Mockery\Mock;
 use Nyholm\Psr7\Uri;
-use function str_starts_with;
 use Symfony\Component\HttpClient\DecoratorTrait;
 use Symfony\Component\HttpClient\HttpClient as SymfonyHttpClient;
 use Symfony\Component\HttpClient\HttpClientTrait;
@@ -32,6 +29,10 @@ use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+
+use function is_array;
+use function is_string;
+use function str_starts_with;
 
 /**
  * @method ResponseInterface get(string $uri, array $options = [])
@@ -47,8 +48,8 @@ class Client implements HttpClientInterface
     use DecoratorTrait {
         DecoratorTrait::withOptions insteadof HttpClientTrait;
     }
-    use HttpClientTrait;
     use HttpClientMethods;
+    use HttpClientTrait;
     use MockableHttpClient;
     use RequestWithPresets;
 
@@ -105,6 +106,8 @@ class Client implements HttpClientInterface
             $options['headers'] = [];
         }
 
+        $options = $this->mergeThenResetPrepends($options);
+
         $options['headers']['User-Agent'] = UserAgent::create();
 
         if ($this->isV3Request($url)) {
@@ -140,12 +143,12 @@ class Client implements HttpClientInterface
 
         // 合并通过 withHeader 和 withHeaders 设置的信息
         if (! empty($this->prependHeaders)) {
-            $options['headers'] = array_merge($this->prependHeaders, $options['headers'] ?? []);
+            $options['headers'] = array_merge($this->prependHeaders, $options['headers']);
         }
 
         return new Response(
             $this->client->request($method, $url, $options),
-            failureJudge: $this->isV3Request($url) ? null : fn (Response $response) => $response->toArray()['result_code'] === 'FAIL' || $response->toArray()['return_code'] === 'FAIL',
+            failureJudge: $this->isV3Request($url) ? null : fn (Response $response) => $response->toArray()['return_code'] === 'FAIL' || $response->toArray()['result_code'] === 'FAIL',
             throw: $this->throw
         );
     }
@@ -181,7 +184,7 @@ class Client implements HttpClientInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
      */
-    public function uploadMedia(string $uri, string $pathOrContents, array $meta = null, string $filename = null): ResponseInterface
+    public function uploadMedia(string $uri, string $pathOrContents, ?array $meta = null, ?string $filename = null): ResponseInterface
     {
         $isFile = is_file($pathOrContents);
 

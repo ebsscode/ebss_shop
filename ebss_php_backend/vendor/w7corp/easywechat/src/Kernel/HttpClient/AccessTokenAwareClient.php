@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace EasyWeChat\Kernel\HttpClient;
 
-use function array_merge;
 use Closure;
 use EasyWeChat\Kernel\Contracts\AccessToken as AccessTokenInterface;
 use EasyWeChat\Kernel\Contracts\AccessTokenAwareHttpClient as AccessTokenAwareHttpClientInterface;
@@ -14,6 +13,8 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+use function array_merge;
 
 /**
  * Class AccessTokenAwareClient.
@@ -26,9 +27,9 @@ class AccessTokenAwareClient implements AccessTokenAwareHttpClientInterface
 {
     use AsyncDecoratorTrait;
     use HttpClientMethods;
-    use RetryableClient;
     use MockableHttpClient;
     use RequestWithPresets;
+    use RetryableClient;
 
     public function __construct(
         ?HttpClientInterface $client = null,

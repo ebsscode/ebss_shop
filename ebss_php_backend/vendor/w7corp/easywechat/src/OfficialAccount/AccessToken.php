@@ -6,13 +6,9 @@ namespace EasyWeChat\OfficialAccount;
 
 use EasyWeChat\Kernel\Contracts\RefreshableAccessToken as RefreshableAccessTokenInterface;
 use EasyWeChat\Kernel\Exceptions\HttpException;
-use function intval;
-use function is_string;
 use JetBrains\PhpStorm\ArrayShape;
-use function json_encode;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use function sprintf;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\HttpClient\HttpClient;
@@ -23,11 +19,18 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+use function intval;
+use function is_string;
+use function json_encode;
+use function sprintf;
+
 class AccessToken implements RefreshableAccessTokenInterface
 {
     protected HttpClientInterface $httpClient;
 
     protected CacheInterface $cache;
+
+    const CACHE_KEY_PREFIX = 'official_account';
 
     public function __construct(
         protected string $appId,
@@ -43,7 +46,7 @@ class AccessToken implements RefreshableAccessTokenInterface
 
     public function getKey(): string
     {
-        return $this->key ?? $this->key = sprintf('official_account.access_token.%s.%s', $this->appId, $this->secret);
+        return $this->key ?? $this->key = sprintf('%s.access_token.%s.%s.%s', static::CACHE_KEY_PREFIX, $this->appId, $this->secret, (int) $this->stable);
     }
 
     public function setKey(string $key): static
@@ -66,7 +69,7 @@ class AccessToken implements RefreshableAccessTokenInterface
     {
         $token = $this->cache->get($this->getKey());
 
-        if ((bool) $token && is_string($token)) {
+        if ($token && is_string($token)) {
             return $token;
         }
 
@@ -91,19 +94,28 @@ class AccessToken implements RefreshableAccessTokenInterface
     }
 
     /**
-     * @throws RedirectionExceptionInterface
-     * @throws DecodingExceptionInterface
-     * @throws InvalidArgumentException
-     * @throws ClientExceptionInterface
-     * @throws HttpException
-     * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
+     * @throws \EasyWeChat\Kernel\Exceptions\HttpException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function refresh(): string
     {
         return $this->stable ? $this->getStableAccessToken() : $this->getAccessToken();
     }
 
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws \EasyWeChat\Kernel\Exceptions\HttpException
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     */
     public function getStableAccessToken(bool $force_refresh = false): string
     {
         $response = $this->httpClient->request(
@@ -128,6 +140,15 @@ class AccessToken implements RefreshableAccessTokenInterface
         return $response['access_token'];
     }
 
+    /**
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \EasyWeChat\Kernel\Exceptions\HttpException
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     */
     public function getAccessToken(): string
     {
         $response = $this->httpClient->request(

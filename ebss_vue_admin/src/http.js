@@ -5,10 +5,13 @@ import router from "@/route/index";
 const mode = import.meta.env.MODE
 const baseURL = () =>{
 	if(mode=='php'){
-		return 'https://h.vivivi.club'
+		return 'https://ebss-php.vivivi.club'
 	}
 	if(mode=='java'){
 		return 'http://localhost:8050'
+	}
+	if(mode=='native'){
+		return 'http://localhost:8200'
 	}
 	if(mode=='java_prod'){
 		return ''

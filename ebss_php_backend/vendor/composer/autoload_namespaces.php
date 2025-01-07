@@ -6,8 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RedisClient\\' => array($vendorDir . '/cheprasov/php-redis-client/src'),
-    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
-    'FtpClient' => array($vendorDir . '/nicolab/php-ftp-client/src'),
     '' => array($baseDir . '/extend'),
 );

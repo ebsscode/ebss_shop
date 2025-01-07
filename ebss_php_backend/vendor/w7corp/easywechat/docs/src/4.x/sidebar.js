@@ -70,6 +70,7 @@ exports = module.exports = [
       { text: '账单', link: '/4.x/payment/bill.html' },
       { text: '通知', link: '/4.x/payment/notify.html' },
       { text: '红包', link: '/4.x/payment/redpack.html' },
+      { text: '付款码支付', link: '/4.x/payment/micropay.html' },
       { text: '扫码支付', link: '/4.x/payment/scan-pay.html' },
       { text: 'JSSDK', link: '/4.x/payment/jssdk.html' },
       { text: '企业付款', link: '/4.x/payment/transfer.html' },
@@ -95,10 +96,6 @@ exports = module.exports = [
         link: '/4.x/mini-program/template_message.html'
       },
       { text: '消息解密', link: '/4.x/mini-program/decrypt.html' },
-      {
-        text: '内容安全',
-        link: '/4.x/basic-services/content_security.html'
-      },
       { text: '物流助手', link: '/4.x/mini-program/express.html' },
       { text: '生物认证', link: '/4.x/mini-program/soter.html' },
       { text: '插件管理', link: '/4.x/mini-program/plugin.html' },
@@ -106,11 +103,6 @@ exports = module.exports = [
       {
         text: '订阅消息',
         link: '/4.x/mini-program/subscribe_message.html'
-      },
-      { text: '安全风控', link: '/4.x/mini-program/safety_control.html' },
-      {
-        text: 'URL Scheme',
-        link: '/4.x/mini-program/url_scheme_generate.html'
       }
     ]
   },

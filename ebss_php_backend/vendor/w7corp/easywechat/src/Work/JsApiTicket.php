@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace EasyWeChat\Work;
 
 use EasyWeChat\Kernel\Exceptions\HttpException;
-use function intval;
-use function is_string;
 use JetBrains\PhpStorm\ArrayShape;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use function sprintf;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\HttpClient\HttpClient;
@@ -20,6 +17,10 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+use function intval;
+use function is_string;
+use function sprintf;
 
 class JsApiTicket
 {
@@ -85,7 +86,7 @@ class JsApiTicket
         $key = $this->getKey();
         $ticket = $this->cache->get($key);
 
-        if ((bool) $ticket && is_string($ticket)) {
+        if ($ticket && is_string($ticket)) {
             return $ticket;
         }
 
@@ -157,7 +158,7 @@ class JsApiTicket
         $key = $this->getAgentKey($agentId);
         $ticket = $this->cache->get($key);
 
-        if ((bool) $ticket && is_string($ticket)) {
+        if ($ticket && is_string($ticket)) {
             return $ticket;
         }
 

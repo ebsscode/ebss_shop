@@ -1,9 +1,7 @@
 <?php
 namespace app;
 
-use app\BaseController;
 use app\service\system\ResponseService;
-use think\facade\Db;
 
 class Basic extends BaseController
 {

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace EasyWeChat\OfficialAccount;
 
-use EasyWeChat\Kernel\Contracts\JsApiTicket as JsApiTicketInterface;
+use EasyWeChat\Kernel\Contracts\RefreshableJsApiTicket as RefreshableJsApiTicketInterface;
 use EasyWeChat\Kernel\Exceptions\HttpException;
 use JetBrains\PhpStorm\ArrayShape;
+
 use function sprintf;
 
-class JsApiTicket extends AccessToken implements JsApiTicketInterface
+class JsApiTicket extends AccessToken implements RefreshableJsApiTicketInterface
 {
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -25,10 +26,15 @@ class JsApiTicket extends AccessToken implements JsApiTicketInterface
         $key = $this->getKey();
         $ticket = $this->cache->get($key);
 
-        if ((bool) $ticket && \is_string($ticket)) {
+        if ($ticket && \is_string($ticket)) {
             return $ticket;
         }
 
+        return $this->refreshTicket();
+    }
+
+    public function refreshTicket(): string
+    {
         $response = $this->httpClient->request('GET', '/cgi-bin/ticket/getticket', ['query' => ['type' => 'jsapi']])
             ->toArray(false);
 
@@ -36,7 +42,7 @@ class JsApiTicket extends AccessToken implements JsApiTicketInterface
             throw new HttpException('Failed to get jssdk ticket: '.\json_encode($response, JSON_UNESCAPED_UNICODE));
         }
 
-        $this->cache->set($key, $response['ticket'], \intval($response['expires_in']));
+        $this->cache->set($this->getKey(), $response['ticket'], \intval($response['expires_in']));
 
         return $response['ticket'];
     }

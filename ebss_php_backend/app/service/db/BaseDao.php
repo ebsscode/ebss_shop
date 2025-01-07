@@ -29,7 +29,7 @@ class BaseDao
         $one = $this->sql->find($data);
         return JsonHandler::findHandler($this->table,$one);
     }
-    public function select($data = null){
+    public function select($data = []){
         $list =  $this->sql->select($data)->toArray();
         return JsonHandler::selectHandler($this->table,$list);
     }

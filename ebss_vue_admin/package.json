@@ -4,6 +4,7 @@
     "scripts": {
         "php": "vite --mode php",
         "java": "vite --mode java",
+        "native": "vite --mode native",
         "build:java_prod": "vite build --mode java_prod",
         "build:php_prod": "vite build --mode php_prod",
         "build:java_demo": "vite build --mode java_demo",

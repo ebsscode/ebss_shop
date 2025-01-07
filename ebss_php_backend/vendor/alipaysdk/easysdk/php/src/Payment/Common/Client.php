@@ -36,7 +36,7 @@ class Client {
      * @throws Exception
      * @throws TeaUnableRetryError
      */
-    public function create($subject, $outTradeNo, $totalAmount, $buyerId='',$buyer_open_id=''){
+    public function create($subject, $outTradeNo, $totalAmount, $buyerId){
         $_runtime = [
             "ignoreSSL" => $this->_kernel->getConfig("ignoreSSL"),
             "httpProxy" => $this->_kernel->getConfig("httpProxy"),
@@ -76,8 +76,7 @@ class Client {
                     "subject" => $subject,
                     "out_trade_no" => $outTradeNo,
                     "total_amount" => $totalAmount,
-                    "buyer_id" => $buyerId,
-                    "buyer_open_id" => $buyer_open_id
+                    "buyer_id" => $buyerId
                 ];
                 $textParams = [];
                 $_request->protocol = $this->_kernel->getConfig("protocol");

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace EasyWeChat\Kernel\Support;
 
-use function is_string;
 use JetBrains\PhpStorm\Pure;
+
+use function is_string;
 
 class Arr
 {
-    /**
-     * @param  mixed  $default
-     */
     #[Pure]
     public static function get(mixed $array, string|int|null $key, mixed $default = null): mixed
     {
@@ -28,9 +26,7 @@ class Arr
         }
 
         foreach (explode('.', (string) $key) as $segment) {
-            /** @phpstan-ignore-next-line */
-            if (static::exists($array, $segment)) {
-                /** @phpstan-ignore-next-line */
+            if (is_array($array) && static::exists($array, $segment)) {
                 $array = $array[$segment];
             } else {
                 return $default;
@@ -114,7 +110,7 @@ class Arr
             return false;
         }
 
-        if ([] === $keys) {
+        if ($keys === []) {
             return false;
         }
 
